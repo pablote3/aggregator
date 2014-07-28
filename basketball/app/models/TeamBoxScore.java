@@ -35,17 +35,37 @@ public class TeamBoxScore extends Model {
 	}
 	
 	@Required
-	@Column(name="date", nullable=false)
+	@Column(name="gameDate", nullable=false)
 	@Temporal(TemporalType.TIMESTAMP)
-	private DateTime date;
-	public DateTime getDate() {
-		return date;
+	private DateTime gameDate;
+	public DateTime getGameDate() {
+		return gameDate;
 	}
-	public void setDate(DateTime date) {
-		this.date = date;
+	public void setGameDate(DateTime gameDate) {
+		this.gameDate = gameDate;
 	}
 	public String getTimeDisplay() {
-		return DateTimeUtil.getDisplayTime(date);
+		return DateTimeUtil.getDisplayTime(gameDate);
+	}
+	
+	@Required
+	@Column(name="OfficialLastName", length=35, nullable=false)
+	private String officialLastName;
+	public String getOfficialLastName() {
+		return officialLastName;
+	}
+	public void setOfficialLastName(String officialLastName) {
+		this.officialLastName = officialLastName;
+	}
+	
+	@Required
+	@Column(name="OfficialFirstName", length=35, nullable=false)
+	private String officialFirstName;
+	public String getOfficialFirstName() {
+		return officialFirstName;
+	}
+	public void setOfficialFirstName(String officialFirstName) {
+		this.officialFirstName = officialFirstName;
 	}
 	
 	@Required
@@ -94,16 +114,6 @@ public class TeamBoxScore extends Model {
 	
 	@Required
 	@Enumerated(EnumType.STRING)
-	@Column(name="homeTeamName", length=35, nullable=false)
-	private String homeTeamName;
-	public String getHomeTeamName() {
-		return homeTeamName;
-	}
-	public void setHomeTeamName(String homeTeamName) {
-		this.homeTeamName = homeTeamName;
-	}
-
-	@Enumerated(EnumType.STRING)
 	@Column(name="homeResult", length=4, nullable=false)
 	private Result homeResult;
 	public Result getHomeResult() {
@@ -113,6 +123,15 @@ public class TeamBoxScore extends Model {
 		this.homeResult = homeResult;
 	}
 	
+	@Column(name="homeTeamName", length=35, nullable=false)
+	private String homeTeamName;
+	public String getHomeTeamName() {
+		return homeTeamName;
+	}
+	public void setHomeTeamName(String homeTeamName) {
+		this.homeTeamName = homeTeamName;
+	}
+
 	@Column(name="homePoints", nullable=false)
 	private Short homePoints;
 	public Short getHomePoints() {
@@ -346,16 +365,6 @@ public class TeamBoxScore extends Model {
 	
 	@Required
 	@Enumerated(EnumType.STRING)
-	@Column(name="awayTeamName", length=35, nullable=false)
-	private String awayTeamName;
-	public String getAwayTeamName() {
-		return awayTeamName;
-	}
-	public void setAwayTeamName(String awayTeamName) {
-		this.awayTeamName = awayTeamName;
-	}
-
-	@Enumerated(EnumType.STRING)
 	@Column(name="awayResult", length=4, nullable=false)
 	private Result awayResult;
 	public Result getAwayResult() {
@@ -363,6 +372,15 @@ public class TeamBoxScore extends Model {
 	}
 	public void setAwayResult(Result awayResult) {
 		this.awayResult = awayResult;
+	}
+	
+	@Column(name="awayTeamName", length=35, nullable=false)
+	private String awayTeamName;
+	public String getAwayTeamName() {
+		return awayTeamName;
+	}
+	public void setAwayTeamName(String awayTeamName) {
+		this.awayTeamName = awayTeamName;
 	}
 	
 	@Column(name="awayPoints", nullable=false)
@@ -563,9 +581,62 @@ public class TeamBoxScore extends Model {
 		this.awayPointsQ8 = awayPointsQ8;
 	}
 	
+	@Column(name="Official1LastName", length=35, nullable=false)
+	private String official1LastName;
+	public String getOfficial1LastName() {
+		return official1LastName;
+	}
+	public void setOfficial1LastName(String official1LastName) {
+		this.official1LastName = official1LastName;
+	}
+	
+	@Column(name="Official1FirstName", length=35, nullable=false)
+	private String official1FirstName;
+	public String getOfficial1FirstName() {
+		return official1FirstName;
+	}
+	public void setOfficial1FirstName(String official1FirstName) {
+		this.official1FirstName = official1FirstName;
+	}
+	
+	@Column(name="Official2LastName", length=35, nullable=false)
+	private String official2LastName;
+	public String getOfficial2LastName() {
+		return official2LastName;
+	}
+	public void setOfficial2LastName(String official2LastName) {
+		this.official2LastName = official2LastName;
+	}
+	
+	@Column(name="Official2FirstName", length=35, nullable=false)
+	private String official2FirstName;
+	public String getOfficial2FirstName() {
+		return official2FirstName;
+	}
+	public void setOfficial2FirstName(String official2FirstName) {
+		this.official2FirstName = official2FirstName;
+	}
+	
+	@Column(name="Official3LastName", length=35, nullable=false)
+	private String official3LastName;
+	public String getOfficial3LastName() {
+		return official3LastName;
+	}
+	public void setOfficial3LastName(String official3LastName) {
+		this.official3LastName = official3LastName;
+	}
+	
+	@Column(name="Official3FirstName", length=35, nullable=false)
+	private String official3FirstName;
+	public String getOfficial3FirstName() {
+		return official3FirstName;
+	}
+	public void setOfficial3FirstName(String official3FirstName) {
+		this.official3FirstName = official3FirstName;
+	}
+	
 	public String toString() {
 		return new StringBuffer()
-//			.append("\n" + this.team + "\n")
 			.append("  id: " + this.id)
 			.append("  homeResult:    " + this.homeResult + "  awayResult:    " + this.awayResult)
 			.append("  homePoints:    " + this.homePoints + "  awayPoints:    " + this.awayPoints)
