@@ -27,7 +27,7 @@ public class OfficialBoxScore extends Model {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@TableGenerator(name="table_gen", table="seq_table", pkColumnName="seq_name", valueColumnName="seq_count", pkColumnValue="teamboxscore_seq", initialValue=1)
+	@TableGenerator(name="table_gen", table="seq_table", pkColumnName="seq_name", valueColumnName="seq_count", pkColumnValue="officialboxscore_seq", initialValue=1)
 	@GeneratedValue(strategy=GenerationType.TABLE, generator="table_gen")
 	private Long id;
 	public Long getId() {
@@ -46,6 +46,26 @@ public class OfficialBoxScore extends Model {
 	}
 	public String getTimeDisplay() {
 		return DateTimeUtil.getDisplayTime(gameDate);
+	}
+	
+	@Required
+	@Column(name="officialLastName", length=25, nullable=false)
+	private String officialLastName;
+	public String getOfficialLastName() {
+		return officialLastName;
+	}
+	public void setOfficialLastName(String officialLastName) {
+		this.officialLastName = officialLastName;
+	}
+	
+	@Required
+	@Column(name="officialFirstName", length=25, nullable=false)
+	private String officialFirstName;
+	public String getOfficialFirstName() {
+		return officialFirstName;
+	}
+	public void setOfficialFirstName(String officialFirstName) {
+		this.officialFirstName = officialFirstName;
 	}
 	
 	@Required
