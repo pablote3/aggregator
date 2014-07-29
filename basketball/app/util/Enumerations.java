@@ -75,4 +75,14 @@ public class Enumerations {
         @EnumValue("Pacific")   Pacific,
     }
 	
+	public enum Position {
+        @EnumValue("PG") PG,
+        @EnumValue("SG") SG,
+        @EnumValue("SF") SF,
+        @EnumValue("PF") PF,
+        @EnumValue("C") C,
+        @EnumValue("G") G,
+        @EnumValue("F") F
+    }
+	
 }
