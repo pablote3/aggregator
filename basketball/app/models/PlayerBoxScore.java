@@ -19,6 +19,7 @@ import play.db.ebean.Model;
 import util.DateTimeUtil;
 import util.Enumerations.Conference;
 import util.Enumerations.Division;
+import util.Enumerations.Location;
 import util.Enumerations.Position;
 import util.Enumerations.Result;
 import util.Enumerations.SeasonType;
@@ -112,6 +113,17 @@ public class PlayerBoxScore extends Model {
 	}
 	public void setPlayerDivision(Division playerDivision) {
 		this.playerDivision = playerDivision;
+	}
+	
+	@Required
+	@Enumerated(EnumType.STRING)
+	@Column(name="playerLocation", length=4, nullable=false)
+	private Location playerLocation;
+	public Location getPlayerLocation() {
+		return playerLocation;
+	}
+	public void setPlayerLocation(Location playerLocation) {
+		this.playerLocation = playerLocation;
 	}
 	
 	@Required
@@ -458,7 +470,7 @@ public class PlayerBoxScore extends Model {
 		this.opponentDivision = opponentDivision;
 	}
 	
-	@Column(name="opponentTeamName", length=35, nullable=false)
+	@Column(name="opponentTeamName", length=25, nullable=false)
 	private String opponentTeamName;
 	public String getOpponentTeamName() {
 		return opponentTeamName;
@@ -467,7 +479,7 @@ public class PlayerBoxScore extends Model {
 		this.opponentTeamName = opponentTeamName;
 	}
 
-	@Column(name="official1LastName", length=35, nullable=false)
+	@Column(name="official1LastName", length=25, nullable=false)
 	private String official1LastName;
 	public String getOfficial1LastName() {
 		return official1LastName;
@@ -476,7 +488,7 @@ public class PlayerBoxScore extends Model {
 		this.official1LastName = official1LastName;
 	}
 	
-	@Column(name="official1FirstName", length=35, nullable=false)
+	@Column(name="official1FirstName", length=25, nullable=false)
 	private String official1FirstName;
 	public String getOfficial1FirstName() {
 		return official1FirstName;
@@ -485,7 +497,7 @@ public class PlayerBoxScore extends Model {
 		this.official1FirstName = official1FirstName;
 	}
 	
-	@Column(name="official2LastName", length=35, nullable=false)
+	@Column(name="official2LastName", length=25, nullable=false)
 	private String official2LastName;
 	public String getOfficial2LastName() {
 		return official2LastName;
@@ -503,7 +515,7 @@ public class PlayerBoxScore extends Model {
 		this.official2FirstName = official2FirstName;
 	}
 	
-	@Column(name="official3LastName", length=35, nullable=false)
+	@Column(name="official3LastName", length=25, nullable=false)
 	private String official3LastName;
 	public String getOfficial3LastName() {
 		return official3LastName;
@@ -512,7 +524,7 @@ public class PlayerBoxScore extends Model {
 		this.official3LastName = official3LastName;
 	}
 	
-	@Column(name="official3FirstName", length=35, nullable=false)
+	@Column(name="official3FirstName", length=25, nullable=false)
 	private String official3FirstName;
 	public String getOfficial3FirstName() {
 		return official3FirstName;
