@@ -85,4 +85,8 @@ public class Enumerations {
         @EnumValue("F") F
     }
 	
+	public enum ProcessingType {
+        @EnumValue("Batch") batch,
+        @EnumValue("Online") online
+    }
 }
