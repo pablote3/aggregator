@@ -176,15 +176,6 @@ public class PlayerBoxScore extends Model {
 		this.position = position;
 	}
 	
-	@Column(name="homeTeamName", length=35, nullable=false)
-	private String homeTeamName;
-	public String getHomeTeamName() {
-		return homeTeamName;
-	}
-	public void setHomeTeamName(String homeTeamName) {
-		this.homeTeamName = homeTeamName;
-	}
-	
 	@Column(name="height", nullable=true)
 	private Short height;
 	public Short getHeight() {
@@ -441,42 +432,33 @@ public class PlayerBoxScore extends Model {
 	}
 	
 	@Enumerated(EnumType.STRING)
-	@Column(name="opponentTeamAbbr", length=3, nullable=false)
-	private TeamAbbr opponentTeamAbbr;
-	public TeamAbbr getOpponentTeamAbbr() {
-		return opponentTeamAbbr;
+	@Column(name="opptTeamAbbr", length=3, nullable=false)
+	private TeamAbbr opptAbbr;
+	public TeamAbbr getOpptAbbr() {
+		return opptAbbr;
 	}
-	public void setOpponentTeamAbbr(TeamAbbr opponentTeamAbbr) {
-		this.opponentTeamAbbr = opponentTeamAbbr;
-	}
-	
-	@Enumerated(EnumType.STRING)
-	@Column(name="opponentConference", length=4, nullable=false)
-	private Conference opponentConference;
-	public Conference getOpponentConference() {
-		return opponentConference;
-	}
-	public void setOpponentConference(Conference opponentConference) {
-		this.opponentConference = opponentConference;
+	public void setOpptAbbr(TeamAbbr opptAbbr) {
+		this.opptAbbr = opptAbbr;
 	}
 	
 	@Enumerated(EnumType.STRING)
-	@Column(name="opponentDivision", length=9, nullable=false)
-	private Division opponentDivision;
-	public Division getOpponentDivision() {
-		return opponentDivision;
+	@Column(name="opptConference", length=4, nullable=false)
+	private Conference opptConference;
+	public Conference getOpptConference() {
+		return opptConference;
 	}
-	public void setOpponentDivision(Division opponentDivision) {
-		this.opponentDivision = opponentDivision;
+	public void setOpptConference(Conference opptConference) {
+		this.opptConference = opptConference;
 	}
 	
-	@Column(name="opponentTeamName", length=25, nullable=false)
-	private String opponentTeamName;
-	public String getOpponentTeamName() {
-		return opponentTeamName;
+	@Enumerated(EnumType.STRING)
+	@Column(name="opptDivision", length=9, nullable=false)
+	private Division opptDivision;
+	public Division getOpptDivision() {
+		return opptDivision;
 	}
-	public void setOpponentTeamName(String opponentTeamName) {
-		this.opponentTeamName = opponentTeamName;
+	public void setOpptDivision(Division opptDivision) {
+		this.opptDivision = opptDivision;
 	}
 
 	@Column(name="official1LastName", length=25, nullable=false)

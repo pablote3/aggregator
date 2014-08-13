@@ -45,12 +45,22 @@ public class TeamBoxScoreTest {
     }
     
     @Test
+    public void findTeamBoxScoresDateSizeOnline_Week() {
+        running(fakeApplication(), new Runnable() {
+          public void run() {
+        	  List<TeamBoxScore> teamBoxScores = TeamBoxScore.findByDateSize("2012-10-30", "48", ProcessingType.online);
+              assertThat(teamBoxScores.size()).isEqualTo(48);
+          }
+        });
+    }
+    
+    @Test
     public void findTeamBoxScoreDateTeam() {
         running(fakeApplication(), new Runnable() {
           public void run() {
         	  TeamBoxScore teamBoxScore = TeamBoxScore.findByDateTeam("2012-10-31", "SAC", ProcessingType.online);
         	  assertThat(teamBoxScore.getSeasonType()).isEqualTo(SeasonType.regular);
-       		  assertThat(teamBoxScore.getTeamPoints()).isEqualTo((short)87);
+       		  assertThat(teamBoxScore.getOpptPoints()).isEqualTo((short)87);
         	  assertThat(teamBoxScore.getOfficial1LastName()).isEqualTo("Jones");
           }
         });

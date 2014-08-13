@@ -18,6 +18,7 @@ import play.db.ebean.Model;
 import util.DateTimeUtil;
 import util.Enumerations.Conference;
 import util.Enumerations.Division;
+import util.Enumerations.Location;
 import util.Enumerations.Result;
 import util.Enumerations.SeasonType;
 import util.Enumerations.TeamAbbr;
@@ -81,515 +82,519 @@ public class OfficialBoxScore extends Model {
 	
 	@Required
 	@Enumerated(EnumType.STRING)
-	@Column(name="homeTeamAbbr", length=3, nullable=false)
-	private TeamAbbr homeTeamAbbr;
-	public TeamAbbr getHomeTeamAbbr() {
-		return homeTeamAbbr;
+	@Column(name="teamAbbr", length=3, nullable=false)
+	private TeamAbbr teamAbbr;
+	public TeamAbbr getTeamAbbr() {
+		return teamAbbr;
 	}
-	public void setHomeTeamAbbr(TeamAbbr homeTeamAbbr) {
-		this.homeTeamAbbr = homeTeamAbbr;
-	}
-	
-	@Required
-	@Enumerated(EnumType.STRING)
-	@Column(name="homeConference", length=4, nullable=false)
-	private Conference homeConference;
-	public Conference getHomeConference() {
-		return homeConference;
-	}
-	public void setHomeConference(Conference homeConference) {
-		this.homeConference = homeConference;
+	public void setTeamAbbr(TeamAbbr teamAbbr) {
+		this.teamAbbr = teamAbbr;
 	}
 	
 	@Required
 	@Enumerated(EnumType.STRING)
-	@Column(name="homeDivision", length=9, nullable=false)
-	private Division homeDivision;
-	public Division getHomeDivision() {
-		return homeDivision;
+	@Column(name="teamConference", length=4, nullable=false)
+	private Conference teamConference;
+	public Conference getTeamConference() {
+		return teamConference;
 	}
-	public void setHomeDivision(Division homeDivision) {
-		this.homeDivision = homeDivision;
-	}
-	
-	@Required
-	@Enumerated(EnumType.STRING)
-	@Column(name="homeResult", length=4, nullable=false)
-	private Result homeResult;
-	public Result getHomeResult() {
-		return homeResult;
-	}
-	public void setHomeResult(Result homeResult) {
-		this.homeResult = homeResult;
-	}
-	
-	@Column(name="homeTeamName", length=35, nullable=false)
-	private String homeTeamName;
-	public String getHomeTeamName() {
-		return homeTeamName;
-	}
-	public void setHomeTeamName(String homeTeamName) {
-		this.homeTeamName = homeTeamName;
-	}
-
-	@Column(name="homePoints", nullable=false)
-	private Short homePoints;
-	public Short getHomePoints() {
-		return homePoints;
-	}
-	public void setHomePoints(Short homePoints) {
-		this.homePoints = homePoints;
-	}
-	
-	@Column(name="homeAssists", nullable=false)
-	private Short homeAssists;
-	public Short getHomeAssists() {
-		return homeAssists;
-	}
-	public void setHomeAssists(Short homeAssists) {
-		this.homeAssists = homeAssists;
-	}
-	
-	@Column(name="homeTurnovers", nullable=false)
-	private Short homeTurnovers;
-	public Short getHomeTurnovers() {
-		return homeTurnovers;
-	}
-	public void setHomeTurnovers(Short homeTurnovers) {
-		this.homeTurnovers = homeTurnovers;
-	}
-	
-	@Column(name="homeSteals", nullable=false)
-	private Short homeSteals;
-	public Short getHomeSteals() {
-		return homeSteals;
-	}
-	public void setHomeSteals(Short homeSteals) {
-		this.homeSteals = homeSteals;
-	}
-	
-	@Column(name="homeBlocks", nullable=false)
-	private Short homeBlocks;
-	public Short getHomeBlocks() {
-		return homeBlocks;
-	}
-	public void setHomeBlocks(Short homeBlocks) {
-		this.homeBlocks = homeBlocks;
-	}
-	
-	@Column(name="homePersonalFouls", nullable=false)
-	private Short homePersonalFouls;
-	public Short getHomePersonalFouls() {
-		return homePersonalFouls;
-	}
-	public void setHomePersonalFouls(Short homePersonalFouls) {
-		this.homePersonalFouls = homePersonalFouls;
-	}
-	
-	@Column(name="homeFieldGoalAttempts", nullable=false)
-	private Short homeFieldGoalAttempts;
-	public Short getHomeFieldGoalAttempts() {
-		return homeFieldGoalAttempts;
-	}
-	public void setHomeFieldGoalAttempts(Short homeFieldGoalAttempts) {
-		this.homeFieldGoalAttempts = homeFieldGoalAttempts;
-	}	
-	
-	@Column(name="homeFieldGoalMade", nullable=false)
-	private Short homeFieldGoalMade;
-	public Short getHomeFieldGoalMade() {
-		return homeFieldGoalMade;
-	}
-	public void setHomeFieldGoalMade(Short homeFieldGoalMade) {
-		this.homeFieldGoalMade = homeFieldGoalMade;
-	}	
-
-	@Column(name="homeThreePointAttempts", nullable=false)
-	private Short homeThreePointAttempts;
-	public Short getHomeThreePointAttempts() {
-		return homeThreePointAttempts;
-	}
-	public void setHomeThreePointAttempts(Short homeThreePointAttempts) {
-		this.homeThreePointAttempts = homeThreePointAttempts;
-	}	
-
-	@Column(name="homeThreePointMade", nullable=false)
-	private Short homeThreePointMade;
-	public Short getHomeThreePointMade() {
-		return homeThreePointMade;
-	}
-	public void setHomeThreePointMade(Short homeThreePointMade) {
-		this.homeThreePointMade = homeThreePointMade;
-	}
-	
-	@Column(name="homeFreeThrowAttempts", nullable=false)
-	private Short homeFreeThrowAttempts;
-	public Short getHomeFreeThrowAttempts() {
-		return homeFreeThrowAttempts;
-	}
-	public void setHomeFreeThrowAttempts(Short homeFreeThrowAttempts) {
-		this.homeFreeThrowAttempts = homeFreeThrowAttempts;
-	}	
-
-	@Column(name="homeFreeThrowMade", nullable=false)
-	private Short homeFreeThrowMade;
-	public Short getHomeFreeThrowMade() {
-		return homeFreeThrowMade;
-	}
-	public void setHomeFreeThrowMade(Short homeFreeThrowMade) {
-		this.homeFreeThrowMade = homeFreeThrowMade;
-	}	
-	
-	@Column(name="homeReboundsOffense", nullable=false)
-	private Short homeReboundsOffense;
-	public Short getHomeReboundsOffense() {
-		return homeReboundsOffense;
-	}
-	public void setHomeReboundsOffense(Short homeReboundsOffense) {
-		this.homeReboundsOffense = homeReboundsOffense;
-	}
-	
-	@Column(name="homeReboundsDefense", nullable=false)
-	private Short homeReboundsDefense;
-	public Short getHomeReboundsDefense() {
-		return homeReboundsDefense;
-	}
-	public void setHomeReboundsDefense(Short homeReboundsDefense) {
-		this.homeReboundsDefense = homeReboundsDefense;
-	}
-	
-	@Column(name="homePointsQ1", nullable=false)
-	private Short homePointsQ1;
-	public Short getHomePointsQ1() {
-		return homePointsQ1;
-	}
-	public void setHomePointsQ1(Short homePointsQ1) {
-		this.homePointsQ1 = homePointsQ1;
-	}
-	
-	@Column(name="homePointsQ2", nullable=false)
-	private Short homePointsQ2;
-	public Short getHomePointsQ2() {
-		return homePointsQ2;
-	}
-	public void setHomePointsQ2(Short homePointsQ2) {
-		this.homePointsQ2 = homePointsQ2;
-	}
-	
-	@Column(name="homePointsQ3", nullable=false)
-	private Short homePointsQ3;
-	public Short getHomePointsQ3() {
-		return homePointsQ3;
-	}
-	public void setHomePointsQ3(Short homePointsQ3) {
-		this.homePointsQ3 = homePointsQ3;
-	}
-	
-	@Column(name="homePointsQ4", nullable=false)
-	private Short homePointsQ4;
-	public Short getHomePointsQ4() {
-		return homePointsQ4;
-	}
-	public void setHomePointsQ4(Short homePointsQ4) {
-		this.homePointsQ4 = homePointsQ4;
-	}
-	
-	@Column(name="homePointsQ5", nullable=false)
-	private Short homePointsQ5;
-	public Short getHomePointsQ5() {
-		return homePointsQ5;
-	}
-	public void setHomePointsQ5(Short homePointsQ5) {
-		this.homePointsQ5 = homePointsQ5;
-	}
-	
-	@Column(name="homePointsQ6", nullable=false)
-	private Short homePointsQ6;
-	public Short getHomePointsQ6() {
-		return homePointsQ6;
-	}
-	public void setHomePointsQ6(Short homePointsQ6) {
-		this.homePointsQ6 = homePointsQ6;
-	}
-	
-	@Column(name="homePointsQ7", nullable=false)
-	private Short homePointsQ7;
-	public Short getHomePointsQ7() {
-		return homePointsQ7;
-	}
-	public void setHomePointsQ7(Short homePointsQ7) {
-		this.homePointsQ7 = homePointsQ7;
-	}
-	
-	@Column(name="homePointsQ8", nullable=false)
-	private Short homePointsQ8;
-	public Short getHomePointsQ8() {
-		return homePointsQ8;
-	}
-	public void setHomePointsQ8(Short homePointsQ8) {
-		this.homePointsQ8 = homePointsQ8;
+	public void setTeamConference(Conference teamConference) {
+		this.teamConference = teamConference;
 	}
 	
 	@Required
 	@Enumerated(EnumType.STRING)
-	@Column(name="awayTeamAbbr", length=3, nullable=false)
-	private TeamAbbr awayTeamAbbr;
-	public TeamAbbr getAwayTeamAbbr() {
-		return awayTeamAbbr;
+	@Column(name="teamDivision", length=9, nullable=false)
+	private Division teamDivision;
+	public Division getTeamDivision() {
+		return teamDivision;
 	}
-	public void setAwayTeamAbbr(TeamAbbr awayTeamAbbr) {
-		this.awayTeamAbbr = awayTeamAbbr;
-	}
-	
-	@Required
-	@Enumerated(EnumType.STRING)
-	@Column(name="awayConference", length=4, nullable=false)
-	private Conference awayConference;
-	public Conference getAwayConference() {
-		return awayConference;
-	}
-	public void setAwayConference(Conference awayConference) {
-		this.awayConference = awayConference;
+	public void setTeamDivision(Division teamDivision) {
+		this.teamDivision = teamDivision;
 	}
 	
 	@Required
 	@Enumerated(EnumType.STRING)
-	@Column(name="awayDivision", length=9, nullable=false)
-	private Division awayDivision;
-	public Division getAwayDivision() {
-		return awayDivision;
+	@Column(name="teamLocation", length=4, nullable=false)
+	private Location teamLocation;
+	public Location getTeamLocation() {
+		return teamLocation;
 	}
-	public void setAwayDivision(Division awayDivision) {
-		this.awayDivision = awayDivision;
+	public void setTeamLocation(Location teamLocation) {
+		this.teamLocation = teamLocation;
 	}
 	
 	@Required
 	@Enumerated(EnumType.STRING)
-	@Column(name="awayResult", length=4, nullable=false)
-	private Result awayResult;
-	public Result getAwayResult() {
-		return awayResult;
+	@Column(name="teamResult", length=4, nullable=false)
+	private Result teamResult;
+	public Result getTeamResult() {
+		return teamResult;
 	}
-	public void setAwayResult(Result awayResult) {
-		this.awayResult = awayResult;
+	public void setTeamResult(Result teamResult) {
+		this.teamResult = teamResult;
 	}
-	
-	@Column(name="awayTeamName", length=35, nullable=false)
-	private String awayTeamName;
-	public String getAwayTeamName() {
-		return awayTeamName;
+
+	@Column(name="teamPoints", nullable=false)
+	private Short teamPoints;
+	public Short getTeamPoints() {
+		return teamPoints;
 	}
-	public void setAwayTeamName(String awayTeamName) {
-		this.awayTeamName = awayTeamName;
-	}
-	
-	@Column(name="awayPoints", nullable=false)
-	private Short awayPoints;
-	public Short getAwayPoints() {
-		return awayPoints;
-	}
-	public void setAwayPoints(Short awayPoints) {
-		this.awayPoints = awayPoints;
+	public void setTeamPoints(Short teamPoints) {
+		this.teamPoints = teamPoints;
 	}
 	
-	@Column(name="awayAssists", nullable=false)
-	private Short awayAssists;
-	public Short getAwayAssists() {
-		return awayAssists;
+	@Column(name="teamAssists", nullable=false)
+	private Short teamAssists;
+	public Short getTeamAssists() {
+		return teamAssists;
 	}
-	public void setAwayAssists(Short awayAssists) {
-		this.awayAssists = awayAssists;
-	}
-	
-	@Column(name="awayTurnovers", nullable=false)
-	private Short awayTurnovers;
-	public Short getAwayTurnovers() {
-		return awayTurnovers;
-	}
-	public void setAwayTurnovers(Short awayTurnovers) {
-		this.awayTurnovers = awayTurnovers;
+	public void setTeamAssists(Short teamAssists) {
+		this.teamAssists = teamAssists;
 	}
 	
-	@Column(name="awaySteals", nullable=false)
-	private Short awaySteals;
-	public Short getAwaySteals() {
-		return awaySteals;
+	@Column(name="teamTurnovers", nullable=false)
+	private Short teamTurnovers;
+	public Short getTeamTurnovers() {
+		return teamTurnovers;
 	}
-	public void setAwaySteals(Short awaySteals) {
-		this.awaySteals = awaySteals;
-	}
-	
-	@Column(name="awayBlocks", nullable=false)
-	private Short awayBlocks;
-	public Short getAwayBlocks() {
-		return awayBlocks;
-	}
-	public void setAwayBlocks(Short awayBlocks) {
-		this.awayBlocks = awayBlocks;
+	public void setTeamTurnovers(Short teamTurnovers) {
+		this.teamTurnovers = teamTurnovers;
 	}
 	
-	@Column(name="awayPersonalFouls", nullable=false)
-	private Short awayPersonalFouls;
-	public Short getAwayPersonalFouls() {
-		return awayPersonalFouls;
+	@Column(name="teamSteals", nullable=false)
+	private Short teamSteals;
+	public Short getTeamSteals() {
+		return teamSteals;
 	}
-	public void setAwayPersonalFouls(Short awayPersonalFouls) {
-		this.awayPersonalFouls = awayPersonalFouls;
+	public void setTeamSteals(Short teamSteals) {
+		this.teamSteals = teamSteals;
 	}
 	
-	@Column(name="awayFieldGoalAttempts", nullable=false)
-	private Short awayFieldGoalAttempts;
-	public Short getAwayFieldGoalAttempts() {
-		return awayFieldGoalAttempts;
+	@Column(name="teamBlocks", nullable=false)
+	private Short teamBlocks;
+	public Short getTeamBlocks() {
+		return teamBlocks;
 	}
-	public void setAwayFieldGoalAttempts(Short awayFieldGoalAttempts) {
-		this.awayFieldGoalAttempts = awayFieldGoalAttempts;
+	public void setTeamBlocks(Short teamBlocks) {
+		this.teamBlocks = teamBlocks;
+	}
+	
+	@Column(name="teamPersonalFouls", nullable=false)
+	private Short teamPersonalFouls;
+	public Short getTeamPersonalFouls() {
+		return teamPersonalFouls;
+	}
+	public void setTeamPersonalFouls(Short teamPersonalFouls) {
+		this.teamPersonalFouls = teamPersonalFouls;
+	}
+	
+	@Column(name="teamFieldGoalAttempts", nullable=false)
+	private Short teamFieldGoalAttempts;
+	public Short getTeamFieldGoalAttempts() {
+		return teamFieldGoalAttempts;
+	}
+	public void setTeamFieldGoalAttempts(Short teamFieldGoalAttempts) {
+		this.teamFieldGoalAttempts = teamFieldGoalAttempts;
 	}	
 	
-	@Column(name="awayFieldGoalMade", nullable=false)
-	private Short awayFieldGoalMade;
-	public Short getAwayFieldGoalMade() {
-		return awayFieldGoalMade;
+	@Column(name="teamFieldGoalMade", nullable=false)
+	private Short teamFieldGoalMade;
+	public Short getTeamFieldGoalMade() {
+		return teamFieldGoalMade;
 	}
-	public void setAwayFieldGoalMade(Short awayFieldGoalMade) {
-		this.awayFieldGoalMade = awayFieldGoalMade;
+	public void setTeamFieldGoalMade(Short teamFieldGoalMade) {
+		this.teamFieldGoalMade = teamFieldGoalMade;
 	}	
 
-	@Column(name="awayThreePointAttempts", nullable=false)
-	private Short awayThreePointAttempts;
-	public Short getAwayThreePointAttempts() {
-		return awayThreePointAttempts;
+	@Column(name="teamThreePointAttempts", nullable=false)
+	private Short teamThreePointAttempts;
+	public Short getTeamThreePointAttempts() {
+		return teamThreePointAttempts;
 	}
-	public void setAwayThreePointAttempts(Short awayThreePointAttempts) {
-		this.awayThreePointAttempts = awayThreePointAttempts;
+	public void setTeamThreePointAttempts(Short teamThreePointAttempts) {
+		this.teamThreePointAttempts = teamThreePointAttempts;
 	}	
 
-	@Column(name="awayThreePointMade", nullable=false)
-	private Short awayThreePointMade;
-	public Short getAwayThreePointMade() {
-		return awayThreePointMade;
+	@Column(name="teamThreePointMade", nullable=false)
+	private Short teamThreePointMade;
+	public Short getTeamThreePointMade() {
+		return teamThreePointMade;
 	}
-	public void setAwayThreePointMade(Short awayThreePointMade) {
-		this.awayThreePointMade = awayThreePointMade;
+	public void setTeamThreePointMade(Short teamThreePointMade) {
+		this.teamThreePointMade = teamThreePointMade;
 	}
 	
-	@Column(name="awayFreeThrowAttempts", nullable=false)
-	private Short awayFreeThrowAttempts;
-	public Short getAwayFreeThrowAttempts() {
-		return awayFreeThrowAttempts;
+	@Column(name="teamFreeThrowAttempts", nullable=false)
+	private Short teamFreeThrowAttempts;
+	public Short getTeamFreeThrowAttempts() {
+		return teamFreeThrowAttempts;
 	}
-	public void setAwayFreeThrowAttempts(Short awayFreeThrowAttempts) {
-		this.awayFreeThrowAttempts = awayFreeThrowAttempts;
+	public void setTeamFreeThrowAttempts(Short teamFreeThrowAttempts) {
+		this.teamFreeThrowAttempts = teamFreeThrowAttempts;
 	}	
 
-	@Column(name="awayFreeThrowMade", nullable=false)
-	private Short awayFreeThrowMade;
-	public Short getAwayFreeThrowMade() {
-		return awayFreeThrowMade;
+	@Column(name="teamFreeThrowMade", nullable=false)
+	private Short teamFreeThrowMade;
+	public Short getTeamFreeThrowMade() {
+		return teamFreeThrowMade;
 	}
-	public void setAwayFreeThrowMade(Short awayFreeThrowMade) {
-		this.awayFreeThrowMade = awayFreeThrowMade;
+	public void setTeamFreeThrowMade(Short teamFreeThrowMade) {
+		this.teamFreeThrowMade = teamFreeThrowMade;
 	}	
 	
-	@Column(name="awayReboundsOffense", nullable=false)
-	private Short awayReboundsOffense;
-	public Short getAwayReboundsOffense() {
-		return awayReboundsOffense;
+	@Column(name="teamReboundsOffense", nullable=false)
+	private Short teamReboundsOffense;
+	public Short getTeamReboundsOffense() {
+		return teamReboundsOffense;
 	}
-	public void setAwayReboundsOffense(Short awayReboundsOffense) {
-		this.awayReboundsOffense = awayReboundsOffense;
-	}
-	
-	@Column(name="awayReboundsDefense", nullable=false)
-	private Short awayReboundsDefense;
-	public Short getAwayReboundsDefense() {
-		return awayReboundsDefense;
-	}
-	public void setAwayReboundsDefense(Short awayReboundsDefense) {
-		this.awayReboundsDefense = awayReboundsDefense;
+	public void setTeamReboundsOffense(Short teamReboundsOffense) {
+		this.teamReboundsOffense = teamReboundsOffense;
 	}
 	
-	@Column(name="awayPointsQ1", nullable=false)
-	private Short awayPointsQ1;
-	public Short getAwayPointsQ1() {
-		return awayPointsQ1;
+	@Column(name="teamReboundsDefense", nullable=false)
+	private Short teamReboundsDefense;
+	public Short getTeamReboundsDefense() {
+		return teamReboundsDefense;
 	}
-	public void setAwayPointsQ1(Short awayPointsQ1) {
-		this.awayPointsQ1 = awayPointsQ1;
-	}
-	
-	@Column(name="awayPointsQ2", nullable=false)
-	private Short awayPointsQ2;
-	public Short getAwayPointsQ2() {
-		return awayPointsQ2;
-	}
-	public void setAwayPointsQ2(Short awayPointsQ2) {
-		this.awayPointsQ2 = awayPointsQ2;
+	public void setTeamReboundsDefense(Short teamReboundsDefense) {
+		this.teamReboundsDefense = teamReboundsDefense;
 	}
 	
-	@Column(name="awayPointsQ3", nullable=false)
-	private Short awayPointsQ3;
-	public Short getAwayPointsQ3() {
-		return awayPointsQ3;
+	@Column(name="teamPointsQ1", nullable=false)
+	private Short teamPointsQ1;
+	public Short getTeamPointsQ1() {
+		return teamPointsQ1;
 	}
-	public void setAwayPointsQ3(Short awayPointsQ3) {
-		this.awayPointsQ3 = awayPointsQ3;
-	}
-	
-	@Column(name="awayPointsQ4", nullable=false)
-	private Short awayPointsQ4;
-	public Short getAwayPointsQ4() {
-		return awayPointsQ4;
-	}
-	public void setAwayPointsQ4(Short awayPointsQ4) {
-		this.awayPointsQ4 = awayPointsQ4;
+	public void setTeamPointsQ1(Short teamPointsQ1) {
+		this.teamPointsQ1 = teamPointsQ1;
 	}
 	
-	@Column(name="awayPointsQ5", nullable=false)
-	private Short awayPointsQ5;
-	public Short getAwayPointsQ5() {
-		return awayPointsQ5;
+	@Column(name="teamPointsQ2", nullable=false)
+	private Short teamPointsQ2;
+	public Short getTeamPointsQ2() {
+		return teamPointsQ2;
 	}
-	public void setAwayPointsQ5(Short awayPointsQ5) {
-		this.awayPointsQ5 = awayPointsQ5;
-	}
-	
-	@Column(name="awayPointsQ6", nullable=false)
-	private Short awayPointsQ6;
-	public Short getAwayPointsQ6() {
-		return awayPointsQ6;
-	}
-	public void setAwayPointsQ6(Short awayPointsQ6) {
-		this.awayPointsQ6 = awayPointsQ6;
+	public void setTeamPointsQ2(Short teamPointsQ2) {
+		this.teamPointsQ2 = teamPointsQ2;
 	}
 	
-	@Column(name="awayPointsQ7", nullable=false)
-	private Short awayPointsQ7;
-	public Short getAwayPointsQ7() {
-		return awayPointsQ7;
+	@Column(name="teamPointsQ3", nullable=false)
+	private Short teamPointsQ3;
+	public Short getTeamPointsQ3() {
+		return teamPointsQ3;
 	}
-	public void setAwayPointsQ7(Short awayPointsQ7) {
-		this.awayPointsQ7 = awayPointsQ7;
+	public void setTeamPointsQ3(Short teamPointsQ3) {
+		this.teamPointsQ3 = teamPointsQ3;
 	}
 	
-	@Column(name="awayPointsQ8", nullable=false)
-	private Short awayPointsQ8;
-	public Short getAwayPointsQ8() {
-		return awayPointsQ8;
+	@Column(name="teamPointsQ4", nullable=false)
+	private Short teamPointsQ4;
+	public Short getTeamPointsQ4() {
+		return teamPointsQ4;
 	}
-	public void setAwayPointsQ8(Short awayPointsQ8) {
-		this.awayPointsQ8 = awayPointsQ8;
+	public void setTeamPointsQ4(Short teamPointsQ4) {
+		this.teamPointsQ4 = teamPointsQ4;
+	}
+	
+	@Column(name="teamPointsQ5", nullable=false)
+	private Short teamPointsQ5;
+	public Short getTeamPointsQ5() {
+		return teamPointsQ5;
+	}
+	public void setTeamPointsQ5(Short teamPointsQ5) {
+		this.teamPointsQ5 = teamPointsQ5;
+	}
+	
+	@Column(name="teamPointsQ6", nullable=false)
+	private Short teamPointsQ6;
+	public Short getTeamPointsQ6() {
+		return teamPointsQ6;
+	}
+	public void setTeamPointsQ6(Short teamPointsQ6) {
+		this.teamPointsQ6 = teamPointsQ6;
+	}
+	
+	@Column(name="teamPointsQ7", nullable=false)
+	private Short teamPointsQ7;
+	public Short getTeamPointsQ7() {
+		return teamPointsQ7;
+	}
+	public void setTeamPointsQ7(Short teamPointsQ7) {
+		this.teamPointsQ7 = teamPointsQ7;
+	}
+	
+	@Column(name="teamPointsQ8", nullable=false)
+	private Short teamPointsQ8;
+	public Short getTeamPointsQ8() {
+		return teamPointsQ8;
+	}
+	public void setTeamPointsQ8(Short teamPointsQ8) {
+		this.teamPointsQ8 = teamPointsQ8;
+	}
+	
+	@Required
+	@Enumerated(EnumType.STRING)
+	@Column(name="opptAbbr", length=3, nullable=false)
+	private TeamAbbr opptAbbr;
+	public TeamAbbr getOpptAbbr() {
+		return opptAbbr;
+	}
+	public void setOpptAbbr(TeamAbbr opptAbbr) {
+		this.opptAbbr = opptAbbr;
+	}
+	
+	@Required
+	@Enumerated(EnumType.STRING)
+	@Column(name="opptConference", length=4, nullable=false)
+	private Conference opptConference;
+	public Conference getOpptConference() {
+		return opptConference;
+	}
+	public void setOpptConference(Conference opptConference) {
+		this.opptConference = opptConference;
+	}
+	
+	@Required
+	@Enumerated(EnumType.STRING)
+	@Column(name="opptDivision", length=9, nullable=false)
+	private Division opptDivision;
+	public Division getOpptDivision() {
+		return opptDivision;
+	}
+	public void setOpptDivision(Division opptDivision) {
+		this.opptDivision = opptDivision;
+	}
+	
+	@Required
+	@Enumerated(EnumType.STRING)
+	@Column(name="opptLocation", length=4, nullable=false)
+	private Location opptLocation;
+	public Location getOpptLocation() {
+		return opptLocation;
+	}
+	public void setOpptLocation(Location opptLocation) {
+		this.opptLocation = opptLocation;
+	}
+	
+	@Required
+	@Enumerated(EnumType.STRING)
+	@Column(name="opptResult", length=4, nullable=false)
+	private Result opptResult;
+	public Result getOpptResult() {
+		return opptResult;
+	}
+	public void setOpptResult(Result opptResult) {
+		this.opptResult = opptResult;
+	}
+	
+	@Column(name="opptPoints", nullable=false)
+	private Short opptPoints;
+	public Short getOpptPoints() {
+		return opptPoints;
+	}
+	public void setOpptPoints(Short opptPoints) {
+		this.opptPoints = opptPoints;
+	}
+	
+	@Column(name="opptAssists", nullable=false)
+	private Short opptAssists;
+	public Short getOpptAssists() {
+		return opptAssists;
+	}
+	public void setOpptAssists(Short opptAssists) {
+		this.opptAssists = opptAssists;
+	}
+	
+	@Column(name="opptTurnovers", nullable=false)
+	private Short opptTurnovers;
+	public Short getOpptTurnovers() {
+		return opptTurnovers;
+	}
+	public void setOpptTurnovers(Short opptTurnovers) {
+		this.opptTurnovers = opptTurnovers;
+	}
+	
+	@Column(name="opptSteals", nullable=false)
+	private Short opptSteals;
+	public Short getOpptSteals() {
+		return opptSteals;
+	}
+	public void setOpptSteals(Short opptSteals) {
+		this.opptSteals = opptSteals;
+	}
+	
+	@Column(name="opptBlocks", nullable=false)
+	private Short opptBlocks;
+	public Short getOpptBlocks() {
+		return opptBlocks;
+	}
+	public void setOpptBlocks(Short opptBlocks) {
+		this.opptBlocks = opptBlocks;
+	}
+	
+	@Column(name="opptPersonalFouls", nullable=false)
+	private Short opptPersonalFouls;
+	public Short getOpptPersonalFouls() {
+		return opptPersonalFouls;
+	}
+	public void setOpptPersonalFouls(Short opptPersonalFouls) {
+		this.opptPersonalFouls = opptPersonalFouls;
+	}
+	
+	@Column(name="opptFieldGoalAttempts", nullable=false)
+	private Short opptFieldGoalAttempts;
+	public Short getOpptFieldGoalAttempts() {
+		return opptFieldGoalAttempts;
+	}
+	public void setOpptFieldGoalAttempts(Short opptFieldGoalAttempts) {
+		this.opptFieldGoalAttempts = opptFieldGoalAttempts;
+	}	
+	
+	@Column(name="opptFieldGoalMade", nullable=false)
+	private Short opptFieldGoalMade;
+	public Short getOpptFieldGoalMade() {
+		return opptFieldGoalMade;
+	}
+	public void setOpptFieldGoalMade(Short opptFieldGoalMade) {
+		this.opptFieldGoalMade = opptFieldGoalMade;
+	}	
+
+	@Column(name="opptThreePointAttempts", nullable=false)
+	private Short opptThreePointAttempts;
+	public Short getOpptThreePointAttempts() {
+		return opptThreePointAttempts;
+	}
+	public void setOpptThreePointAttempts(Short opptThreePointAttempts) {
+		this.opptThreePointAttempts = opptThreePointAttempts;
+	}	
+
+	@Column(name="opptThreePointMade", nullable=false)
+	private Short opptThreePointMade;
+	public Short getOpptThreePointMade() {
+		return opptThreePointMade;
+	}
+	public void setOpptThreePointMade(Short opptThreePointMade) {
+		this.opptThreePointMade = opptThreePointMade;
+	}
+	
+	@Column(name="opptFreeThrowAttempts", nullable=false)
+	private Short opptFreeThrowAttempts;
+	public Short getOpptFreeThrowAttempts() {
+		return opptFreeThrowAttempts;
+	}
+	public void setOpptFreeThrowAttempts(Short opptFreeThrowAttempts) {
+		this.opptFreeThrowAttempts = opptFreeThrowAttempts;
+	}	
+
+	@Column(name="opptFreeThrowMade", nullable=false)
+	private Short opptFreeThrowMade;
+	public Short getOpptFreeThrowMade() {
+		return opptFreeThrowMade;
+	}
+	public void setOpptFreeThrowMade(Short opptFreeThrowMade) {
+		this.opptFreeThrowMade = opptFreeThrowMade;
+	}	
+	
+	@Column(name="opptReboundsOffense", nullable=false)
+	private Short opptReboundsOffense;
+	public Short getOpptReboundsOffense() {
+		return opptReboundsOffense;
+	}
+	public void setOpptReboundsOffense(Short opptReboundsOffense) {
+		this.opptReboundsOffense = opptReboundsOffense;
+	}
+	
+	@Column(name="opptReboundsDefense", nullable=false)
+	private Short opptReboundsDefense;
+	public Short getOpptReboundsDefense() {
+		return opptReboundsDefense;
+	}
+	public void setOpptReboundsDefense(Short opptReboundsDefense) {
+		this.opptReboundsDefense = opptReboundsDefense;
+	}
+	
+	@Column(name="opptPointsQ1", nullable=false)
+	private Short opptPointsQ1;
+	public Short getOpptPointsQ1() {
+		return opptPointsQ1;
+	}
+	public void setOpptPointsQ1(Short opptPointsQ1) {
+		this.opptPointsQ1 = opptPointsQ1;
+	}
+	
+	@Column(name="opptPointsQ2", nullable=false)
+	private Short opptPointsQ2;
+	public Short getOpptPointsQ2() {
+		return opptPointsQ2;
+	}
+	public void setOpptPointsQ2(Short opptPointsQ2) {
+		this.opptPointsQ2 = opptPointsQ2;
+	}
+	
+	@Column(name="opptPointsQ3", nullable=false)
+	private Short opptPointsQ3;
+	public Short getOpptPointsQ3() {
+		return opptPointsQ3;
+	}
+	public void setOpptPointsQ3(Short opptPointsQ3) {
+		this.opptPointsQ3 = opptPointsQ3;
+	}
+	
+	@Column(name="opptPointsQ4", nullable=false)
+	private Short opptPointsQ4;
+	public Short getOpptPointsQ4() {
+		return opptPointsQ4;
+	}
+	public void setOpptPointsQ4(Short opptPointsQ4) {
+		this.opptPointsQ4 = opptPointsQ4;
+	}
+	
+	@Column(name="opptPointsQ5", nullable=false)
+	private Short opptPointsQ5;
+	public Short getOpptPointsQ5() {
+		return opptPointsQ5;
+	}
+	public void setOpptPointsQ5(Short opptPointsQ5) {
+		this.opptPointsQ5 = opptPointsQ5;
+	}
+	
+	@Column(name="opptPointsQ6", nullable=false)
+	private Short opptPointsQ6;
+	public Short getOpptPointsQ6() {
+		return opptPointsQ6;
+	}
+	public void setOpptPointsQ6(Short opptPointsQ6) {
+		this.opptPointsQ6 = opptPointsQ6;
+	}
+	
+	@Column(name="opptPointsQ7", nullable=false)
+	private Short opptPointsQ7;
+	public Short getOpptPointsQ7() {
+		return opptPointsQ7;
+	}
+	public void setOpptPointsQ7(Short opptPointsQ7) {
+		this.opptPointsQ7 = opptPointsQ7;
+	}
+	
+	@Column(name="opptPointsQ8", nullable=false)
+	private Short opptPointsQ8;
+	public Short getOpptPointsQ8() {
+		return opptPointsQ8;
+	}
+	public void setOpptPointsQ8(Short opptPointsQ8) {
+		this.opptPointsQ8 = opptPointsQ8;
 	}
 	
 	public String toString() {
 		return new StringBuffer()
 			.append("  id: " + this.id)
-			.append("  homeResult:    " + this.homeResult + "  awayResult:    " + this.awayResult)
-			.append("  homePoints:    " + this.homePoints + "  awayPoints:    " + this.awayPoints)
-			.append("  homeAssists:   " + this.homeAssists + "  awayAssists:   " + this.awayAssists)
-			.append("  homeTurnovers: " + this.homeTurnovers + "  awayTurnovers: " + this.awayTurnovers)
-			.append("  homeSteals:    " + this.homeSteals + "  awaySteals:    " + this.awaySteals)
-			.append("  homeBlocks:    " + this.homeBlocks + "  awayBlocks:    " + this.awayBlocks)
+			.append("  teamResult:    " + this.teamResult + "  opptResult:    " + this.opptResult)
+			.append("  teamPoints:    " + this.teamPoints + "  opptPoints:    " + this.opptPoints)
+			.append("  teamAssists:   " + this.teamAssists + "  opptAssists:   " + this.opptAssists)
+			.append("  teamTurnovers: " + this.teamTurnovers + "  opptTurnovers: " + this.opptTurnovers)
+			.append("  teamSteals:    " + this.teamSteals + "  opptSteals:    " + this.opptSteals)
+			.append("  teamBlocks:    " + this.teamBlocks + "  opptBlocks:    " + this.opptBlocks)
 			.toString();
 	}
 }
