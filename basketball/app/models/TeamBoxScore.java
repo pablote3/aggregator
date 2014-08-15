@@ -29,6 +29,8 @@ import util.Enumerations.TeamAbbr;
 
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Query;
+import com.avaje.ebean.RawSql;
+import com.avaje.ebean.RawSqlBuilder;
 
 @Entity
 public class TeamBoxScore extends Model {
@@ -690,28 +692,55 @@ public class TeamBoxScore extends Model {
 	    return teamBoxScore;
 	}
 	
-//	public static List<TeamBoxScore> findByDateTeamSize(String propDate, String propTeam, String propSize, ProcessingType processingType) {
-//	  	Query<TeamBoxScore> query;
-//	  	if (processingType.equals(ProcessingType.batch))
-//	  		query = ebeanServer.find(TeamBoxScore.class);
-//	  	else
-//	  		query = Ebean.find(TeamBoxScore.class);
-//	  	
-//	  	int maxRows = Integer.parseInt(propSize);
-//	  	if (maxRows > 0)
-//		  	query.setMaxRows(maxRows);
-//	  	
-//	  	LocalDate maxDate = DateTimeUtil.getDateMaxSeason(DateTimeUtil.createDateFromStringDate(propDate));
-//	  	
-//	  	query.fetch("boxScores");
-//	  	query.fetch("boxScores.team");
-//	  	query.where().between("t0.date", propDate, maxDate);
-//	    query.where().eq("t2.team_key", propTeam);
-//	    query.orderBy("date asc");
-//	    List<TeamBoxScore> teamBoxScores = query.findList();
-//
-//		return teamBoxScores;
-//	}
+	public static List<TeamBoxScore> findByDateTeamSize(String propDate, String propTeam, String propSize, ProcessingType processingType) {
+	  	Query<TeamBoxScore> query;
+	  	if (processingType.equals(ProcessingType.batch))
+	  		//query = ebeanServer.find(TeamBoxScore.class);
+	  		query = null;
+	  	else
+	  		query = Ebean.find(TeamBoxScore.class);
+	  	
+	  	int maxRows = Integer.parseInt(propSize);
+	  	if (maxRows > 0)
+		  	query.setMaxRows(maxRows);
+	  	
+	  	LocalDate maxDate = DateTimeUtil.getDateMaxSeason(DateTimeUtil.createDateFromStringDate(propDate));
+	  	
+	  	query.where().between("gameDate", propDate, maxDate);
+	    query.where().eq("teamAbbr", propTeam);
+	    query.orderBy("gameDate asc");
+	    List<TeamBoxScore> teamBoxScores = query.findList();
+		return teamBoxScores;
+	}
+	
+	public static TeamSummary aggregateTeamPointsSeason(String propDate, String propTeam, ProcessingType processingType) {
+	  	Query<TeamSummary> query;
+	  	if (processingType.equals(ProcessingType.batch))
+	  		//query = ebeanServer.find(TeamSummary.class);
+	  		query = null;
+	  	else
+	  		query = Ebean.find(TeamSummary.class);
+	  	
+	  	LocalDate maxDate = DateTimeUtil.getDateMaxSeason(DateTimeUtil.createDateFromStringDate(propDate));
+	  	
+		String sql 	= " select teamAbbr as Team, count(teamPoints) as teamGamesPlayed"
+					+ " from team_box_score"
+					+ " group by teamAbbr";
+	  
+		RawSql rawSql =
+			RawSqlBuilder
+			  .parse(sql)
+			  .columnMapping("teamAbbr", "teamAbbr")
+			  .create();
+		  
+		query.setRawSql(rawSql);
+				  
+	  	query.where().between("gameDate", propDate, maxDate);
+	    query.where().eq("teamAbbr", propTeam);
+		
+	    TeamSummary teamSummary = query.findUnique();
+		return teamSummary;
+	}
 	
 	public String toString() {
 		return new StringBuffer()
