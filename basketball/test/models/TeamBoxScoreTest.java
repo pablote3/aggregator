@@ -90,12 +90,30 @@ public class TeamBoxScoreTest {
     }
     
     @Test
-    public void aggregateTeamPointsSeason() {
+    public void sumTeamBoxScoreSeason() {
         running(fakeApplication(), new Runnable() {
           public void run() {
-        	  TeamSummary teamSummary = TeamBoxScore.aggregateTeamPointsSeason("2012-10-31", "SAC", ProcessingType.online);
+        	  TeamSummary teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2013-10-29", "SAC", ProcessingType.online);
         	  assertThat(teamSummary.getTeamAbbr()).isEqualTo(TeamAbbr.SAC);
         	  assertThat(teamSummary.getTeamGamesPlayed()).isEqualTo((short)82);
+        	  assertThat(teamSummary.getTeamSumPoints()).isEqualTo((short)8241);
+        	  assertThat(teamSummary.getTeamSumAssists()).isEqualTo((short)1547);
+        	  assertThat(teamSummary.getTeamSumTurnovers()).isEqualTo((short)1203);
+        	  assertThat(teamSummary.getTeamSumSteals()).isEqualTo((short)587);
+        	  assertThat(teamSummary.getTeamSumBlocks()).isEqualTo((short)318);
+        	  assertThat(teamSummary.getTeamSumPersonalFouls()).isEqualTo((short)1849);
+        	  assertThat(teamSummary.getTeamSumFieldGoalAttempts()).isEqualTo((short)6765);
+        	  assertThat(teamSummary.getTeamSumFieldGoalMade()).isEqualTo((short)3026);
+        	  assertThat(teamSummary.getTeamSumThreePointAttempts()).isEqualTo((short)1475);
+        	  assertThat(teamSummary.getTeamSumThreePointMade()).isEqualTo((short)491);
+        	  assertThat(teamSummary.getTeamSumFreeThrowAttempts()).isEqualTo((short)2237);
+        	  assertThat(teamSummary.getTeamSumFreeThrowMade()).isEqualTo((short)1698);
+        	  assertThat(teamSummary.getTeamSumReboundsOffense()).isEqualTo((short)989);
+        	  assertThat(teamSummary.getTeamSumReboundsDefense()).isEqualTo((short)2656);
+        	  assertThat(teamSummary.getTeamSumPointsQ1()).isEqualTo((short)2071);
+        	  assertThat(teamSummary.getTeamSumPointsQ2()).isEqualTo((short)2017);
+        	  assertThat(teamSummary.getTeamSumPointsQ3()).isEqualTo((short)2069);
+        	  assertThat(teamSummary.getTeamSumPointsQ4()).isEqualTo((short)2008);
           }
         });
     }

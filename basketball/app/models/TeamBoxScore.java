@@ -713,7 +713,7 @@ public class TeamBoxScore extends Model {
 		return teamBoxScores;
 	}
 	
-	public static TeamSummary aggregateTeamPointsSeason(String propDate, String propTeam, ProcessingType processingType) {
+	public static TeamSummary sumTeamBoxScoreFromDateMaxDate(String fromDate, String teamAbbr, ProcessingType processingType) {
 	  	Query<TeamSummary> query;
 	  	if (processingType.equals(ProcessingType.batch))
 	  		//query = ebeanServer.find(TeamSummary.class);
@@ -721,9 +721,17 @@ public class TeamBoxScore extends Model {
 	  	else
 	  		query = Ebean.find(TeamSummary.class);
 	  	
-	  	LocalDate maxDate = DateTimeUtil.getDateMaxSeason(DateTimeUtil.createDateFromStringDate(propDate));
+	  	LocalDate maxDate = DateTimeUtil.getDateMaxSeason(DateTimeUtil.createDateFromStringDate(fromDate));
 	  	
-		String sql 	= " select teamAbbr as Team, count(teamPoints) as teamGamesPlayed"
+		String sql 	= " select teamAbbr as Team, count(teamPoints) as teamGamesPlayed,"
+					+ " sum(teamPoints) as teamSumPoints, sum(teamAssists) as teamSumAssists, sum(teamTurnovers) as teamSumTurnovers,"
+					+ " sum(teamSteals) as teamSumSteals, sum(teamBlocks) as teamSumBlocks, sum(teamPersonalFouls) as teamSumPersonalFouls,"
+					+ " sum(teamFieldGoalAttempts) as teamSumFieldGoalAttempts, sum(teamFieldGoalMade) as teamSumFieldGoalMade,"
+					+ " sum(teamThreePointAttempts) as teamSumThreePointAttempts, sum(teamThreePointMade) as teamSumThreePointMade,"
+					+ " sum(teamFreeThrowAttempts) as teamSumFreeThrowAttempts, sum(teamFreeThrowMade) as teamSumFreeThrowMade,"
+					+ " sum(teamReboundsOffense) as teamSumReboundsOffense, sum(teamReboundsDefense) as teamSumReboundsDefense,"
+					+ " sum(teamPointsQ1) as teamSumPointsQ1, sum(teamPointsQ2) as teamSumPointsQ2,"
+					+ " sum(teamPointsQ3) as teamSumPointsQ3, sum(teamPointsQ4) as teamSumPointsQ4"
 					+ " from team_box_score"
 					+ " group by teamAbbr";
 	  
@@ -735,8 +743,8 @@ public class TeamBoxScore extends Model {
 		  
 		query.setRawSql(rawSql);
 				  
-	  	query.where().between("gameDate", propDate, maxDate);
-	    query.where().eq("teamAbbr", propTeam);
+	  	query.where().between("gameDate", fromDate, maxDate);
+	    query.where().eq("teamAbbr", teamAbbr);
 		
 	    TeamSummary teamSummary = query.findUnique();
 		return teamSummary;
