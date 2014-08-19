@@ -731,7 +731,15 @@ public class TeamBoxScore extends Model {
 					+ " sum(teamFreeThrowAttempts) as teamSumFreeThrowAttempts, sum(teamFreeThrowMade) as teamSumFreeThrowMade,"
 					+ " sum(teamReboundsOffense) as teamSumReboundsOffense, sum(teamReboundsDefense) as teamSumReboundsDefense,"
 					+ " sum(teamPointsQ1) as teamSumPointsQ1, sum(teamPointsQ2) as teamSumPointsQ2,"
-					+ " sum(teamPointsQ3) as teamSumPointsQ3, sum(teamPointsQ4) as teamSumPointsQ4"
+					+ " sum(teamPointsQ3) as teamSumPointsQ3, sum(teamPointsQ4) as teamSumPointsQ4, "
+					+ " sum(opptPoints) as opptSumPoints, sum(opptAssists) as opptSumAssists, sum(opptTurnovers) as opptSumTurnovers,"
+					+ " sum(opptSteals) as opptSumSteals, sum(opptBlocks) as opptSumBlocks, sum(opptPersonalFouls) as opptSumPersonalFouls,"
+					+ " sum(opptFieldGoalAttempts) as opptSumFieldGoalAttempts, sum(opptFieldGoalMade) as opptSumFieldGoalMade,"
+					+ " sum(opptThreePointAttempts) as opptSumThreePointAttempts, sum(opptThreePointMade) as opptSumThreePointMade,"
+					+ " sum(opptFreeThrowAttempts) as opptSumFreeThrowAttempts, sum(opptFreeThrowMade) as opptSumFreeThrowMade,"
+					+ " sum(opptReboundsOffense) as opptSumReboundsOffense, sum(opptReboundsDefense) as opptSumReboundsDefense,"
+					+ " sum(opptPointsQ1) as opptSumPointsQ1, sum(opptPointsQ2) as opptSumPointsQ2,"
+					+ " sum(opptPointsQ3) as opptSumPointsQ3, sum(opptPointsQ4) as opptSumPointsQ4"
 					+ " from team_box_score"
 					+ " group by teamAbbr";
 	  

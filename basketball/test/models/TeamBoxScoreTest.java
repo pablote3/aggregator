@@ -4,26 +4,14 @@ import static org.fest.assertions.Assertions.assertThat;
 import static play.test.Helpers.fakeApplication;
 import static play.test.Helpers.running;
 
-
-
-//import java.text.ParseException;
-//import java.text.SimpleDateFormat;
-//import java.util.Date;
 import java.util.List;
-//import java.util.Locale;
-
-
 
 import org.junit.Test;
 
 import util.Enumerations.ProcessingType;
 import util.Enumerations.SeasonType;
 import util.Enumerations.TeamAbbr;
-
-//import com.avaje.ebean.Ebean;
-//import com.avaje.ebean.Query;
-//import com.avaje.ebean.RawSql;
-//import com.avaje.ebean.RawSqlBuilder;
+import util.Utilities;
 
 public class TeamBoxScoreTest {
 
@@ -114,6 +102,74 @@ public class TeamBoxScoreTest {
         	  assertThat(teamSummary.getTeamSumPointsQ2()).isEqualTo((short)2017);
         	  assertThat(teamSummary.getTeamSumPointsQ3()).isEqualTo((short)2069);
         	  assertThat(teamSummary.getTeamSumPointsQ4()).isEqualTo((short)2008);
+        	  assertThat(teamSummary.getOpptSumPoints()).isEqualTo((short)8479);
+        	  assertThat(teamSummary.getOpptSumAssists()).isEqualTo((short)1927);
+        	  assertThat(teamSummary.getOpptSumTurnovers()).isEqualTo((short)1084);
+        	  assertThat(teamSummary.getOpptSumSteals()).isEqualTo((short)637);
+        	  assertThat(teamSummary.getOpptSumBlocks()).isEqualTo((short)458);
+        	  assertThat(teamSummary.getOpptSumPersonalFouls()).isEqualTo((short)1897);
+        	  assertThat(teamSummary.getOpptSumFieldGoalAttempts()).isEqualTo((short)6734);
+        	  assertThat(teamSummary.getOpptSumFieldGoalMade()).isEqualTo((short)3103);
+        	  assertThat(teamSummary.getOpptSumThreePointAttempts()).isEqualTo((short)1833);
+        	  assertThat(teamSummary.getOpptSumThreePointMade()).isEqualTo((short)696);
+        	  assertThat(teamSummary.getOpptSumFreeThrowAttempts()).isEqualTo((short)2139);
+        	  assertThat(teamSummary.getOpptSumFreeThrowMade()).isEqualTo((short)1577);
+        	  assertThat(teamSummary.getOpptSumReboundsOffense()).isEqualTo((short)813);
+        	  assertThat(teamSummary.getOpptSumReboundsDefense()).isEqualTo((short)2568);
+        	  assertThat(teamSummary.getOpptSumPointsQ1()).isEqualTo((short)2147);
+        	  assertThat(teamSummary.getOpptSumPointsQ2()).isEqualTo((short)2173);
+        	  assertThat(teamSummary.getOpptSumPointsQ3()).isEqualTo((short)2006);
+        	  assertThat(teamSummary.getOpptSumPointsQ4()).isEqualTo((short)2092);
+          }
+        });
+    }
+    
+    @Test
+    public void avgTeamBoxScoreSeason() {
+        running(fakeApplication(), new Runnable() {
+          public void run() {
+        	  TeamSummary teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2013-10-29", "SAC", ProcessingType.online);
+        	  assertThat(teamSummary.getTeamAbbr()).isEqualTo(TeamAbbr.SAC);
+        	  assertThat(teamSummary.getTeamGamesPlayed()).isEqualTo((short)82);
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getTeamAvgPoints(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)100.5, 2));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getTeamAvgAssists(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)18.87, 2));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getTeamAvgTurnovers(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)14.67, 2));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getTeamAvgSteals(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)7.16, 2));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getTeamAvgBlocks(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)3.88, 2));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getTeamAvgPersonalFouls(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)22.55, 2));       	  
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getTeamAvgFieldGoalAttempts(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)82.50, 2));       	         	  
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getTeamAvgFieldGoalMade(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)36.90, 2));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getTeamAvgFieldGoalPct(), 3)).isEqualTo(Utilities.roundtoBigDecimal((float)0.447, 3));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getTeamAvgThreePointAttempts(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)17.99, 2));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getTeamAvgThreePointMade(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)5.99, 2));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getTeamAvgThreePointPct(), 3)).isEqualTo(Utilities.roundtoBigDecimal((float)0.333, 3));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getTeamAvgFreeThrowAttempts(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)27.28, 2));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getTeamAvgFreeThrowMade(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)20.71, 2));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getTeamAvgFreeThrowPct(), 3)).isEqualTo(Utilities.roundtoBigDecimal((float)0.759, 3));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getTeamAvgReboundsOffense(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)12.06, 2));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getTeamAvgReboundsDefense(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)32.39, 2));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getTeamAvgPointsQ1(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)25.26, 2));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getTeamAvgPointsQ2(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)24.60, 2));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getTeamAvgPointsQ3(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)25.23, 2));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getTeamAvgPointsQ4(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)24.49, 2));        	  
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getOpptAvgPoints(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)103.40, 2));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getOpptAvgAssists(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)23.50, 2));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getOpptAvgTurnovers(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)13.22, 2));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getOpptAvgSteals(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)7.77, 2));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getOpptAvgBlocks(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)5.59, 2));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getOpptAvgPersonalFouls(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)23.13, 2));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getOpptAvgFieldGoalAttempts(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)82.12, 2));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getOpptAvgFieldGoalMade(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)37.84, 2));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getOpptAvgThreePointAttempts(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)22.35, 2));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getOpptAvgThreePointMade(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)8.49, 2));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getOpptAvgFreeThrowAttempts(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)26.09, 2));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getOpptAvgFreeThrowMade(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)19.23, 2));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getOpptAvgReboundsOffense(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)9.91, 2));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getOpptAvgReboundsDefense(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)31.32, 2));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getOpptAvgPointsQ1(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)26.18, 2));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getOpptAvgPointsQ2(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)26.50, 2));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getOpptAvgPointsQ3(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)24.46, 2));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getOpptAvgPointsQ4(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)25.51, 2));
           }
         });
     }
