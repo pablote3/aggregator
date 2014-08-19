@@ -322,35 +322,28 @@ public class TeamSummary extends Model {
 	public Float getTeamAvgPoints() {
 		return (float)teamSumPoints/teamGamesPlayed;
 	}
-
 	public Float getTeamAvgAssists() {
 		return (float)teamSumAssists/teamGamesPlayed;
 	}
-	
 	public Float getTeamAvgTurnovers() {
 		return (float)teamSumTurnovers/teamGamesPlayed;
-	}
-	
+	}	
 	public Float getTeamAvgSteals() {
 		return (float)teamSumSteals/teamGamesPlayed;
-	}
-	
+	}	
 	public Float getTeamAvgBlocks() {
 		return (float)teamSumBlocks/teamGamesPlayed;
-	}
-	
+	}	
 	public Float getTeamAvgPersonalFouls() {
 		return (float)teamSumPersonalFouls/teamGamesPlayed;
 	}
 	
 	public Float getTeamAvgFieldGoalAttempts() {
 		return (float)teamSumFieldGoalAttempts/teamGamesPlayed;
-	}
-	
+	}	
 	public Float getTeamAvgFieldGoalMade() {
 		return (float)teamSumFieldGoalMade/teamGamesPlayed;
-	}
-	  
+	}	  
 	public Float getTeamAvgFieldGoalPct() {
 		return (float)teamSumFieldGoalMade/teamSumFieldGoalAttempts;
 	} 
@@ -358,11 +351,9 @@ public class TeamSummary extends Model {
 	public Float getTeamAvgThreePointAttempts() {
 		return (float)teamSumThreePointAttempts/teamGamesPlayed;
 	}
-
 	public Float getTeamAvgThreePointMade() {
 		return (float)teamSumThreePointMade/teamGamesPlayed;
-	}
-	
+	}	
 	public Float getTeamAvgThreePointPct() {
 		return (float)teamSumThreePointMade/teamSumThreePointAttempts;
 	} 
@@ -370,107 +361,98 @@ public class TeamSummary extends Model {
 	public Float getTeamAvgFreeThrowAttempts() {
 		return (float)teamSumFreeThrowAttempts/teamGamesPlayed;
 	}
-
 	public Float getTeamAvgFreeThrowMade() {
 		return (float)teamSumFreeThrowMade/teamGamesPlayed;
-	}
-	
+	}	
 	public Float getTeamAvgFreeThrowPct() {
 		return (float)teamSumFreeThrowMade/teamSumFreeThrowAttempts;
 	} 
 	
 	public Float getTeamAvgReboundsOffense() {
 		return (float)teamSumReboundsOffense/teamGamesPlayed;
-	}
-	
+	}	
 	public Float getTeamAvgReboundsDefense() {
 		return (float)teamSumReboundsDefense/teamGamesPlayed;
 	}
 	
 	public Float getTeamAvgPointsQ1() {
 		return (float)teamSumPointsQ1/teamGamesPlayed;
-	}
-	
+	}	
 	public Float getTeamAvgPointsQ2() {
 		return (float)teamSumPointsQ2/teamGamesPlayed;
-	}
-	
+	}	
 	public Float getTeamAvgPointsQ3() {
 		return (float)teamSumPointsQ3/teamGamesPlayed;
-	}
-	
+	}	
 	public Float getTeamAvgPointsQ4() {
 		return (float)teamSumPointsQ4/teamGamesPlayed;
-	}
-	
+	}	
+
 	public Float getOpptAvgPoints() {
 		return (float)opptSumPoints/teamGamesPlayed;
-	}
-	
+	}	
 	public Float getOpptAvgAssists() {
 		return (float)opptSumAssists/teamGamesPlayed;
 	}
-
 	public Float getOpptAvgTurnovers() {
 		return (float)opptSumTurnovers/teamGamesPlayed;
-	}
-	
+	}	
 	public Float getOpptAvgSteals() {
 		return (float)opptSumSteals/teamGamesPlayed;
-	}
-	
+	}	
 	public Float getOpptAvgBlocks() {
 		return (float)opptSumBlocks/teamGamesPlayed;
-	}
-	
+	}	
 	public Float getOpptAvgPersonalFouls() {
 		return (float)opptSumPersonalFouls/teamGamesPlayed;
 	}
 	
 	public Float getOpptAvgFieldGoalAttempts() {
 		return (float)opptSumFieldGoalAttempts/teamGamesPlayed;
-	}
-	
+	}	
 	public Float getOpptAvgFieldGoalMade() {
 		return (float)opptSumFieldGoalMade/teamGamesPlayed;
 	}
-
+	public Float getOpptAvgFieldGoalPct() {
+		return (float)opptSumFieldGoalMade/opptSumFieldGoalAttempts;
+	} 
+	
 	public Float getOpptAvgThreePointAttempts() {
 		return (float)opptSumThreePointAttempts/teamGamesPlayed;
 	}
-
 	public Float getOpptAvgThreePointMade() {
 		return (float)opptSumThreePointMade/teamGamesPlayed;
 	}
+	public Float getOpptAvgThreePointPct() {
+		return (float)opptSumThreePointMade/opptSumThreePointAttempts;
+	} 
 	
 	public Float getOpptAvgFreeThrowAttempts() {
 		return (float)opptSumFreeThrowAttempts/teamGamesPlayed;
 	}
-
 	public Float getOpptAvgFreeThrowMade() {
 		return (float)opptSumFreeThrowMade/teamGamesPlayed;
 	}
+	public Float getOpptAvgFreeThrowPct() {
+		return (float)opptSumFreeThrowMade/opptSumFreeThrowAttempts;
+	} 
 	
 	public Float getOpptAvgReboundsOffense() {
 		return (float)opptSumReboundsOffense/teamGamesPlayed;
-	}
-	
+	}	
 	public Float getOpptAvgReboundsDefense() {
 		return (float)opptSumReboundsDefense/teamGamesPlayed;
 	}
 
 	public Float getOpptAvgPointsQ1() {
 		return (float)opptSumPointsQ1/teamGamesPlayed;
-	}
-	
+	}	
 	public Float getOpptAvgPointsQ2() {
 		return (float)opptSumPointsQ2/teamGamesPlayed;
-	}
-	
+	}	
 	public Float getOpptAvgPointsQ3() {
 		return (float)opptSumPointsQ3/teamGamesPlayed;
-	}
-	
+	}	
 	public Float getOpptAvgPointsQ4() {
 		return (float)opptSumPointsQ4/teamGamesPlayed;
 	}

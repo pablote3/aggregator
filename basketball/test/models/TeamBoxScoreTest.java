@@ -160,10 +160,13 @@ public class TeamBoxScoreTest {
         	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getOpptAvgPersonalFouls(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)23.13, 2));
         	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getOpptAvgFieldGoalAttempts(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)82.12, 2));
         	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getOpptAvgFieldGoalMade(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)37.84, 2));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getOpptAvgFieldGoalPct(), 3)).isEqualTo(Utilities.roundtoBigDecimal((float)0.461, 3));
         	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getOpptAvgThreePointAttempts(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)22.35, 2));
         	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getOpptAvgThreePointMade(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)8.49, 2));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getOpptAvgThreePointPct(), 3)).isEqualTo(Utilities.roundtoBigDecimal((float)0.380, 3));
         	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getOpptAvgFreeThrowAttempts(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)26.09, 2));
         	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getOpptAvgFreeThrowMade(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)19.23, 2));
+        	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getOpptAvgFreeThrowPct(), 3)).isEqualTo(Utilities.roundtoBigDecimal((float)0.737, 3));
         	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getOpptAvgReboundsOffense(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)9.91, 2));
         	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getOpptAvgReboundsDefense(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)31.32, 2));
         	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getOpptAvgPointsQ1(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)26.18, 2));
