@@ -7,6 +7,7 @@ import javax.persistence.Enumerated;
 import com.avaje.ebean.annotation.Sql;
 
 import play.db.ebean.Model;
+import util.Utilities;
 import util.Enumerations.TeamAbbr;
 
 @Entity
@@ -141,6 +142,10 @@ public class TeamSummary extends Model {
 	}
 	public void setTeamSumReboundsDefense(Short teamSumReboundsDefense) {
 		this.teamSumReboundsDefense = teamSumReboundsDefense;
+	}
+	
+	public Short getTeamSumReboundsTotal() {
+		return (short)(teamSumReboundsOffense + teamSumReboundsDefense);
 	}
 	
 	private Short teamSumPointsQ1;
@@ -287,6 +292,10 @@ public class TeamSummary extends Model {
 		this.opptSumReboundsDefense = opptSumReboundsDefense;
 	}
 	
+	public Short getOpptSumReboundsTotal() {
+		return (short)(opptSumReboundsOffense + opptSumReboundsDefense);
+	}
+	
 	private Short opptSumPointsQ1;
 	public Short getOpptSumPointsQ1() {
 		return opptSumPointsQ1;
@@ -374,6 +383,9 @@ public class TeamSummary extends Model {
 	public Float getTeamAvgReboundsDefense() {
 		return (float)teamSumReboundsDefense/teamGamesPlayed;
 	}
+	public Float getTeamAvgReboundsTotal() {
+		return (float)(teamSumReboundsDefense + teamSumReboundsOffense)/teamGamesPlayed;
+	}
 	
 	public Float getTeamAvgPointsQ1() {
 		return (float)teamSumPointsQ1/teamGamesPlayed;
@@ -443,6 +455,9 @@ public class TeamSummary extends Model {
 	public Float getOpptAvgReboundsDefense() {
 		return (float)opptSumReboundsDefense/teamGamesPlayed;
 	}
+	public Float getOpptAvgReboundsTotal() {
+		return (float)(opptSumReboundsDefense + opptSumReboundsOffense)/teamGamesPlayed;
+	}
 
 	public Float getOpptAvgPointsQ1() {
 		return (float)opptSumPointsQ1/teamGamesPlayed;
@@ -455,5 +470,25 @@ public class TeamSummary extends Model {
 	}	
 	public Float getOpptAvgPointsQ4() {
 		return (float)opptSumPointsQ4/teamGamesPlayed;
+	}
+	
+	public String toString() {
+		return new StringBuffer()
+			.append("\r" + "Team: " + this.teamAbbr)
+			.append("  GP: " + this.teamGamesPlayed)
+			.append("  FGM: " + Utilities.roundtoBigDecimal(this.getTeamAvgFieldGoalMade(), 2))
+			.append("  FGA: " + Utilities.roundtoBigDecimal(this.getTeamAvgFieldGoalAttempts(), 2))
+			.append("  FG%: " + Utilities.roundtoBigDecimal(this.getTeamAvgFieldGoalPct(), 3))
+			.append("  3PM: " + Utilities.roundtoBigDecimal(this.getTeamAvgThreePointMade(), 2))
+			.append("  3PA: " + Utilities.roundtoBigDecimal(this.getTeamAvgThreePointAttempts(), 2))
+			.append("  3P%: " + Utilities.roundtoBigDecimal(this.getTeamAvgThreePointPct(),3))
+			.append("  FTM: " + Utilities.roundtoBigDecimal(this.getTeamAvgFreeThrowMade(), 2))
+			.append("  FTA: " + Utilities.roundtoBigDecimal(this.getTeamAvgFreeThrowAttempts(), 2))
+			.append("  FT%: " + Utilities.roundtoBigDecimal(this.getTeamAvgFreeThrowPct(),3))
+			.append("  OREB: " + Utilities.roundtoBigDecimal(this.getTeamAvgReboundsOffense(),2))
+			.append("  DREB: " + Utilities.roundtoBigDecimal(this.getTeamAvgReboundsDefense(),2))
+			.append("  REB: " + Utilities.roundtoBigDecimal(this.getTeamAvgReboundsTotal(),2))
+			.append("\n")
+			.toString();
 	}
 }
