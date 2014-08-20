@@ -16,9 +16,14 @@ public class Utilities {
 		}
 	}
 	
-	static public String padString(String text, int length)  {
+	public static String padRight(String text, int length)  {
 		return String.format("%1$-" + length + "s", text);
 	}
+	
+	public static String padLeft(String text, int length) {
+	    return String.format("%1$" + length + "s", text);  
+	}
+
 	
     public static BigDecimal roundtoBigDecimal(float d, int decimalPlace) {
     	//use to retain number of decimal places with ending zeros
