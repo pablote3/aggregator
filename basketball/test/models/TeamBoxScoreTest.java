@@ -4,8 +4,10 @@ import static org.fest.assertions.Assertions.assertThat;
 import static play.test.Helpers.fakeApplication;
 import static play.test.Helpers.running;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import util.Enumerations.ProcessingType;
@@ -177,7 +179,65 @@ public class TeamBoxScoreTest {
         	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getOpptAvgPointsQ2(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)26.50, 2));
         	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getOpptAvgPointsQ3(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)24.46, 2));
         	  assertThat(Utilities.roundtoBigDecimal(teamSummary.getOpptAvgPointsQ4(), 2)).isEqualTo(Utilities.roundtoBigDecimal((float)25.51, 2));
-        	  System.out.println(teamSummary.toString());
+        	  System.out.println(teamSummary.toStringHeader());
+        	  System.out.println(teamSummary.toString_TeamAverages());
+        	  System.out.println(teamSummary.toString_OpptAverages());
+          }
+        });
+    }
+    
+    @Ignore
+    @Test
+    public void reportTeamBoxScores() {
+        running(fakeApplication(), new Runnable() {
+          public void run() {
+        	  ArrayList<String> teams = Utilities.teamList();
+        	  
+        	  for (int i = 0; i < teams.size(); i++) {
+        		  TeamSummary teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2013-10-29", teams.get(i), ProcessingType.online);
+        		  if (i == 0) {
+        			  System.out.println("\r" + "2013-2014 Team Totals");
+        			  System.out.println(teamSummary.toStringHeader());
+        		  }
+            	  System.out.println(teamSummary.toString_TeamTotals());
+        	  }       
+        	  
+        	  for (int i = 0; i < teams.size(); i++) {
+        		  TeamSummary teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2013-10-29", teams.get(i), ProcessingType.online);
+        		  if (i == 0) {
+        			  System.out.println("\r" + "2013-2014 Team Averages");
+        			  System.out.println(teamSummary.toStringHeader());
+        		  }
+            	  System.out.println(teamSummary.toString_TeamAverages());
+        	  } 
+          }
+        });
+    }
+    
+    @Ignore
+    @Test
+    public void reportOpptBoxScores() {
+        running(fakeApplication(), new Runnable() {
+          public void run() {
+        	  ArrayList<String> teams = Utilities.teamList();
+        	  
+        	  for (int i = 0; i < teams.size(); i++) {
+        		  TeamSummary teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2013-10-29", teams.get(i), ProcessingType.online);
+        		  if (i == 0) {
+        			  System.out.println("\r" + "2013-2014 Oppt Totals");
+        			  System.out.println(teamSummary.toStringHeader());
+        		  }
+            	  System.out.println(teamSummary.toString_OpptTotals());
+        	  }       
+        	  
+        	  for (int i = 0; i < teams.size(); i++) {
+        		  TeamSummary teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2013-10-29", teams.get(i), ProcessingType.online);
+        		  if (i == 0) {
+        			  System.out.println("\r" + "2013-2014 Oppt Averages");
+        			  System.out.println(teamSummary.toStringHeader());
+        		  }
+            	  System.out.println(teamSummary.toString_OpptAverages());
+        	  } 
           }
         });
     }
