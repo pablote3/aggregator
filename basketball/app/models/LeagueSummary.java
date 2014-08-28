@@ -14,9 +14,16 @@ public class LeagueSummary extends Model {
 	
 	private Integer teamGamesPlayed;
 	public Integer getTeamGamesPlayed() {
-		return teamGamesPlayed;
+		return teamGamesPlayed / 30;
 	}
 	public void setGamesPlayed(Integer teamGamesPlayed) {
+		this.teamGamesPlayed = teamGamesPlayed;
+	}
+	
+	public Integer getSumGamesPlayed() {
+		return teamGamesPlayed;
+	}
+	public void setSumGamesPlayed(Integer teamGamesPlayed) {
 		this.teamGamesPlayed = teamGamesPlayed;
 	}
 
@@ -461,7 +468,7 @@ public class LeagueSummary extends Model {
 	}
 	
 	public String toStringHeader() {
-		return "Team  GP   FGM    FGA    FG%   3PM    3PA    3P%    FTM    FTA    PF     FT%   OREB   DREB    REB    AST   STL   BLK    PTS";
+		return "Team  GP   FGM    FGA    FG%   3PM    3PA    3P%    FTM    FTA   FT%   TOV   PF   OREB   DREB    REB    AST   STL   BLK    PTS";
 	}
 	
 	public String toString_TeamTotals() {
@@ -476,8 +483,9 @@ public class LeagueSummary extends Model {
 			.append("   " + Utilities.roundtoBigDecimal(this.getTeamAvgThreePointPct(),3))
 			.append("  " + this.getTeamSumFreeThrowMade())
 			.append("   " + this.getTeamSumFreeThrowAttempts())
-			.append("   " + this.getTeamSumPersonalFouls())
 			.append("   " + Utilities.roundtoBigDecimal(this.getTeamAvgFreeThrowPct(),3))
+			.append("  " + this.getTeamSumTurnovers())
+			.append("   " + this.getTeamSumPersonalFouls())
 			.append("  " + Utilities.padLeft(this.getTeamSumReboundsOffense().toString(), 4))
 			.append("   " + this.getTeamSumReboundsDefense())
 			.append("   " + this.getTeamSumReboundsTotal())
@@ -500,8 +508,9 @@ public class LeagueSummary extends Model {
 			.append("   " + Utilities.roundtoBigDecimal(this.getOpptAvgThreePointPct(),3))
 			.append("  " + this.getOpptSumFreeThrowMade())
 			.append("   " + this.getOpptSumFreeThrowAttempts())
-			.append("   " + this.getOpptSumPersonalFouls())
 			.append("   " + Utilities.roundtoBigDecimal(this.getOpptAvgFreeThrowPct(),3))
+			.append("  " + this.getOpptSumTurnovers())
+			.append("   " + this.getOpptSumPersonalFouls())
 			.append("  " + Utilities.padLeft(this.getOpptSumReboundsOffense().toString(), 4))
 			.append("   " + this.getOpptSumReboundsDefense())
 			.append("   " + this.getOpptSumReboundsTotal())
@@ -523,6 +532,7 @@ public class LeagueSummary extends Model {
 			.append("  " + Utilities.roundtoBigDecimal(this.getTeamAvgThreePointAttempts(), 2))
 			.append("  " + Utilities.roundtoBigDecimal(this.getTeamAvgThreePointPct(),3))
 			.append("  " + Utilities.roundtoBigDecimal(this.getTeamAvgFreeThrowMade(), 2))
+			.append("  " + this.getTeamAvgTurnovers())
 			.append("  " + Utilities.roundtoBigDecimal(this.getTeamAvgFreeThrowAttempts(), 2))
 			.append("  " + Utilities.roundtoBigDecimal(this.getTeamAvgPersonalFouls(),2))
 			.append("  " + Utilities.roundtoBigDecimal(this.getTeamAvgFreeThrowPct(),3))
@@ -548,6 +558,7 @@ public class LeagueSummary extends Model {
 			.append("  " + Utilities.roundtoBigDecimal(this.getOpptAvgThreePointPct(),3))
 			.append("  " + Utilities.roundtoBigDecimal(this.getOpptAvgFreeThrowMade(), 2))
 			.append("  " + Utilities.roundtoBigDecimal(this.getOpptAvgFreeThrowAttempts(), 2))
+			.append("  " + this.getOpptAvgTurnovers())
 			.append("  " + Utilities.roundtoBigDecimal(this.getOpptAvgPersonalFouls(),2))
 			.append("  " + Utilities.roundtoBigDecimal(this.getOpptAvgFreeThrowPct(),3))
 			.append("  " + Utilities.padLeft(Utilities.roundtoBigDecimal(this.getOpptAvgReboundsOffense(),2).toPlainString(), 5))
