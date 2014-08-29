@@ -295,24 +295,31 @@ public class TeamBoxScoreTest {
         running(fakeApplication(), new Runnable() {
           public void run() {
         	  ArrayList<String> teams = Utilities.teamList();
+        	  LeagueSummary leagueSummary = TeamBoxScore.sumLeagueBoxScoreFromDateMaxDate("2013-10-29", ProcessingType.online);
+        	  TeamSummary teamSummary = null;
         	  
         	  for (int i = 0; i < teams.size(); i++) {
-        		  TeamSummary teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2013-10-29", teams.get(i), ProcessingType.online);
+        		  teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2013-10-29", teams.get(i), ProcessingType.online);
         		  if (i == 0) {
+        			  System.out.println("\r" + Utilities.padLeft("Basic Statistics", 70));
         			  System.out.println("\r" + "2013-2014 Team Totals");
         			  System.out.println(teamSummary.toStringHeader());
         		  }
             	  System.out.println(teamSummary.toString_TeamTotals());
-        	  }       
+        	  }        	  
+        	  System.out.println(leagueSummary.toString_TeamTotals());
         	  
         	  for (int i = 0; i < teams.size(); i++) {
-        		  TeamSummary teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2013-10-29", teams.get(i), ProcessingType.online);
+        		  teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2013-10-29", teams.get(i), ProcessingType.online);
         		  if (i == 0) {
         			  System.out.println("\r" + "2013-2014 Team Averages");
         			  System.out.println(teamSummary.toStringHeader());
         		  }
             	  System.out.println(teamSummary.toString_TeamAverages());
-        	  } 
+        	  }
+        	  System.out.println(leagueSummary.toString_TeamAverages());
+        	  
+        	  System.out.println(teamSummary.toStringFooter());
           }
         });
     }
@@ -323,24 +330,31 @@ public class TeamBoxScoreTest {
         running(fakeApplication(), new Runnable() {
           public void run() {
         	  ArrayList<String> teams = Utilities.teamList();
+        	  LeagueSummary leagueSummary = TeamBoxScore.sumLeagueBoxScoreFromDateMaxDate("2013-10-29", ProcessingType.online);
+        	  TeamSummary teamSummary = null;
         	  
         	  for (int i = 0; i < teams.size(); i++) {
-        		  TeamSummary teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2013-10-29", teams.get(i), ProcessingType.online);
+        		  teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2013-10-29", teams.get(i), ProcessingType.online);
         		  if (i == 0) {
-        			  System.out.println("\r" + "2013-2014 Oppt Totals");
+        			  System.out.println("\r" + Utilities.padLeft("Basic Statistics", 70));
+        			  System.out.println("2013-2014 Oppt Totals");
         			  System.out.println(teamSummary.toStringHeader());
         		  }
             	  System.out.println(teamSummary.toString_OpptTotals());
-        	  }       
+        	  }
+        	  System.out.println(leagueSummary.toString_OpptTotals());
         	  
         	  for (int i = 0; i < teams.size(); i++) {
-        		  TeamSummary teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2013-10-29", teams.get(i), ProcessingType.online);
+        		  teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2013-10-29", teams.get(i), ProcessingType.online);
         		  if (i == 0) {
         			  System.out.println("\r" + "2013-2014 Oppt Averages");
         			  System.out.println(teamSummary.toStringHeader());
         		  }
             	  System.out.println(teamSummary.toString_OpptAverages());
         	  } 
+        	  System.out.println(leagueSummary.toString_OpptAverages());
+        	  
+        	  System.out.println(teamSummary.toStringFooter());
           }
         });
     }

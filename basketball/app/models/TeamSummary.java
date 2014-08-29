@@ -473,7 +473,23 @@ public class TeamSummary extends Model {
 	}
 	
 	public String toStringHeader() {
-		return "Team  GP   FGM    FGA    FG%   3PM    3PA    3P%    FTM    FTA    FT%    TOV    PF    OREB   DREB    REB    AST   STL   BLK    PTS";
+		return "Team  GP   FGM    FGA    FG%    3PM    3PA    3P%    FTM    FTA    FT%    TOV    PF    OREB   DREB    REB    AST   STL   BLK    PTS";
+	}
+	
+	public String toStringFooter() {
+		return new StringBuffer()
+			.append("\r" + "Stats Legend")
+			.append("\r  " + Utilities.padRight("GP: Games Played", 45) + "TOV: Turnovers")
+			.append("\r  " + Utilities.padRight("FGM: Field Goals Made", 45) + "PF: Personal Fouls")
+			.append("\r  " + Utilities.padRight("FGA: Field Goals Attempts", 45) + "OREB: Offensive Rebounds")
+			.append("\r  " + Utilities.padRight("FG%: Field Goal Percentage", 45) + "DREB: Defensive Rebounds")
+			.append("\r  " + Utilities.padRight("3PM: Three-Point Field Goals Made", 45) + "REB: Total Rebounds")
+			.append("\r  " + Utilities.padRight("3PA: Three-Point Field Goals Attempts", 45) + "AST: Assists")
+			.append("\r  " + Utilities.padRight("3P%: Three-Point Field Goal Percentage", 45) + "STL: Steals")
+			.append("\r  " + Utilities.padRight("FTM: Free Throws Made", 45) + "BLK: Blocks")
+			.append("\r  " + Utilities.padRight("FTM: Free Throws Attempts", 45) + "PTS: Points")
+			.append("\r  " + "FTM: Free Throw Percentage")
+			.toString();
 	}
 	
 	public String toString_TeamTotals() {
@@ -483,7 +499,7 @@ public class TeamSummary extends Model {
 			.append("  " + Utilities.padLeft(this.getTeamSumFieldGoalMade().toString(), 4))
 			.append("   " + Utilities.padLeft(this.getTeamSumFieldGoalAttempts().toString(), 4))
 			.append("   " + Utilities.roundtoBigDecimal(this.getTeamAvgFieldGoalPct(), 3))
-			.append("  " + this.getTeamSumThreePointMade())
+			.append("   " + this.getTeamSumThreePointMade())
 			.append("   " + this.getTeamSumThreePointAttempts())
 			.append("   " + Utilities.roundtoBigDecimal(this.getTeamAvgThreePointPct(),3))
 			.append("  " + this.getTeamSumFreeThrowMade())
@@ -508,7 +524,7 @@ public class TeamSummary extends Model {
 			.append("  " + Utilities.padLeft(this.getOpptSumFieldGoalMade().toString(), 4))
 			.append("   " + Utilities.padLeft(this.getOpptSumFieldGoalAttempts().toString(), 4))
 			.append("   " + Utilities.roundtoBigDecimal(this.getOpptAvgFieldGoalPct(), 3))
-			.append("  " + this.getOpptSumThreePointMade())
+			.append("   " + this.getOpptSumThreePointMade())
 			.append("   " + this.getOpptSumThreePointAttempts())
 			.append("   " + Utilities.roundtoBigDecimal(this.getOpptAvgThreePointPct(),3))
 			.append("  " + this.getOpptSumFreeThrowMade())
