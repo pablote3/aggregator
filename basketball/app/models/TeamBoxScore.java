@@ -758,13 +758,13 @@ public class TeamBoxScore extends Model {
 		return teamSummary;
 	}
 	
-	public static LeagueSummary sumLeagueBoxScoreFromDateMaxDate(String fromDate, ProcessingType processingType) {
-	  	Query<LeagueSummary> query;
+	public static TeamSummary sumLeagueBoxScoreFromDateMaxDate(String fromDate, ProcessingType processingType) {
+	  	Query<TeamSummary> query;
 	  	if (processingType.equals(ProcessingType.batch))
 	  		//query = ebeanServer.find(LeagueSummary.class);
 	  		query = null;
 	  	else
-	  		query = Ebean.find(LeagueSummary.class);
+	  		query = Ebean.find(TeamSummary.class);
 	  	
 	  	LocalDate maxDate = DateTimeUtil.getDateMaxSeason(DateTimeUtil.createDateFromStringDate(fromDate));
 	  	
@@ -796,8 +796,8 @@ public class TeamBoxScore extends Model {
 				  
 	  	query.where().between("gameDate", fromDate, maxDate);
 		
-	    LeagueSummary leagueSummary = query.findUnique();
-		return leagueSummary;
+	    TeamSummary teamSummary = query.findUnique();
+		return teamSummary;
 	}
 	
 	public String toString() {
