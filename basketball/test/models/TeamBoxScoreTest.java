@@ -134,7 +134,7 @@ public class TeamBoxScoreTest {
         running(fakeApplication(), new Runnable() {
           public void run() {
         	  TeamSummary leagueSummary = TeamBoxScore.sumLeagueBoxScoreFromDateMaxDate("2013-10-29", ProcessingType.online);
-        	  assertThat(leagueSummary.getSumGamesPlayed()).isEqualTo((int)2456);
+        	  assertThat(leagueSummary.getTeamGamesPlayed()).isEqualTo((int)2456);
         	  assertThat(leagueSummary.getTeamSumPoints()).isEqualTo((int)248084);
         	  assertThat(leagueSummary.getTeamSumAssists()).isEqualTo((int)54054);
         	  assertThat(leagueSummary.getTeamSumTurnovers()).isEqualTo((int)34507);
