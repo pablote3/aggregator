@@ -26,18 +26,22 @@ public class Utilities {
 	}
 
 	
-    public static BigDecimal roundtoBigDecimal(float d, int decimalPlace) {
+    public static BigDecimal roundToBigDecimal(float d, int scale) {
     	//use to retain number of decimal places with ending zeros
         BigDecimal bd = new BigDecimal(Float.toString(d));
-        bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
+        bd = bd.setScale(scale, BigDecimal.ROUND_HALF_UP);
         return bd;
     }
     
-    public static float roundtoFloat(float d, int decimalPlace) {
+    public static float roundToFloat(float d, int scale) {
     	//use to retain number of decimal places with ending zeros
         BigDecimal bd = new BigDecimal(Float.toString(d));
-        bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
+        bd = bd.setScale(scale, BigDecimal.ROUND_HALF_UP);
         return bd.floatValue();
+    }
+    
+    public static BigDecimal getAverage(int int1, int int2, int scale) {
+    	return roundToBigDecimal(((float)int1/int2), scale);
     }
     
     public static ArrayList<String> teamList() {

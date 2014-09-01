@@ -1,5 +1,7 @@
 package models;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -100,51 +102,51 @@ public class TeamSummary extends Model {
 	public Integer getOpptSumPointsQ3() { return opptSumPointsQ3; }
 	public Integer getOpptSumPointsQ4() { return opptSumPointsQ4; }
 	
-	public Float getTeamAvgPoints() { return (float)teamSumPoints/teamGamesPlayed; }
-	public Float getTeamAvgAssists() { return (float)teamSumAssists/teamGamesPlayed; }
-	public Float getTeamAvgTurnovers() { return (float)teamSumTurnovers/teamGamesPlayed; }	
-	public Float getTeamAvgSteals() { return (float)teamSumSteals/teamGamesPlayed; }	
-	public Float getTeamAvgBlocks() { return (float)teamSumBlocks/teamGamesPlayed; }	
-	public Float getTeamAvgPersonalFouls() { return (float)teamSumPersonalFouls/teamGamesPlayed; }	
-	public Float getTeamAvgFieldGoalAttempts() { return (float)teamSumFieldGoalAttempts/teamGamesPlayed; }	
-	public Float getTeamAvgFieldGoalMade() { return (float)teamSumFieldGoalMade/teamGamesPlayed; }	  
-	public Float getTeamAvgFieldGoalPct() { return (float)teamSumFieldGoalMade/teamSumFieldGoalAttempts; } 
-	public Float getTeamAvgThreePointAttempts() { return (float)teamSumThreePointAttempts/teamGamesPlayed; }
-	public Float getTeamAvgThreePointMade() { return (float)teamSumThreePointMade/teamGamesPlayed; }	
-	public Float getTeamAvgThreePointPct() { return (float)teamSumThreePointMade/teamSumThreePointAttempts; } 	
-	public Float getTeamAvgFreeThrowAttempts() { return (float)teamSumFreeThrowAttempts/teamGamesPlayed; }
-	public Float getTeamAvgFreeThrowMade() { return (float)teamSumFreeThrowMade/teamGamesPlayed; }	
-	public Float getTeamAvgFreeThrowPct() { return (float)teamSumFreeThrowMade/teamSumFreeThrowAttempts; } 	
-	public Float getTeamAvgReboundsOffense() { return (float)teamSumReboundsOffense/teamGamesPlayed; }	
-	public Float getTeamAvgReboundsDefense() { return (float)teamSumReboundsDefense/teamGamesPlayed; }
-	public Float getTeamAvgReboundsTotal() { return (float)(teamSumReboundsDefense + teamSumReboundsOffense)/teamGamesPlayed; }	
-	public Float getTeamAvgPointsQ1() { return (float)teamSumPointsQ1/teamGamesPlayed; }	
-	public Float getTeamAvgPointsQ2() { return (float)teamSumPointsQ2/teamGamesPlayed; }	
-	public Float getTeamAvgPointsQ3() { return (float)teamSumPointsQ3/teamGamesPlayed; }	
-	public Float getTeamAvgPointsQ4() { return (float)teamSumPointsQ4/teamGamesPlayed; }	
+	public BigDecimal getTeamAvgPoints() { return Utilities.getAverage(teamSumPoints, teamGamesPlayed, 2); }
+	public BigDecimal getTeamAvgAssists() { return Utilities.getAverage(teamSumAssists, teamGamesPlayed, 2); }
+	public BigDecimal getTeamAvgTurnovers() { return Utilities.getAverage(teamSumTurnovers, teamGamesPlayed, 2); }	
+	public BigDecimal getTeamAvgSteals() { return Utilities.getAverage(teamSumSteals, teamGamesPlayed, 2); }	
+	public BigDecimal getTeamAvgBlocks() { return Utilities.getAverage(teamSumBlocks, teamGamesPlayed, 2); }	
+	public BigDecimal getTeamAvgPersonalFouls() { return Utilities.getAverage(teamSumPersonalFouls, teamGamesPlayed, 2); }	
+	public BigDecimal getTeamAvgFieldGoalAttempts() { return Utilities.getAverage(teamSumFieldGoalAttempts, teamGamesPlayed, 2); }	
+	public BigDecimal getTeamAvgFieldGoalMade() { return Utilities.getAverage(teamSumFieldGoalMade, teamGamesPlayed, 2); }	  
+	public BigDecimal getTeamAvgFieldGoalPct() { return Utilities.getAverage(teamSumFieldGoalMade, teamSumFieldGoalAttempts, 3); } 
+	public BigDecimal getTeamAvgThreePointAttempts() { return Utilities.getAverage(teamSumThreePointAttempts, teamGamesPlayed, 2); }
+	public BigDecimal getTeamAvgThreePointMade() { return Utilities.getAverage(teamSumThreePointMade, teamGamesPlayed, 2); }	
+	public BigDecimal getTeamAvgThreePointPct() { return Utilities.getAverage(teamSumThreePointMade, teamSumThreePointAttempts, 3); } 	
+	public BigDecimal getTeamAvgFreeThrowAttempts() { return Utilities.getAverage(teamSumFreeThrowAttempts, teamGamesPlayed, 2); }
+	public BigDecimal getTeamAvgFreeThrowMade() { return Utilities.getAverage(teamSumFreeThrowMade, teamGamesPlayed, 2); }	
+	public BigDecimal getTeamAvgFreeThrowPct() { return Utilities.getAverage(teamSumFreeThrowMade, teamSumFreeThrowAttempts, 3); } 	
+	public BigDecimal getTeamAvgReboundsOffense() { return Utilities.getAverage(teamSumReboundsOffense, teamGamesPlayed, 2); }	
+	public BigDecimal getTeamAvgReboundsDefense() { return Utilities.getAverage(teamSumReboundsDefense, teamGamesPlayed, 2); }
+	public BigDecimal getTeamAvgReboundsTotal() { return Utilities.getAverage((teamSumReboundsDefense + teamSumReboundsOffense), teamGamesPlayed, 2); }	
+	public BigDecimal getTeamAvgPointsQ1() { return Utilities.getAverage(teamSumPointsQ1, teamGamesPlayed, 2); }	
+	public BigDecimal getTeamAvgPointsQ2() { return Utilities.getAverage(teamSumPointsQ2, teamGamesPlayed, 2); }	
+	public BigDecimal getTeamAvgPointsQ3() { return Utilities.getAverage(teamSumPointsQ3, teamGamesPlayed, 2); }	
+	public BigDecimal getTeamAvgPointsQ4() { return Utilities.getAverage(teamSumPointsQ4, teamGamesPlayed, 2); }	
 
-	public Float getOpptAvgPoints() { return (float)opptSumPoints/teamGamesPlayed; }	
-	public Float getOpptAvgAssists() { return (float)opptSumAssists/teamGamesPlayed; }
-	public Float getOpptAvgTurnovers() { return (float)opptSumTurnovers/teamGamesPlayed; }	
-	public Float getOpptAvgSteals() { return (float)opptSumSteals/teamGamesPlayed; }	
-	public Float getOpptAvgBlocks() { return (float)opptSumBlocks/teamGamesPlayed; }	
-	public Float getOpptAvgPersonalFouls() { return (float)opptSumPersonalFouls/teamGamesPlayed; }	
-	public Float getOpptAvgFieldGoalAttempts() { return (float)opptSumFieldGoalAttempts/teamGamesPlayed; }	
-	public Float getOpptAvgFieldGoalMade() { return (float)opptSumFieldGoalMade/teamGamesPlayed; }
-	public Float getOpptAvgFieldGoalPct() { return (float)opptSumFieldGoalMade/opptSumFieldGoalAttempts; } 	
-	public Float getOpptAvgThreePointAttempts() { return (float)opptSumThreePointAttempts/teamGamesPlayed; }
-	public Float getOpptAvgThreePointMade() { return (float)opptSumThreePointMade/teamGamesPlayed; }
-	public Float getOpptAvgThreePointPct() { return (float)opptSumThreePointMade/opptSumThreePointAttempts; } 	
-	public Float getOpptAvgFreeThrowAttempts() { return (float)opptSumFreeThrowAttempts/teamGamesPlayed; }
-	public Float getOpptAvgFreeThrowMade() { return (float)opptSumFreeThrowMade/teamGamesPlayed; }
-	public Float getOpptAvgFreeThrowPct() { return (float)opptSumFreeThrowMade/opptSumFreeThrowAttempts; } 	
-	public Float getOpptAvgReboundsOffense() { return (float)opptSumReboundsOffense/teamGamesPlayed; }	
-	public Float getOpptAvgReboundsDefense() { return (float)opptSumReboundsDefense/teamGamesPlayed; }
-	public Float getOpptAvgReboundsTotal() { return (float)(opptSumReboundsDefense + opptSumReboundsOffense)/teamGamesPlayed; }
-	public Float getOpptAvgPointsQ1() { return (float)opptSumPointsQ1/teamGamesPlayed; }	
-	public Float getOpptAvgPointsQ2() { return (float)opptSumPointsQ2/teamGamesPlayed; }	
-	public Float getOpptAvgPointsQ3() { return (float)opptSumPointsQ3/teamGamesPlayed; }	
-	public Float getOpptAvgPointsQ4() { return (float)opptSumPointsQ4/teamGamesPlayed; }
+	public BigDecimal getOpptAvgPoints() { return Utilities.getAverage(opptSumPoints, teamGamesPlayed, 2); }	
+	public BigDecimal getOpptAvgAssists() { return Utilities.getAverage(opptSumAssists, teamGamesPlayed, 2); }
+	public BigDecimal getOpptAvgTurnovers() { return Utilities.getAverage(opptSumTurnovers, teamGamesPlayed, 2); }	
+	public BigDecimal getOpptAvgSteals() { return Utilities.getAverage(opptSumSteals, teamGamesPlayed, 2); }	
+	public BigDecimal getOpptAvgBlocks() { return Utilities.getAverage(opptSumBlocks, teamGamesPlayed, 2); }	
+	public BigDecimal getOpptAvgPersonalFouls() { return Utilities.getAverage(opptSumPersonalFouls, teamGamesPlayed, 2); }	
+	public BigDecimal getOpptAvgFieldGoalAttempts() { return Utilities.getAverage(opptSumFieldGoalAttempts, teamGamesPlayed, 2); }	
+	public BigDecimal getOpptAvgFieldGoalMade() { return Utilities.getAverage(opptSumFieldGoalMade, teamGamesPlayed, 2); }
+	public BigDecimal getOpptAvgFieldGoalPct() { return Utilities.getAverage(opptSumFieldGoalMade, opptSumFieldGoalAttempts, 3); } 	
+	public BigDecimal getOpptAvgThreePointAttempts() { return Utilities.getAverage(opptSumThreePointAttempts, teamGamesPlayed, 2); }
+	public BigDecimal getOpptAvgThreePointMade() { return Utilities.getAverage(opptSumThreePointMade, teamGamesPlayed, 2); }
+	public BigDecimal getOpptAvgThreePointPct() { return Utilities.getAverage(opptSumThreePointMade, opptSumThreePointAttempts, 3); } 	
+	public BigDecimal getOpptAvgFreeThrowAttempts() { return Utilities.getAverage(opptSumFreeThrowAttempts, teamGamesPlayed, 2); }
+	public BigDecimal getOpptAvgFreeThrowMade() { return Utilities.getAverage(opptSumFreeThrowMade, teamGamesPlayed, 2); }
+	public BigDecimal getOpptAvgFreeThrowPct() { return Utilities.getAverage(opptSumFreeThrowMade, opptSumFreeThrowAttempts, 3); } 	
+	public BigDecimal getOpptAvgReboundsOffense() { return Utilities.getAverage(opptSumReboundsOffense, teamGamesPlayed, 2); }	
+	public BigDecimal getOpptAvgReboundsDefense() { return Utilities.getAverage(opptSumReboundsDefense, teamGamesPlayed, 2); }
+	public BigDecimal getOpptAvgReboundsTotal() { return Utilities.getAverage((opptSumReboundsDefense + opptSumReboundsOffense), teamGamesPlayed, 2); }
+	public BigDecimal getOpptAvgPointsQ1() { return Utilities.getAverage(opptSumPointsQ1, teamGamesPlayed, 2); }	
+	public BigDecimal getOpptAvgPointsQ2() { return Utilities.getAverage(opptSumPointsQ2, teamGamesPlayed, 2); }	
+	public BigDecimal getOpptAvgPointsQ3() { return Utilities.getAverage(opptSumPointsQ3, teamGamesPlayed, 2); }	
+	public BigDecimal getOpptAvgPointsQ4() { return Utilities.getAverage(opptSumPointsQ4, teamGamesPlayed, 2); }
 	
 	public String toStringHeader() {
 		return "Team  GP    FGM    FGA    FG%    3PM    3PA    3P%     FTM    FTA    FT%     TOV    PF    OREB   DREB    REB    AST   STL   BLK    PTS";
@@ -172,13 +174,13 @@ public class TeamSummary extends Model {
 			.append("  " + this.teamGamesPlayed)
 			.append("  " + Utilities.padLeft(this.getTeamSumFieldGoalMade().toString(), 5))
 			.append(" " + Utilities.padLeft(this.getTeamSumFieldGoalAttempts().toString(), 6))
-			.append("   " + Utilities.roundtoBigDecimal(this.getTeamAvgFieldGoalPct(), 3))
+			.append("   " + this.getTeamAvgFieldGoalPct())
 			.append(" " + Utilities.padLeft(this.getTeamSumThreePointMade().toString(), 5))
 			.append("  " + Utilities.padLeft(this.getTeamSumThreePointAttempts().toString(), 5))
-			.append("   " + Utilities.roundtoBigDecimal(this.getTeamAvgThreePointPct(),3))
+			.append("   " + this.getTeamAvgThreePointPct())
 			.append("  " + Utilities.padLeft(this.getTeamSumFreeThrowMade().toString(), 5))
 			.append("  " + Utilities.padLeft(this.getTeamSumFreeThrowAttempts().toString(), 5))
-			.append("   " + Utilities.roundtoBigDecimal(this.getTeamAvgFreeThrowPct(),3))
+			.append("   " + this.getTeamAvgFreeThrowPct())
 			.append("  " + Utilities.padLeft(this.getTeamSumTurnovers().toString(), 5))
 			.append("  " + Utilities.padLeft(this.getTeamSumPersonalFouls().toString(), 5))
 			.append("  " + Utilities.padLeft(this.getTeamSumReboundsOffense().toString(), 5))
@@ -197,13 +199,13 @@ public class TeamSummary extends Model {
 			.append("  " + this.teamGamesPlayed)
 			.append("  " + Utilities.padLeft(this.getOpptSumFieldGoalMade().toString(), 5))
 			.append(" " + Utilities.padLeft(this.getOpptSumFieldGoalAttempts().toString(), 6))
-			.append("   " + Utilities.roundtoBigDecimal(this.getOpptAvgFieldGoalPct(), 3))
+			.append("   " + this.getOpptAvgFieldGoalPct())
 			.append(" " + Utilities.padLeft(this.getOpptSumThreePointMade().toString(), 5))
 			.append("  " + Utilities.padLeft(this.getOpptSumThreePointAttempts().toString(), 5))
-			.append("   " + Utilities.roundtoBigDecimal(this.getOpptAvgThreePointPct(),3))
+			.append("   " + this.getOpptAvgThreePointPct())
 			.append("  " + Utilities.padLeft(this.getOpptSumFreeThrowMade().toString(), 5))
 			.append("  " + Utilities.padLeft(this.getOpptSumFreeThrowAttempts().toString(), 5))
-			.append("   " + Utilities.roundtoBigDecimal(this.getOpptAvgFreeThrowPct(),3))
+			.append("   " + this.getOpptAvgFreeThrowPct())
 			.append("  " + Utilities.padLeft(this.getOpptSumTurnovers().toString(), 5))
 			.append("  " + Utilities.padLeft(this.getOpptSumPersonalFouls().toString(), 5))
 			.append("  " + Utilities.padLeft(this.getOpptSumReboundsOffense().toString(), 5))
@@ -219,50 +221,50 @@ public class TeamSummary extends Model {
 	public String toString_TeamAverages() {
 		return new StringBuffer()
 			.append(this.getTeamAbbr() != null ? Utilities.padRight(this.teamAbbr.toString(), 4): Utilities.padRight("", 2))
-			.append("  " + this.teamGamesPlayed)
-			.append("  " + Utilities.roundtoBigDecimal(this.getTeamAvgFieldGoalMade(), 2))
-			.append("  " + Utilities.roundtoBigDecimal(this.getTeamAvgFieldGoalAttempts(), 2))
-			.append("   " + Utilities.roundtoBigDecimal(this.getTeamAvgFieldGoalPct(), 3))
-			.append("  " + Utilities.roundtoBigDecimal(this.getTeamAvgThreePointMade(), 2))
-			.append("  " + Utilities.roundtoBigDecimal(this.getTeamAvgThreePointAttempts(), 2))
-			.append("   " + Utilities.roundtoBigDecimal(this.getTeamAvgThreePointPct(),3))
-			.append("  " + Utilities.roundtoBigDecimal(this.getTeamAvgFreeThrowMade(), 2))
-			.append("  " + Utilities.roundtoBigDecimal(this.getTeamAvgFreeThrowAttempts(), 2))
-			.append("   " + Utilities.roundtoBigDecimal(this.getTeamAvgFreeThrowPct(),3))
-			.append("  " + Utilities.roundtoBigDecimal(this.getTeamAvgTurnovers(), 2))
-			.append("  " + Utilities.roundtoBigDecimal(this.getTeamAvgPersonalFouls(),2))			
-			.append("  " + Utilities.padLeft(Utilities.roundtoBigDecimal(this.getTeamAvgReboundsOffense(),2).toPlainString(), 5))
-			.append("  " + Utilities.roundtoBigDecimal(this.getTeamAvgReboundsDefense(),2))
-			.append("  " + Utilities.roundtoBigDecimal(this.getTeamAvgReboundsTotal(),2))			
-			.append("  " + Utilities.roundtoBigDecimal(this.getTeamAvgAssists(),2))
-			.append("  " + Utilities.roundtoBigDecimal(this.getTeamAvgSteals(),2))
-			.append("  " + Utilities.roundtoBigDecimal(this.getTeamAvgBlocks(),2))
-			.append("  " + Utilities.padLeft(Utilities.roundtoBigDecimal(this.getTeamAvgPoints(),2).toPlainString(), 6))
+			.append("  " +	this.teamGamesPlayed)
+			.append("  " +	this.getTeamAvgFieldGoalMade())
+			.append("  " +	this.getTeamAvgFieldGoalAttempts())
+			.append("   " +	this.getTeamAvgFieldGoalPct())
+			.append("  " +	this.getTeamAvgThreePointMade())
+			.append("  " +	this.getTeamAvgThreePointAttempts())
+			.append("   " +	this.getTeamAvgThreePointPct())
+			.append("  " +	this.getTeamAvgFreeThrowMade())
+			.append("  " +	this.getTeamAvgFreeThrowAttempts())
+			.append("   " +	this.getTeamAvgFreeThrowPct())
+			.append("  " +	this.getTeamAvgTurnovers())
+			.append("  " +	this.getTeamAvgPersonalFouls())			
+			.append("  " +	Utilities.padLeft(this.getTeamAvgReboundsOffense().toPlainString(), 5))
+			.append("  " +	this.getTeamAvgReboundsDefense())
+			.append("  " +	this.getTeamAvgReboundsTotal())			
+			.append("  " +	this.getTeamAvgAssists())
+			.append("  " +	this.getTeamAvgSteals())
+			.append("  " +	this.getTeamAvgBlocks())
+			.append("  " +	Utilities.padLeft(this.getTeamAvgPoints().toPlainString(), 6))
 			.toString();
 	}
 	
 	public String toString_OpptAverages() {
 		return new StringBuffer()
 			.append(this.getTeamAbbr() != null ? Utilities.padRight(this.teamAbbr.toString(), 4): Utilities.padRight("", 2))
-			.append("  " + this.teamGamesPlayed)
-			.append("  " + Utilities.roundtoBigDecimal(this.getOpptAvgFieldGoalMade(), 2))
-			.append("  " + Utilities.roundtoBigDecimal(this.getOpptAvgFieldGoalAttempts(), 2))
-			.append("   " + Utilities.roundtoBigDecimal(this.getOpptAvgFieldGoalPct(), 3))
-			.append("  " + Utilities.roundtoBigDecimal(this.getOpptAvgThreePointMade(), 2))
-			.append("  " + Utilities.roundtoBigDecimal(this.getOpptAvgThreePointAttempts(), 2))
-			.append("   " + Utilities.roundtoBigDecimal(this.getOpptAvgThreePointPct(),3))
-			.append("  " + Utilities.roundtoBigDecimal(this.getOpptAvgFreeThrowMade(), 2))
-			.append("  " + Utilities.roundtoBigDecimal(this.getOpptAvgFreeThrowAttempts(), 2))
-			.append("   " + Utilities.roundtoBigDecimal(this.getOpptAvgFreeThrowPct(),3))
-			.append("  " + Utilities.roundtoBigDecimal(this.getOpptAvgTurnovers(), 2))
-			.append("  " + Utilities.roundtoBigDecimal(this.getOpptAvgPersonalFouls(),2))			
-			.append("  " + Utilities.padLeft(Utilities.roundtoBigDecimal(this.getOpptAvgReboundsOffense(),2).toPlainString(), 5))
-			.append("  " + Utilities.roundtoBigDecimal(this.getOpptAvgReboundsDefense(),2))
-			.append("  " + Utilities.roundtoBigDecimal(this.getOpptAvgReboundsTotal(),2))			
-			.append("  " + Utilities.roundtoBigDecimal(this.getOpptAvgAssists(),2))
-			.append("  " + Utilities.roundtoBigDecimal(this.getOpptAvgSteals(),2))
-			.append("  " + Utilities.roundtoBigDecimal(this.getOpptAvgBlocks(),2))
-			.append("  " + Utilities.padLeft(Utilities.roundtoBigDecimal(this.getOpptAvgPoints(),2).toPlainString(), 6))
+			.append("  " +	this.teamGamesPlayed)
+			.append("  " +	this.getOpptAvgFieldGoalMade())
+			.append("  " +	this.getOpptAvgFieldGoalAttempts())
+			.append("   " +	this.getOpptAvgFieldGoalPct())
+			.append("  " +	this.getOpptAvgThreePointMade())
+			.append("  " +	this.getOpptAvgThreePointAttempts())
+			.append("   " +	this.getOpptAvgThreePointPct())
+			.append("  " +	this.getOpptAvgFreeThrowMade())
+			.append("  " +	this.getOpptAvgFreeThrowAttempts())
+			.append("   " +	this.getOpptAvgFreeThrowPct())
+			.append("  " +	this.getOpptAvgTurnovers())
+			.append("  " +	this.getOpptAvgPersonalFouls())			
+			.append("  " +	Utilities.padLeft(this.getOpptAvgReboundsOffense().toPlainString(), 5))
+			.append("  " +	this.getOpptAvgReboundsDefense())
+			.append("  " +	this.getOpptAvgReboundsTotal())			
+			.append("  " +	this.getOpptAvgAssists())
+			.append("  " +	this.getOpptAvgSteals())
+			.append("  " +	this.getOpptAvgBlocks())
+			.append("  " +	Utilities.padLeft(this.getOpptAvgPoints().toPlainString(), 6))
 			.toString();
 	}
 }
