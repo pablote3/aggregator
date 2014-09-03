@@ -1,6 +1,7 @@
 package models;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -82,6 +83,22 @@ public class TeamSummary extends Model {
 	public Integer getTeamSumPointsQ3() { return teamSumPointsQ3; }
 	public Integer getTeamSumPointsQ4() { return teamSumPointsQ4; }
 	
+	public BigDecimal getTeamPace() {
+		return new BigDecimal(teamSumFieldGoalAttempts)
+					.subtract(Utilities.getAverage(teamSumReboundsOffense, teamSumReboundsOffense + opptSumReboundsDefense, 4).multiply(new BigDecimal((teamSumFieldGoalAttempts - teamSumFieldGoalMade) * 1.07)))
+					.add(new BigDecimal(teamSumTurnovers))
+					.add(new BigDecimal(teamSumFreeThrowAttempts * (0.4)))
+					.divide(new BigDecimal(teamGamesPlayed), 2, RoundingMode.HALF_UP);
+	}
+	
+	public BigDecimal getOpptPace() {
+		return new BigDecimal(opptSumFieldGoalAttempts)
+					.subtract(Utilities.getAverage(opptSumReboundsOffense, opptSumReboundsOffense + teamSumReboundsDefense, 4).multiply(new BigDecimal((opptSumFieldGoalAttempts - opptSumFieldGoalMade) * 1.07)))
+					.add(new BigDecimal(opptSumTurnovers))
+					.add(new BigDecimal(opptSumFreeThrowAttempts * (0.4)))
+					.divide(new BigDecimal(teamGamesPlayed), 2, RoundingMode.HALF_UP);
+	}
+	
 	public Integer getOpptSumPoints() { return opptSumPoints; }
 	public Integer getOpptSumAssists() { return opptSumAssists; }
 	public Integer getOpptSumTurnovers() { return opptSumTurnovers; }
@@ -148,11 +165,11 @@ public class TeamSummary extends Model {
 	public BigDecimal getOpptAvgPointsQ3() { return Utilities.getAverage(opptSumPointsQ3, teamGamesPlayed, 2); }	
 	public BigDecimal getOpptAvgPointsQ4() { return Utilities.getAverage(opptSumPointsQ4, teamGamesPlayed, 2); }
 	
-	public String toStringHeader() {
+	public String toStringHeader_Basic() {
 		return "Team  GP    FGM    FGA    FG%    3PM    3PA    3P%     FTM    FTA    FT%     TOV    PF    OREB   DREB    REB    AST   STL   BLK    PTS";
 	}
 	
-	public String toStringFooter() {
+	public String toStringFooter_Basic() {
 		return new StringBuffer()
 			.append("\r" + "Stats Legend")
 			.append("\r  " + Utilities.padRight("GP: Games Played", 45) + "TOV: Turnovers")
@@ -168,7 +185,7 @@ public class TeamSummary extends Model {
 			.toString();
 	}
 	
-	public String toString_TeamTotals() {
+	public String toString_TeamTotals_Basic() {
 		return new StringBuffer()
 			.append(this.getTeamAbbr() != null ? Utilities.padRight(this.teamAbbr.toString(), 4): Utilities.padRight("", 2))
 			.append("  " + this.teamGamesPlayed)
@@ -193,7 +210,7 @@ public class TeamSummary extends Model {
 			.toString();
 	}
 	
-	public String toString_OpptTotals() {
+	public String toString_OpptTotals_Basic() {
 		return new StringBuffer()
 			.append(this.getTeamAbbr() != null ? Utilities.padRight(this.teamAbbr.toString(), 4): Utilities.padRight("", 2))
 			.append("  " + this.teamGamesPlayed)
@@ -265,6 +282,34 @@ public class TeamSummary extends Model {
 			.append("  " +	this.getOpptAvgSteals())
 			.append("  " +	this.getOpptAvgBlocks())
 			.append("  " +	Utilities.padLeft(this.getOpptAvgPoints().toPlainString(), 6))
+			.toString();
+	}
+	
+	public String toStringHeader_Advanced() {
+		return "Team  GP   Pace"; //  FGA    FG%    3PM    3PA    3P%     FTM    FTA    FT%     TOV    PF    OREB   DREB    REB    AST   STL   BLK    PTS";
+	}
+	
+	public String toStringFooter_Advanced() {
+		return new StringBuffer()
+			.append("\r" + "Stats Legend")
+			.append("\r  " + Utilities.padRight("Pace: Team Pace (Est Possessions)", 40) + "FGA – (OREB / OREB + DDREB) * (FGA – FGM) * 1.07 + TOV + (0.4 * FTA)")
+//			.append("\r  " + Utilities.padRight("FGM: Field Goals Made", 45) + "PF: Personal Fouls")
+//			.append("\r  " + Utilities.padRight("FGA: Field Goals Attempts", 45) + "OREB: Offensive Rebounds")
+//			.append("\r  " + Utilities.padRight("FG%: Field Goal Percentage", 45) + "DREB: Defensive Rebounds")
+//			.append("\r  " + Utilities.padRight("3PM: Three-Point Field Goals Made", 45) + "REB: Total Rebounds")
+//			.append("\r  " + Utilities.padRight("3PA: Three-Point Field Goals Attempts", 45) + "AST: Assists")
+//			.append("\r  " + Utilities.padRight("3P%: Three-Point Field Goal Percentage", 45) + "STL: Steals")
+//			.append("\r  " + Utilities.padRight("FTM: Free Throws Made", 45) + "BLK: Blocks")
+//			.append("\r  " + Utilities.padRight("FTM: Free Throws Attempts", 45) + "PTS: Points")
+//			.append("\r  " + "FTM: Free Throw Percentage")
+			.toString();
+	}
+	
+	public String toString_TeamTotals_Advanced() {
+		return new StringBuffer()
+			.append(this.getTeamAbbr() != null ? Utilities.padRight(this.teamAbbr.toString(), 4): Utilities.padRight("", 2))
+			.append("  " + this.teamGamesPlayed)
+			.append("  " + Utilities.padLeft(this.getTeamPace().toString(), 5))
 			.toString();
 	}
 }
