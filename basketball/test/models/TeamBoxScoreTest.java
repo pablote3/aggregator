@@ -106,7 +106,7 @@ public class TeamBoxScoreTest {
         	  assertThat(teamSummary.getTeamSumPointsQ2()).isEqualTo((short)2017);
         	  assertThat(teamSummary.getTeamSumPointsQ3()).isEqualTo((short)2069);
         	  assertThat(teamSummary.getTeamSumPointsQ4()).isEqualTo((short)2008);
-        	  assertThat(teamSummary.getTeamPace()).isEqualTo(Utilities.roundToBigDecimal((float)94.52, 2));
+        	  assertThat(teamSummary.getTeamPossessions()).isEqualTo(Utilities.roundToBigDecimal((float)94.60, 2));
         	  
         	  assertThat(teamSummary.getOpptSumPoints()).isEqualTo((short)8479);
         	  assertThat(teamSummary.getOpptSumAssists()).isEqualTo((short)1927);
@@ -127,7 +127,6 @@ public class TeamBoxScoreTest {
         	  assertThat(teamSummary.getOpptSumPointsQ2()).isEqualTo((short)2173);
         	  assertThat(teamSummary.getOpptSumPointsQ3()).isEqualTo((short)2006);
         	  assertThat(teamSummary.getOpptSumPointsQ4()).isEqualTo((short)2092);
-        	  assertThat(teamSummary.getOpptPace()).isEqualTo(Utilities.roundToBigDecimal((float)94.67, 2));
           }
         });
     }
