@@ -84,7 +84,12 @@ public class TeamSummary extends Model {
 	public Integer getTeamSumPointsQ3() { return teamSumPointsQ3; }
 	public Integer getTeamSumPointsQ4() { return teamSumPointsQ4; }
 
-	// Advanced Stats
+	// Advanced Stats Offense
+	public BigDecimal getTeamOpptPointDifferential(int scale) {
+		return getTeamAvgPoints(2)
+				.subtract(getOpptAvgPoints(2));
+	}
+	
 	public BigDecimal getTeamEffectiveFieldGoalPercentage() {
 		BigDecimal bd =  new BigDecimal(getTeamSumFieldGoalMade())
 				.add(new BigDecimal(getTeamSumThreePointMade() * 0.5));
@@ -100,12 +105,28 @@ public class TeamSummary extends Model {
 				.divide(bd, 3, RoundingMode.HALF_UP);
 	}
 	
-	public BigDecimal getTeamTrueShootingAttempts() {
-		BigDecimal bd = new BigDecimal(getTeamSumFieldGoalAttempts())
-				.add(new BigDecimal(getTeamSumFreeThrowAttempts() * 0.44));
-		return bd.divide(new BigDecimal(getTeamGamesPlayed()), 2, RoundingMode.HALF_UP);
+	public BigDecimal getTeamAssistPercentage() {
+		return new BigDecimal(getTeamSumAssists())
+				.divide(new BigDecimal(getTeamSumFieldGoalMade()), 4, RoundingMode.HALF_UP)
+				.multiply(new BigDecimal(100))
+				.setScale(2);
 	}
 	
+	public BigDecimal getTeamPointsPerShot() {
+		BigDecimal bd =  new BigDecimal(getTeamSumFieldGoalAttempts())
+				.add(new BigDecimal(getTeamSumThreePointAttempts()))
+				.add(new BigDecimal(getTeamSumFreeThrowAttempts()));
+		return bd.divide(new BigDecimal(getTeamSumPoints()), 2, RoundingMode.HALF_UP);
+	}
+	
+	public BigDecimal getTeamPlayPercent() {
+		BigDecimal bd =  new BigDecimal(getTeamSumFieldGoalAttempts())
+				.subtract(new BigDecimal(getTeamSumReboundsOffense()))
+				.add(new BigDecimal(getTeamSumTurnovers()));
+		return new BigDecimal(getTeamSumFieldGoalMade()).divide(bd, 2, RoundingMode.HALF_UP);
+	}
+	
+	// Advanced Stats Defense
 	public BigDecimal getTeamOffensiveReboundPercentage() {
 		BigDecimal bd =  new BigDecimal(getTeamSumReboundsOffense())
 				.add(new BigDecimal(getOpptSumReboundsDefense()));
@@ -133,9 +154,9 @@ public class TeamSummary extends Model {
 				.setScale(2);
 	}
 	
-	public BigDecimal getTeamAssistPercentage() {
-		return new BigDecimal(getTeamSumAssists())
-				.divide(new BigDecimal(getTeamSumFieldGoalMade()), 4, RoundingMode.HALF_UP)
+	public BigDecimal getTeamStealPercentage() {
+		return getTeamAvgSteals()
+				.divide(getTeamPossessions(), 4, RoundingMode.HALF_UP)
 				.multiply(new BigDecimal(100))
 				.setScale(2);
 	}
@@ -150,13 +171,6 @@ public class TeamSummary extends Model {
 				.setScale(2);
 	}
 	
-	public BigDecimal getTeamStealPercentage() {
-		return getTeamAvgSteals()
-				.divide(getTeamPossessions(), 4, RoundingMode.HALF_UP)
-				.multiply(new BigDecimal(100))
-				.setScale(2);
-	}
-	
 	public BigDecimal getTeamBlockPercentage() {
 		BigDecimal bd =  new BigDecimal(getOpptSumFieldGoalAttempts())
 				.subtract(new BigDecimal(getOpptSumThreePointAttempts()));
@@ -166,18 +180,25 @@ public class TeamSummary extends Model {
 				.setScale(2);
 	}
 
-	public BigDecimal getTeamPointsPerShot() {
-		BigDecimal bd =  new BigDecimal(getTeamSumFieldGoalAttempts())
-				.add(new BigDecimal(getTeamSumThreePointAttempts()))
-				.add(new BigDecimal(getTeamSumFreeThrowAttempts()));
-		return bd.divide(new BigDecimal(getTeamSumPoints()), 2, RoundingMode.HALF_UP);
+	// Advanced Stats Efficiency
+	public BigDecimal getTeamOffensiveRating() {
+		return getTeamAvgPoints(2)
+				.divide(getTeamPossessions(), 4, RoundingMode.HALF_UP)
+				.multiply(new BigDecimal(100))
+				.setScale(2, RoundingMode.HALF_UP);
 	}
 	
-	public BigDecimal getTeamPlayPercent() {
-		BigDecimal bd =  new BigDecimal(getTeamSumFieldGoalAttempts())
-				.subtract(new BigDecimal(getTeamSumReboundsOffense()))
-				.add(new BigDecimal(getTeamSumTurnovers()));
-		return new BigDecimal(getTeamSumFieldGoalMade()).divide(bd, 2, RoundingMode.HALF_UP);
+	public BigDecimal getTeamDefensiveRating() {
+		return getOpptAvgPoints(2)
+				.divide(getTeamPossessions(), 4, RoundingMode.HALF_UP)
+				.multiply(new BigDecimal(100))
+				.setScale(2, RoundingMode.HALF_UP);
+	}
+	
+	public BigDecimal getTeamEfficiencyDifferential() {
+		return getTeamOffensiveRating()
+				.subtract(getTeamDefensiveRating())
+				.setScale(2, RoundingMode.HALF_UP);
 	}
 	
 	public BigDecimal getTeamFloorImpactCounter() {
@@ -193,26 +214,7 @@ public class TeamSummary extends Model {
 		return bd.divide(new BigDecimal(getTeamGamesPlayed()), 2, RoundingMode.HALF_UP);
 	}
 	
-	public BigDecimal getTeamOffensiveRating() {
-		return getTeamAvgPoints()
-				.divide(getTeamPossessions(), 4, RoundingMode.HALF_UP)
-				.multiply(new BigDecimal(100))
-				.setScale(2, RoundingMode.HALF_UP);
-	}
-	
-	public BigDecimal getTeamDefensiveRating() {
-		return getOpptAvgPoints()
-				.divide(getTeamPossessions(), 4, RoundingMode.HALF_UP)
-				.multiply(new BigDecimal(100))
-				.setScale(2, RoundingMode.HALF_UP);
-	}
-	
-	public BigDecimal getTeamEfficiencyDifferential() {
-		return getTeamOffensiveRating()
-				.subtract(getTeamDefensiveRating())
-				.setScale(2, RoundingMode.HALF_UP);
-	}	
-	
+	// Pace
 	public BigDecimal getTeamPace() {
 		return getTeamPace()
 				.multiply(new BigDecimal(getTeamGamesPlayed()));
@@ -256,7 +258,7 @@ public class TeamSummary extends Model {
 	public Integer getOpptSumPointsQ3() { return opptSumPointsQ3; }
 	public Integer getOpptSumPointsQ4() { return opptSumPointsQ4; }
 	
-	public BigDecimal getTeamAvgPoints() { return Utilities.getAverage(teamSumPoints, teamGamesPlayed, 2); }
+	public BigDecimal getTeamAvgPoints(int scale) { return Utilities.getAverage(teamSumPoints, teamGamesPlayed, scale); }
 	public BigDecimal getTeamAvgAssists() { return Utilities.getAverage(teamSumAssists, teamGamesPlayed, 2); }
 	public BigDecimal getTeamAvgTurnovers() { return Utilities.getAverage(teamSumTurnovers, teamGamesPlayed, 2); }	
 	public BigDecimal getTeamAvgSteals() { return Utilities.getAverage(teamSumSteals, teamGamesPlayed, 2); }	
@@ -279,7 +281,7 @@ public class TeamSummary extends Model {
 	public BigDecimal getTeamAvgPointsQ3() { return Utilities.getAverage(teamSumPointsQ3, teamGamesPlayed, 2); }	
 	public BigDecimal getTeamAvgPointsQ4() { return Utilities.getAverage(teamSumPointsQ4, teamGamesPlayed, 2); }	
 
-	public BigDecimal getOpptAvgPoints() { return Utilities.getAverage(opptSumPoints, teamGamesPlayed, 2); }	
+	public BigDecimal getOpptAvgPoints(int scale) { return Utilities.getAverage(opptSumPoints, teamGamesPlayed, scale); }	
 	public BigDecimal getOpptAvgAssists() { return Utilities.getAverage(opptSumAssists, teamGamesPlayed, 2); }
 	public BigDecimal getOpptAvgTurnovers() { return Utilities.getAverage(opptSumTurnovers, teamGamesPlayed, 2); }	
 	public BigDecimal getOpptAvgSteals() { return Utilities.getAverage(opptSumSteals, teamGamesPlayed, 2); }	
@@ -372,7 +374,7 @@ public class TeamSummary extends Model {
 			.toString();
 	}
 	
-	public String toString_TeamAverages() {
+	public String toString_TeamAverages_Basic() {
 		return new StringBuffer()
 			.append(this.getTeamAbbr() != null ? Utilities.padRight(this.teamAbbr.toString(), 4): Utilities.padRight("", 2))
 			.append("  " +	this.teamGamesPlayed)
@@ -393,11 +395,11 @@ public class TeamSummary extends Model {
 			.append("  " +	this.getTeamAvgAssists())
 			.append("  " +	this.getTeamAvgSteals())
 			.append("  " +	this.getTeamAvgBlocks())
-			.append("  " +	Utilities.padLeft(this.getTeamAvgPoints().toPlainString(), 6))
+			.append("  " +	Utilities.padLeft(this.getTeamAvgPoints(2).toPlainString(), 6))
 			.toString();
 	}
 	
-	public String toString_OpptAverages() {
+	public String toString_OpptAverages_Basic() {
 		return new StringBuffer()
 			.append(this.getTeamAbbr() != null ? Utilities.padRight(this.teamAbbr.toString(), 4): Utilities.padRight("", 2))
 			.append("  " +	this.teamGamesPlayed)
@@ -418,20 +420,47 @@ public class TeamSummary extends Model {
 			.append("  " +	this.getOpptAvgAssists())
 			.append("  " +	this.getOpptAvgSteals())
 			.append("  " +	this.getOpptAvgBlocks())
-			.append("  " +	Utilities.padLeft(this.getOpptAvgPoints().toPlainString(), 6))
+			.append("  " +	Utilities.padLeft(this.getOpptAvgPoints(2).toPlainString(), 6))
 			.toString();
 	}
 	
-	public String toStringHeader_Advanced() {
-		return "Team   eFG%   TS%    TSA   OREB%  DREB%  TREB%   AST%   TOV%  STL%   BLK%   PPS   Play%  FIC    ORtg    DRtg   eDiff   Poss";
+	public String toStringHeader_Advanced_Offense() {
+		return new StringBuffer()
+			.append("      |      Points      |")
+			.append("\r")
+			.append("Team   Own    Opp   Diff   OREB%  DREB%  TREB%   AST%   TOV%  STL%   BLK%   PPS   Play%  FIC    ORtg    DRtg   eDiff   Poss")
+			.toString();
 	}
 	
-	public String toStringFooter_Advanced() {
+	public String toString_Advanced_Offense() {
+		return new StringBuffer()
+			.append(this.getTeamAbbr() != null ? Utilities.padRight(this.teamAbbr.toString(), 4): Utilities.padRight("", 4))
+			.append(" " +	Utilities.padLeft(getTeamAvgPoints(1).toPlainString(), 6))
+			.append(" " +	Utilities.padLeft(getOpptAvgPoints(1).toPlainString(), 6))
+			.append(" " +	Utilities.padLeft(getTeamOpptPointDifferential(1).toPlainString(), 6))
+			
+			.append("  " + Utilities.padLeft(getTeamOffensiveReboundPercentage().toString(), 5))
+			.append("  " + Utilities.padLeft(getTeamDefensiveReboundPercentage().toString(), 5))
+			.append("  " + Utilities.padLeft(getTeamTotalReboundPercentage().toString(), 5))
+			.append("  " + Utilities.padLeft(getTeamAssistPercentage().toString(), 5))
+			.append("  " + Utilities.padLeft(getTeamTurnoverPercentage().toString(), 5))
+			.append("  " + Utilities.padLeft(getTeamStealPercentage().toString(), 4))
+			.append("  " + Utilities.padLeft(getTeamBlockPercentage().toString(), 5))
+			.append("  " + Utilities.padLeft(getTeamPointsPerShot().toString(), 4))
+			.append("  " + Utilities.padLeft(getTeamPlayPercent().toString(), 5))
+			.append("  " + Utilities.padLeft(getTeamFloorImpactCounter().toString(), 5))
+			.append("  " + Utilities.padLeft(getTeamOffensiveRating().toString(), 6))
+			.append("  " + Utilities.padLeft(getTeamDefensiveRating().toString(), 6))
+			.append(" " + Utilities.padLeft(getTeamEfficiencyDifferential().toString(), 6))
+			.append("  " + Utilities.padLeft(getTeamPossessions().toString(), 5))
+			.toString();
+	}
+	
+	public String toStringFooter_Advanced_Offense() {
 		return new StringBuffer()
 			.append("\r" + "Stats Legend")
 			.append("\r  " + Utilities.padRight("eFG%: Effective Field Goal Percentage", 40) + "FGM + (0.5 * 3PM) / FGA")
 			.append("\r  " + Utilities.padRight("TS%: True Shooting Percentage", 40) + "PTS / (2 * (FGA + FTA * 0.44))")
-			.append("\r  " + Utilities.padRight("TSA: True Shooting Attempts", 40) + "FGA + FTA * 0.44")
 			.append("\r  " + Utilities.padRight("OREB%: Offensive Rebound Percentage", 40) + "OREB * 100 / (OREB + DDREB)")
 			.append("\r  " + Utilities.padRight("DREB%: Defensive Rebound Percentage", 40) + "DREB * 100 / (DREB + DOREB)")
 			.append("\r  " + Utilities.padRight("TREB%: Total Rebound Percentage", 40) + "TREB * 100 / (TREB + DTREB)")
@@ -449,26 +478,4 @@ public class TeamSummary extends Model {
 			.toString();
 	}
 	
-	public String toString_TeamTotals_Advanced() {
-		return new StringBuffer()
-			.append(this.getTeamAbbr() != null ? Utilities.padRight(this.teamAbbr.toString(), 4): Utilities.padRight("", 4))
-			.append("  " + Utilities.padLeft(getTeamEffectiveFieldGoalPercentage().toString(), 4))
-			.append("  " + Utilities.padLeft(getTeamTrueShootingPercentage().toString(), 4))
-			.append("  " + Utilities.padLeft(getTeamTrueShootingAttempts().toString(), 4))			
-			.append("  " + Utilities.padLeft(getTeamOffensiveReboundPercentage().toString(), 5))
-			.append("  " + Utilities.padLeft(getTeamDefensiveReboundPercentage().toString(), 5))
-			.append("  " + Utilities.padLeft(getTeamTotalReboundPercentage().toString(), 5))
-			.append("  " + Utilities.padLeft(getTeamAssistPercentage().toString(), 5))
-			.append("  " + Utilities.padLeft(getTeamTurnoverPercentage().toString(), 5))
-			.append("  " + Utilities.padLeft(getTeamStealPercentage().toString(), 4))
-			.append("  " + Utilities.padLeft(getTeamBlockPercentage().toString(), 5))
-			.append("  " + Utilities.padLeft(getTeamPointsPerShot().toString(), 4))
-			.append("  " + Utilities.padLeft(getTeamPlayPercent().toString(), 5))
-			.append("  " + Utilities.padLeft(getTeamFloorImpactCounter().toString(), 5))
-			.append("  " + Utilities.padLeft(getTeamOffensiveRating().toString(), 6))
-			.append("  " + Utilities.padLeft(getTeamDefensiveRating().toString(), 6))
-			.append(" " + Utilities.padLeft(getTeamEfficiencyDifferential().toString(), 6))
-			.append("  " + Utilities.padLeft(getTeamPossessions().toString(), 5))
-			.toString();
-	}
 }
