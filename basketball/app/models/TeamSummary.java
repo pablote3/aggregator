@@ -85,9 +85,62 @@ public class TeamSummary extends Model {
 	public Integer getTeamSumPointsQ4() { return teamSumPointsQ4; }
 
 	// Advanced Stats Offense
-	public BigDecimal getTeamOpptPointDifferential(int scale) {
-		return getTeamAvgPoints(2)
-				.subtract(getOpptAvgPoints(2));
+	public BigDecimal getTeamOpptPointDiff(int scale) {
+		return Utilities.getPercentDifference(getTeamAvgPoints(2), getOpptAvgPoints(2), scale);
+	}
+	
+	public BigDecimal getTeamOpptFieldGoalPctDiff(int scale) {
+		return Utilities.getPercentDifference(getTeamAvgFieldGoalPct(), getOpptAvgFieldGoalPct(), scale);
+	}
+	
+	public BigDecimal getTeamOpptThreePointPctDiff(int scale) {
+		return Utilities.getPercentDifference(getTeamAvgThreePointPct(), getOpptAvgThreePointPct(), scale);
+	}
+	
+	public BigDecimal getTeamAvgThreePointRate() {
+		return getTeamAvgThreePointAttempts().divide(getTeamAvgFieldGoalAttempts(), 3, RoundingMode.HALF_UP);
+	}
+	
+	public BigDecimal getOpptAvgThreePointRate() {
+		return getOpptAvgThreePointAttempts().divide(getOpptAvgFieldGoalAttempts(), 3, RoundingMode.HALF_UP);
+	}
+	
+	public BigDecimal getTeamOpptThreePointRateDiff(int scale) {
+		return Utilities.getPercentDifference(getTeamAvgThreePointRate(), getOpptAvgThreePointRate(), scale);
+	}
+	
+	public BigDecimal getTeamOpptFreeThrowPctDiff(int scale) {
+		return Utilities.getPercentDifference(getTeamAvgFreeThrowPct(), getOpptAvgFreeThrowPct(), scale);
+	}
+	
+	public BigDecimal getTeamAvgFreeThrowRate() {
+		return getTeamAvgFreeThrowAttempts().divide(getTeamAvgFieldGoalAttempts(), 3, RoundingMode.HALF_UP);
+	}
+	
+	public BigDecimal getOpptAvgFreeThrowRate() {
+		return getOpptAvgFreeThrowAttempts().divide(getOpptAvgFieldGoalAttempts(), 3, RoundingMode.HALF_UP);
+	}
+	
+	public BigDecimal getTeamOpptFreeThrowRateDiff(int scale) {
+		return Utilities.getPercentDifference(getTeamAvgFreeThrowRate(), getOpptAvgFreeThrowRate(), scale);
+	}
+	
+	public BigDecimal getTeamPlayPercent() {
+		BigDecimal bd =  new BigDecimal(getTeamSumFieldGoalAttempts())
+				.subtract(new BigDecimal(getTeamSumReboundsOffense()))
+				.add(new BigDecimal(getTeamSumTurnovers()));
+		return new BigDecimal(getTeamSumFieldGoalMade()).divide(bd, 3, RoundingMode.HALF_UP);
+	}
+	
+	public BigDecimal getOpptPlayPercent() {
+		BigDecimal bd =  new BigDecimal(getOpptSumFieldGoalAttempts())
+				.subtract(new BigDecimal(getOpptSumReboundsOffense()))
+				.add(new BigDecimal(getOpptSumTurnovers()));
+		return new BigDecimal(getOpptSumFieldGoalMade()).divide(bd, 3, RoundingMode.HALF_UP);
+	}
+	
+	public BigDecimal getTeamOpptPlayPercentDiff(int scale) {
+		return Utilities.getPercentDifference(getTeamPlayPercent(), getOpptPlayPercent(), scale);
 	}
 	
 	public BigDecimal getTeamEffectiveFieldGoalPercentage() {
@@ -95,6 +148,17 @@ public class TeamSummary extends Model {
 				.add(new BigDecimal(getTeamSumThreePointMade() * 0.5));
 		return bd
 				.divide(new BigDecimal(getTeamSumFieldGoalAttempts()), 3, RoundingMode.HALF_UP);
+	}
+	
+	public BigDecimal getOpptEffectiveFieldGoalPercentage() {
+		BigDecimal bd =  new BigDecimal(getOpptSumFieldGoalMade())
+				.add(new BigDecimal(getOpptSumThreePointMade() * 0.5));
+		return bd
+				.divide(new BigDecimal(getOpptSumFieldGoalAttempts()), 3, RoundingMode.HALF_UP);
+	}
+	
+	public BigDecimal getTeamOpptEffectiveFieldGoalPercentageDiff(int scale) {
+		return Utilities.getPercentDifference(getTeamEffectiveFieldGoalPercentage(), getOpptEffectiveFieldGoalPercentage(), scale);
 	}
 
 	public BigDecimal getTeamTrueShootingPercentage() {
@@ -105,6 +169,40 @@ public class TeamSummary extends Model {
 				.divide(bd, 3, RoundingMode.HALF_UP);
 	}
 	
+	public BigDecimal getOpptTrueShootingPercentage() {
+		BigDecimal bd =  new BigDecimal(getOpptSumFieldGoalAttempts())
+				.add(new BigDecimal(getOpptSumFreeThrowAttempts() * 0.44))
+				.multiply(new BigDecimal(2));
+		return new BigDecimal(getOpptSumPoints())
+				.divide(bd, 3, RoundingMode.HALF_UP);
+	}
+	
+	public BigDecimal getTeamOpptTrueShootingPercentageDiff(int scale) {
+		return Utilities.getPercentDifference(getTeamTrueShootingPercentage(), getOpptTrueShootingPercentage(), scale);
+	}
+	
+	public BigDecimal getTeamPointsPerShot() {
+		BigDecimal bd =  new BigDecimal(getTeamSumFieldGoalAttempts())
+				.add(new BigDecimal(getTeamSumThreePointAttempts()))
+				.add(new BigDecimal(getTeamSumFreeThrowAttempts()));
+		return bd.divide(new BigDecimal(getTeamSumPoints()), 3, RoundingMode.HALF_UP);
+	}
+	
+	public BigDecimal getOpptPointsPerShot() {
+		BigDecimal bd =  new BigDecimal(getOpptSumFieldGoalAttempts())
+				.add(new BigDecimal(getOpptSumThreePointAttempts()))
+				.add(new BigDecimal(getOpptSumFreeThrowAttempts()));
+		return bd.divide(new BigDecimal(getOpptSumPoints()), 3, RoundingMode.HALF_UP);
+	}
+	
+	public BigDecimal getTeamOpptPointsPerShotDiff(int scale) {
+		return Utilities.getPercentDifference(getTeamPointsPerShot(), getOpptPointsPerShot(), scale);
+	}
+	
+	public BigDecimal getTeamOpptAssistDiff(int scale) {
+		return Utilities.getPercentDifference(getTeamAvgAssists(2), getOpptAvgAssists(2), scale);
+	}
+	
 	public BigDecimal getTeamAssistPercentage() {
 		return new BigDecimal(getTeamSumAssists())
 				.divide(new BigDecimal(getTeamSumFieldGoalMade()), 4, RoundingMode.HALF_UP)
@@ -112,18 +210,57 @@ public class TeamSummary extends Model {
 				.setScale(2);
 	}
 	
-	public BigDecimal getTeamPointsPerShot() {
-		BigDecimal bd =  new BigDecimal(getTeamSumFieldGoalAttempts())
-				.add(new BigDecimal(getTeamSumThreePointAttempts()))
-				.add(new BigDecimal(getTeamSumFreeThrowAttempts()));
-		return bd.divide(new BigDecimal(getTeamSumPoints()), 2, RoundingMode.HALF_UP);
+	public BigDecimal getOpptAssistPercentage() {
+		return new BigDecimal(getOpptSumAssists())
+				.divide(new BigDecimal(getOpptSumFieldGoalMade()), 4, RoundingMode.HALF_UP)
+				.multiply(new BigDecimal(100))
+				.setScale(2);
+	}
+
+	public BigDecimal getTeamOpptAssistPercentageDiff(int scale) {
+		return Utilities.getPercentDifference(getTeamAssistPercentage(), getOpptAssistPercentage(), scale);
 	}
 	
-	public BigDecimal getTeamPlayPercent() {
-		BigDecimal bd =  new BigDecimal(getTeamSumFieldGoalAttempts())
-				.subtract(new BigDecimal(getTeamSumReboundsOffense()))
-				.add(new BigDecimal(getTeamSumTurnovers()));
-		return new BigDecimal(getTeamSumFieldGoalMade()).divide(bd, 2, RoundingMode.HALF_UP);
+	public BigDecimal getTeamAssistRate() {
+		BigDecimal bd =  (new BigDecimal(getTeamSumFreeThrowAttempts())
+				.multiply(new BigDecimal(0.44)))
+				.add(new BigDecimal(getTeamSumFieldGoalAttempts()))
+				.add(new BigDecimal(getTeamSumTurnovers()))
+				.add(new BigDecimal(getTeamSumAssists()));
+		return new BigDecimal(getTeamSumAssists())
+				.divide(bd, 4, RoundingMode.HALF_UP)
+				.multiply(new BigDecimal(100))
+				.setScale(2);
+	}
+	
+	public BigDecimal getOpptAssistRate() {
+		BigDecimal bd =  (new BigDecimal(getOpptSumFreeThrowAttempts())
+				.multiply(new BigDecimal(0.44)))
+				.add(new BigDecimal(getOpptSumFieldGoalAttempts()))
+				.add(new BigDecimal(getOpptSumTurnovers()))
+				.add(new BigDecimal(getOpptSumAssists()));
+		return new BigDecimal(getOpptSumAssists())
+				.divide(bd, 4, RoundingMode.HALF_UP)
+				.multiply(new BigDecimal(100))
+				.setScale(2);
+	}
+	
+	public BigDecimal getTeamOpptAssistRateDiff(int scale) {
+		return Utilities.getPercentDifference(getTeamAssistRate(), getOpptAssistRate(), scale);
+	}
+	
+	public BigDecimal getTeamAssistToTurnoverRatio() {
+		return new BigDecimal(getTeamSumAssists())
+				.divide(new BigDecimal(getTeamSumTurnovers()), 2, RoundingMode.HALF_UP);
+	}
+	
+	public BigDecimal getOpptAssistToTurnoverRatio() {
+		return new BigDecimal(getOpptSumAssists())
+				.divide(new BigDecimal(getOpptSumTurnovers()), 2, RoundingMode.HALF_UP);
+	}
+	
+	public BigDecimal getTeamOpptAssistToTurnoverRatioDiff(int scale) {
+		return Utilities.getPercentDifference(getTeamAssistToTurnoverRatio(), getTeamAssistToTurnoverRatio(), scale);
 	}
 	
 	// Advanced Stats Defense
@@ -221,21 +358,21 @@ public class TeamSummary extends Model {
 	}
 	
 	public BigDecimal getTeamPossessions() {
-		BigDecimal teamPace = new BigDecimal(teamSumFieldGoalAttempts)
+		BigDecimal teamPossessions = new BigDecimal(teamSumFieldGoalAttempts)
 			.subtract(Utilities.getAverage(teamSumReboundsOffense, teamSumReboundsOffense + opptSumReboundsDefense, 4)
 					.multiply(new BigDecimal((teamSumFieldGoalAttempts - teamSumFieldGoalMade) * 1.07)))
 					.add(new BigDecimal(teamSumTurnovers))
 					.add(new BigDecimal(teamSumFreeThrowAttempts * (0.4)))
 					.divide(new BigDecimal(teamGamesPlayed), 2, RoundingMode.HALF_UP);
 
-		BigDecimal opptPace = new BigDecimal(opptSumFieldGoalAttempts)
+		BigDecimal opptPossessions = new BigDecimal(opptSumFieldGoalAttempts)
 			.subtract(Utilities.getAverage(opptSumReboundsOffense, opptSumReboundsOffense + teamSumReboundsDefense, 4)
 					.multiply(new BigDecimal((opptSumFieldGoalAttempts - opptSumFieldGoalMade) * 1.07)))
 					.add(new BigDecimal(opptSumTurnovers))
 					.add(new BigDecimal(opptSumFreeThrowAttempts * (0.4)))
 					.divide(new BigDecimal(teamGamesPlayed), 2, RoundingMode.HALF_UP);
 
-		return teamPace.add(opptPace).divide(new BigDecimal(2)).setScale(2, RoundingMode.HALF_UP);
+		return teamPossessions.add(opptPossessions).divide(new BigDecimal(2)).setScale(2, RoundingMode.HALF_UP);
 	}
 	
 	public Integer getOpptSumPoints() { return opptSumPoints; }
@@ -259,7 +396,7 @@ public class TeamSummary extends Model {
 	public Integer getOpptSumPointsQ4() { return opptSumPointsQ4; }
 	
 	public BigDecimal getTeamAvgPoints(int scale) { return Utilities.getAverage(teamSumPoints, teamGamesPlayed, scale); }
-	public BigDecimal getTeamAvgAssists() { return Utilities.getAverage(teamSumAssists, teamGamesPlayed, 2); }
+	public BigDecimal getTeamAvgAssists(int scale) { return Utilities.getAverage(teamSumAssists, teamGamesPlayed, scale); }
 	public BigDecimal getTeamAvgTurnovers() { return Utilities.getAverage(teamSumTurnovers, teamGamesPlayed, 2); }	
 	public BigDecimal getTeamAvgSteals() { return Utilities.getAverage(teamSumSteals, teamGamesPlayed, 2); }	
 	public BigDecimal getTeamAvgBlocks() { return Utilities.getAverage(teamSumBlocks, teamGamesPlayed, 2); }	
@@ -282,7 +419,7 @@ public class TeamSummary extends Model {
 	public BigDecimal getTeamAvgPointsQ4() { return Utilities.getAverage(teamSumPointsQ4, teamGamesPlayed, 2); }	
 
 	public BigDecimal getOpptAvgPoints(int scale) { return Utilities.getAverage(opptSumPoints, teamGamesPlayed, scale); }	
-	public BigDecimal getOpptAvgAssists() { return Utilities.getAverage(opptSumAssists, teamGamesPlayed, 2); }
+	public BigDecimal getOpptAvgAssists(int scale) { return Utilities.getAverage(opptSumAssists, teamGamesPlayed, scale); }
 	public BigDecimal getOpptAvgTurnovers() { return Utilities.getAverage(opptSumTurnovers, teamGamesPlayed, 2); }	
 	public BigDecimal getOpptAvgSteals() { return Utilities.getAverage(opptSumSteals, teamGamesPlayed, 2); }	
 	public BigDecimal getOpptAvgBlocks() { return Utilities.getAverage(opptSumBlocks, teamGamesPlayed, 2); }	
@@ -392,7 +529,7 @@ public class TeamSummary extends Model {
 			.append("  " +	Utilities.padLeft(this.getTeamAvgReboundsOffense().toPlainString(), 5))
 			.append("  " +	this.getTeamAvgReboundsDefense())
 			.append("  " +	this.getTeamAvgReboundsTotal())			
-			.append("  " +	this.getTeamAvgAssists())
+			.append("  " +	this.getTeamAvgAssists(2))
 			.append("  " +	this.getTeamAvgSteals())
 			.append("  " +	this.getTeamAvgBlocks())
 			.append("  " +	Utilities.padLeft(this.getTeamAvgPoints(2).toPlainString(), 6))
@@ -417,37 +554,103 @@ public class TeamSummary extends Model {
 			.append("  " +	Utilities.padLeft(this.getOpptAvgReboundsOffense().toPlainString(), 5))
 			.append("  " +	this.getOpptAvgReboundsDefense())
 			.append("  " +	this.getOpptAvgReboundsTotal())			
-			.append("  " +	this.getOpptAvgAssists())
+			.append("  " +	this.getOpptAvgAssists(2))
 			.append("  " +	this.getOpptAvgSteals())
 			.append("  " +	this.getOpptAvgBlocks())
 			.append("  " +	Utilities.padLeft(this.getOpptAvgPoints(2).toPlainString(), 6))
 			.toString();
 	}
 	
-	public String toStringHeader_Advanced_Offense() {
+	public String toStringHeader_Advanced_Offense1() {
 		return new StringBuffer()
-			.append("      |      Points      |")
-			.append("\r")
-			.append("Team   Own    Opp   Diff   OREB%  DREB%  TREB%   AST%   TOV%  STL%   BLK%   PPS   Play%  FIC    ORtg    DRtg   eDiff   Poss")
+			.append("     |                                                                             Shooting Ratios                                                                           |" + "\r")
+			.append("     |        PTS         |        FG%         |        3P%         |        3PR         |        FT%         |        FTR         |       Play%        |        TS%         |" + "\r")
+			.append("Team | Own    Opp     Δ%  | Own    Opp     Δ%  | Own    Opp     Δ%  | Own    Opp     Δ%  | Own    Opp     Δ%  | Own    Opp     Δ%  | Own    Opp     Δ%  | Own    Opp     Δ%  |")
 			.toString();
 	}
 	
-	public String toString_Advanced_Offense() {
+	public String toString_Advanced_Offense1() {
 		return new StringBuffer()
 			.append(this.getTeamAbbr() != null ? Utilities.padRight(this.teamAbbr.toString(), 4): Utilities.padRight("", 4))
-			.append(" " +	Utilities.padLeft(getTeamAvgPoints(1).toPlainString(), 6))
-			.append(" " +	Utilities.padLeft(getOpptAvgPoints(1).toPlainString(), 6))
-			.append(" " +	Utilities.padLeft(getTeamOpptPointDifferential(1).toPlainString(), 6))
+			.append(" " + Utilities.padLeft(getTeamAvgPoints(1).toPlainString(), 6))
+			.append(" " + Utilities.padLeft(getOpptAvgPoints(1).toPlainString(), 6))
+			.append(" " + Utilities.padLeft(getTeamOpptPointDiff(2).toPlainString(), 6))			
+			.append(" " + Utilities.padLeft(getTeamAvgFieldGoalPct().toPlainString(), 6))
+			.append(" " + Utilities.padLeft(getOpptAvgFieldGoalPct().toPlainString(), 6))
+			.append(" " + Utilities.padLeft(getTeamOpptFieldGoalPctDiff(2).toPlainString(), 6))
+			.append(" " + Utilities.padLeft(getTeamAvgThreePointPct().toPlainString(), 6))
+			.append(" " + Utilities.padLeft(getOpptAvgThreePointPct().toPlainString(), 6))
+			.append(" " + Utilities.padLeft(getTeamOpptThreePointPctDiff(2).toPlainString(), 6))
+			.append(" " + Utilities.padLeft(getTeamAvgThreePointRate().toPlainString(), 6))
+			.append(" " + Utilities.padLeft(getOpptAvgThreePointRate().toPlainString(), 6))
+			.append(" " + Utilities.padLeft(getTeamOpptThreePointRateDiff(2).toPlainString(), 6))
+			.append(" " + Utilities.padLeft(getTeamAvgFreeThrowPct().toPlainString(), 6))
+			.append(" " + Utilities.padLeft(getOpptAvgFreeThrowPct().toPlainString(), 6))
+			.append(" " + Utilities.padLeft(getTeamOpptFreeThrowPctDiff(2).toPlainString(), 6))
+			.append(" " + Utilities.padLeft(getTeamAvgFreeThrowRate().toPlainString(), 6))
+			.append(" " + Utilities.padLeft(getOpptAvgFreeThrowRate().toPlainString(), 6))
+			.append(" " + Utilities.padLeft(getTeamOpptFreeThrowRateDiff(2).toPlainString(), 6))
+			.append(" " + Utilities.padLeft(getTeamPlayPercent().toString(), 6))
+			.append(" " + Utilities.padLeft(getOpptPlayPercent().toString(), 6))
+			.append(" " + Utilities.padLeft(getTeamOpptPlayPercentDiff(2).toString(), 6))
+			.append(" " + Utilities.padLeft(getTeamTrueShootingPercentage().toString(), 6))
+			.append(" " + Utilities.padLeft(getOpptTrueShootingPercentage().toString(), 6))
+			.append(" " + Utilities.padLeft(getTeamOpptTrueShootingPercentageDiff(2).toString(), 6))
+			.toString();
+	}
+	
+	public String toStringFooter_Advanced_Offense1() {
+		return new StringBuffer()
+			.append("\r" + "Stats Legend")
+			.append("\r  " + Utilities.padRight("PTS: Average Points Per Game", 40) + "Σ(PTS) / GP")
+			.append("\r  " + Utilities.padRight("FG%: Field Goal Percentage", 40) + "FGM / FGA")
+			.append("\r  " + Utilities.padRight("3P%: Three Point Percentage", 40) + "3PM / 3PA")
+			.append("\r  " + Utilities.padRight("3PR: Three Point Rate", 40) + "3PA / FGA")
+			.append("\r  " + Utilities.padRight("FT%: Free Throw Percentage", 40) + "FTM / FTA")
+			.append("\r  " + Utilities.padRight("FTR: Free Throw Rate", 40) + "FTA / FGA")
+			.append("\r  " + Utilities.padRight("Play%: Play Percentage", 40) + "FGM / (FGA - OREB + TO)")
+			.append("\r  " + Utilities.padRight("TS%: True Shooting Percentage", 40) + "PTS / (2 * (FGA + FTA * 0.44))")
+			.toString();
+	}
+	
+	public String toStringHeader_Advanced_Offense2() {
+		return new StringBuffer()
+			.append("\r")
+			.append("     |                                                                           Offensive Stats 2                                                                          |" + "\r")
+			.append("     |             Shooting Ratios             |                   Passing Ratios" + "\r")
+			.append("     |        eFG%        |        PPS         |        AST         |        AST%        |         AR         |       AST/TO       |" + "\r")
+			.append("Team    Own    Opp    Δ%    Own    Opp     Δ%    Own    Opp     Δ%    Own    Opp     Δ%    Own    Opp     Δ%    Own    Opp     Δ%    Own    Opp     Δ%    Own    Opp     Δ%    Own    Opp     Δ%    Own    Opp     Δ%      OREB%  DREB%  TREB%   AST%   TOV%  STL%   BLK%   PPS   FIC    ORtg    DRtg   eDiff   Poss")
+			.toString();
+	}
+	
+	public String toString_Advanced_Offense2() {
+		return new StringBuffer()
+			.append(this.getTeamAbbr() != null ? Utilities.padRight(this.teamAbbr.toString(), 4): Utilities.padRight("", 4))
+			.append(" " + Utilities.padLeft(getTeamEffectiveFieldGoalPercentage().toString(), 6))
+			.append(" " + Utilities.padLeft(getOpptEffectiveFieldGoalPercentage().toString(), 6))
+			.append(" " + Utilities.padLeft(getTeamOpptEffectiveFieldGoalPercentageDiff(2).toString(), 6))
+			.append(" " + Utilities.padLeft(getTeamPointsPerShot().toString(), 6))
+			.append(" " + Utilities.padLeft(getOpptPointsPerShot().toString(), 6))
+			.append(" " + Utilities.padLeft(getTeamOpptPointsPerShotDiff(2).toString(), 6))
+			.append(" " + Utilities.padLeft(getTeamAvgAssists(1).toPlainString(), 6))
+			.append(" " + Utilities.padLeft(getOpptAvgAssists(1).toPlainString(), 6))
+			.append(" " + Utilities.padLeft(getTeamOpptAssistDiff(2).toPlainString(), 6))	
+			.append(" " + Utilities.padLeft(getTeamAssistPercentage().toString(), 6))
+			.append(" " + Utilities.padLeft(getOpptAssistPercentage().toString(), 6))
+			.append(" " + Utilities.padLeft(getTeamOpptAssistPercentageDiff(2).toString(), 6))
+			.append(" " + Utilities.padLeft(getTeamAssistRate().toString(), 6))
+			.append(" " + Utilities.padLeft(getOpptAssistRate().toString(), 6))
+			.append(" " + Utilities.padLeft(getTeamOpptAssistRateDiff(2).toString(), 6))			
+			.append(" " + Utilities.padLeft(getTeamAssistToTurnoverRatio().toString(), 6))
+			.append(" " + Utilities.padLeft(getOpptAssistToTurnoverRatio().toString(), 6))
+			.append(" " + Utilities.padLeft(getTeamOpptAssistToTurnoverRatioDiff(2).toString(), 6))
 			
 			.append("  " + Utilities.padLeft(getTeamOffensiveReboundPercentage().toString(), 5))
 			.append("  " + Utilities.padLeft(getTeamDefensiveReboundPercentage().toString(), 5))
 			.append("  " + Utilities.padLeft(getTeamTotalReboundPercentage().toString(), 5))
-			.append("  " + Utilities.padLeft(getTeamAssistPercentage().toString(), 5))
 			.append("  " + Utilities.padLeft(getTeamTurnoverPercentage().toString(), 5))
 			.append("  " + Utilities.padLeft(getTeamStealPercentage().toString(), 4))
 			.append("  " + Utilities.padLeft(getTeamBlockPercentage().toString(), 5))
-			.append("  " + Utilities.padLeft(getTeamPointsPerShot().toString(), 4))
-			.append("  " + Utilities.padLeft(getTeamPlayPercent().toString(), 5))
 			.append("  " + Utilities.padLeft(getTeamFloorImpactCounter().toString(), 5))
 			.append("  " + Utilities.padLeft(getTeamOffensiveRating().toString(), 6))
 			.append("  " + Utilities.padLeft(getTeamDefensiveRating().toString(), 6))
@@ -456,19 +659,22 @@ public class TeamSummary extends Model {
 			.toString();
 	}
 	
-	public String toStringFooter_Advanced_Offense() {
+	public String toStringFooter_Advanced_Offense2() {
 		return new StringBuffer()
 			.append("\r" + "Stats Legend")
 			.append("\r  " + Utilities.padRight("eFG%: Effective Field Goal Percentage", 40) + "FGM + (0.5 * 3PM) / FGA")
-			.append("\r  " + Utilities.padRight("TS%: True Shooting Percentage", 40) + "PTS / (2 * (FGA + FTA * 0.44))")
+			.append("\r  " + Utilities.padRight("PPS: Points Per Shot", 40) + "PTS / (FGA + 3PA + FTA)")
+			.append("\r  " + Utilities.padRight("AST: Average Assists Per Game", 40) + "Σ(AST) / GP")
+			.append("\r  " + Utilities.padRight("AST%: Assisted Field Goal Percentage", 40) + "AST / FGM")
+			.append("\r  " + Utilities.padRight("AR: Assist Rate", 40) + "(AST * 100) / (FGA + (FTA * 0.44) + AST + TO)")
+			.append("\r  " + Utilities.padRight("AST/TO: Assists to Turnover Ratio", 40) + "AST / TO")
+			
 			.append("\r  " + Utilities.padRight("OREB%: Offensive Rebound Percentage", 40) + "OREB * 100 / (OREB + DDREB)")
 			.append("\r  " + Utilities.padRight("DREB%: Defensive Rebound Percentage", 40) + "DREB * 100 / (DREB + DOREB)")
 			.append("\r  " + Utilities.padRight("TREB%: Total Rebound Percentage", 40) + "TREB * 100 / (TREB + DTREB)")
-			.append("\r  " + Utilities.padRight("AST%: Assist Percentage", 40) + "AST * 100 / FGM")
 			.append("\r  " + Utilities.padRight("TOV%: Turnover Percentage", 40) + "TOV * 100 / (FGA + 0.44 * FTA + TOV)")
 			.append("\r  " + Utilities.padRight("STL%: Steal Percentage", 40) + "STL * 100 / Poss")
 			.append("\r  " + Utilities.padRight("BLK%: Block Percentage", 40) + "BLK * 100 / OFGA - O3PA")
-			.append("\r  " + Utilities.padRight("PPS: Points Per Shot", 40) + "PTS / (FGA + 3PA + FTA)")
 			.append("\r  " + Utilities.padRight("Play%: Play Percentage", 40) + "FGM / (FGA - OREB + TO)")
 			.append("\r  " + Utilities.padRight("FIC: Floor Impact Counter", 40) + "(PTS + ORB + 0.75 DRB + AST + STL - 0.75 FGA - 0.375 FTA - TO - 0.5 PF) / GP")
 			.append("\r  " + Utilities.padRight("ORtg: Offensive Rating", 40) + "Team PTS / Poss")

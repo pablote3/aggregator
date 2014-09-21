@@ -190,7 +190,7 @@ public class TeamBoxScoreTest {
         	  assertThat(new BigDecimal(0)).isEqualTo(new BigDecimal(0));
         	  
         	  assertThat(new BigDecimal(teamSummary.getTeamAvgPoints(2).toString())).isEqualTo(Utilities.roundToBigDecimal((float)100.5, 2));
-        	  assertThat(teamSummary.getTeamAvgAssists()).isEqualTo(Utilities.roundToBigDecimal((float)18.87, 2));
+        	  assertThat(teamSummary.getTeamAvgAssists(2)).isEqualTo(Utilities.roundToBigDecimal((float)18.87, 2));
         	  assertThat(teamSummary.getTeamAvgTurnovers()).isEqualTo(Utilities.roundToBigDecimal((float)14.67, 2));
         	  assertThat(teamSummary.getTeamAvgSteals()).isEqualTo(Utilities.roundToBigDecimal((float)7.16, 2));
         	  assertThat(teamSummary.getTeamAvgBlocks()).isEqualTo(Utilities.roundToBigDecimal((float)3.88, 2));
@@ -213,7 +213,7 @@ public class TeamBoxScoreTest {
         	  assertThat(teamSummary.getTeamAvgPointsQ4()).isEqualTo(Utilities.roundToBigDecimal((float)24.49, 2)); 
         	  
         	  assertThat(teamSummary.getOpptAvgPoints(2)).isEqualTo(Utilities.roundToBigDecimal((float)103.40, 2));
-        	  assertThat(teamSummary.getOpptAvgAssists()).isEqualTo(Utilities.roundToBigDecimal((float)23.50, 2));
+        	  assertThat(teamSummary.getOpptAvgAssists(2)).isEqualTo(Utilities.roundToBigDecimal((float)23.50, 2));
         	  assertThat(teamSummary.getOpptAvgTurnovers()).isEqualTo(Utilities.roundToBigDecimal((float)13.22, 2));
         	  assertThat(teamSummary.getOpptAvgSteals()).isEqualTo(Utilities.roundToBigDecimal((float)7.77, 2));
         	  assertThat(teamSummary.getOpptAvgBlocks()).isEqualTo(Utilities.roundToBigDecimal((float)5.59, 2));
@@ -245,7 +245,7 @@ public class TeamBoxScoreTest {
         	  TeamSummary leagueSummary = TeamBoxScore.sumLeagueBoxScoreFromDateMaxDate("2013-10-29", ProcessingType.online);
         	  assertThat(leagueSummary.getTeamGamesPlayed()).isEqualTo((short)2456);
         	  assertThat(leagueSummary.getTeamAvgPoints(2)).isEqualTo(Utilities.roundToBigDecimal((float)101.01, 2));
-        	  assertThat(leagueSummary.getTeamAvgAssists()).isEqualTo(Utilities.roundToBigDecimal((float)22.01, 2));
+        	  assertThat(leagueSummary.getTeamAvgAssists(2)).isEqualTo(Utilities.roundToBigDecimal((float)22.01, 2));
         	  assertThat(leagueSummary.getTeamAvgTurnovers()).isEqualTo(Utilities.roundToBigDecimal((float)14.05, 2));
         	  assertThat(leagueSummary.getTeamAvgSteals()).isEqualTo(Utilities.roundToBigDecimal((float)7.68, 2));
         	  assertThat(leagueSummary.getTeamAvgBlocks()).isEqualTo(Utilities.roundToBigDecimal((float)4.71, 2));
@@ -268,7 +268,7 @@ public class TeamBoxScoreTest {
         	  assertThat(leagueSummary.getTeamAvgPointsQ4()).isEqualTo(Utilities.roundToBigDecimal((float)24.78, 2)); 
         	  
         	  assertThat(leagueSummary.getOpptAvgPoints(2)).isEqualTo(Utilities.roundToBigDecimal((float)101.01, 2));
-        	  assertThat(leagueSummary.getOpptAvgAssists()).isEqualTo(Utilities.roundToBigDecimal((float)22.01, 2));
+        	  assertThat(leagueSummary.getOpptAvgAssists(2)).isEqualTo(Utilities.roundToBigDecimal((float)22.01, 2));
         	  assertThat(leagueSummary.getOpptAvgTurnovers()).isEqualTo(Utilities.roundToBigDecimal((float)14.05, 2));
         	  assertThat(leagueSummary.getOpptAvgSteals()).isEqualTo(Utilities.roundToBigDecimal((float)7.68, 2));
         	  assertThat(leagueSummary.getOpptAvgBlocks()).isEqualTo(Utilities.roundToBigDecimal((float)4.71, 2));
@@ -305,8 +305,8 @@ public class TeamBoxScoreTest {
         	  for (int i = 0; i < teams.size(); i++) {
         		  teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2013-10-29", teams.get(i), ProcessingType.online);
         		  if (i == 0) {
-        			  System.out.println("\r" + Utilities.padLeft("Basic Statistics", 70));
-        			  System.out.println("\r" + Utilities.padLeft("2013-2014 Team Totals", 70));
+        			  System.out.println("\r" + Utilities.padLeft("Basic Statistics: 2013-2014 Season", 70));
+        			  System.out.println("\r" + Utilities.padLeft("Team Totals", 70));
         			  System.out.println(teamSummary.toStringHeader_Basic());
         		  }
             	  System.out.println(teamSummary.toString_TeamTotals_Basic());
@@ -316,7 +316,7 @@ public class TeamBoxScoreTest {
         	  for (int i = 0; i < teams.size(); i++) {
         		  teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2013-10-29", teams.get(i), ProcessingType.online);
         		  if (i == 0) {
-        			  System.out.println("\r" + "2013-2014 Team Averages");
+        			  System.out.println("\r" + "Team Averages");
         			  System.out.println(teamSummary.toStringHeader_Basic());
         		  }
             	  System.out.println(teamSummary.toString_TeamAverages_Basic());
@@ -340,8 +340,8 @@ public class TeamBoxScoreTest {
         	  for (int i = 0; i < teams.size(); i++) {
         		  teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2013-10-29", teams.get(i), ProcessingType.online);
         		  if (i == 0) {
-        			  System.out.println("\r" + Utilities.padLeft("Basic Statistics", 70));
-        			  System.out.println("\r" + Utilities.padLeft("2013-2014 Team Totals", 70));
+        			  System.out.println("\r" + Utilities.padLeft("Basic Statistics: 2013-2014 Season", 70));
+        			  System.out.println("\r" + Utilities.padLeft("Team Totals", 70));
         			  System.out.println(teamSummary.toStringHeader_Basic());
         		  }
             	  System.out.println(teamSummary.toString_OpptTotals_Basic());
@@ -351,7 +351,7 @@ public class TeamBoxScoreTest {
         	  for (int i = 0; i < teams.size(); i++) {
         		  teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2013-10-29", teams.get(i), ProcessingType.online);
         		  if (i == 0) {
-        			  System.out.println("\r" + "2013-2014 Oppt Averages");
+        			  System.out.println("\r" + "Oppt Averages");
         			  System.out.println(teamSummary.toStringHeader_Basic());
         		  }
             	  System.out.println(teamSummary.toString_OpptAverages_Basic());
@@ -363,9 +363,9 @@ public class TeamBoxScoreTest {
         });
     }
     
-//    @Ignore
+    @Ignore
     @Test
-    public void boxScoresAdvancedOffense() {
+    public void boxScoresAdvancedOffense1() {
         running(fakeApplication(), new Runnable() {
           public void run() {
         	  ArrayList<String> teams = Utilities.teamList();
@@ -375,16 +375,41 @@ public class TeamBoxScoreTest {
         	  for (int i = 0; i < teams.size(); i++) {
         		  teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2013-10-29", teams.get(i), ProcessingType.online);
         		  if (i == 0) {
-        			  System.out.println("\r" + Utilities.padLeft("Advanced Statistics", 70));
-        			  System.out.println(Utilities.padLeft("2013-2014 Team Totals", 71));
-        			  System.out.println(teamSummary.toStringHeader_Advanced_Offense());
+        			  System.out.println(Utilities.padLeft("Advanced Statistics: 2013-2014 Season", 109));
+        			  System.out.println(Utilities.padLeft("Offensive Stats 1", 99) + "\n");
+        			  System.out.println(teamSummary.toStringHeader_Advanced_Offense1());
         		  }
-            	  System.out.println(teamSummary.toString_Advanced_Offense());
+            	  System.out.println(teamSummary.toString_Advanced_Offense1());
         	  }        	  
-        	  System.out.println(leagueSummary.toString_Advanced_Offense());
+        	  System.out.println(leagueSummary.toString_Advanced_Offense1());
         	  
-        	  System.out.println(teamSummary.toStringFooter_Advanced_Offense());
+        	  System.out.println(teamSummary.toStringFooter_Advanced_Offense1());
           }
         });
     }
+    
+//  @Ignore
+  @Test
+  public void boxScoresAdvancedOffense2() {
+      running(fakeApplication(), new Runnable() {
+        public void run() {
+      	  ArrayList<String> teams = Utilities.teamList();
+      	  TeamSummary leagueSummary = TeamBoxScore.sumLeagueBoxScoreFromDateMaxDate("2013-10-29", ProcessingType.online);
+      	  TeamSummary teamSummary = null;
+      	  
+      	  for (int i = 0; i < teams.size(); i++) {
+      		  teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2013-10-29", teams.get(i), ProcessingType.online);
+      		  if (i == 0) {
+      			  System.out.println(Utilities.padLeft("Advanced Statistics: 2013-2014 Season", 109));
+      			  System.out.println(Utilities.padLeft("Offensive Stats 2", 99) + "\n");
+      			  System.out.println(teamSummary.toStringHeader_Advanced_Offense2());
+      		  }
+          	  System.out.println(teamSummary.toString_Advanced_Offense2());
+      	  }        	  
+      	  System.out.println(leagueSummary.toString_Advanced_Offense2());
+      	  
+      	  System.out.println(teamSummary.toStringFooter_Advanced_Offense2());
+        }
+      });
+  }
 }
