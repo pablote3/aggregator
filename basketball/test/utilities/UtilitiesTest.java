@@ -25,4 +25,10 @@ public class UtilitiesTest {
     	BigDecimal bd = new BigDecimal(25.00).setScale(2, BigDecimal.ROUND_HALF_UP);
    		assertThat(Utilities.padLeft(bd.toPlainString(), 10)).isEqualTo("     25.00");
     }
+    
+    @Test    
+    public void getPercentDifference() {
+    	BigDecimal bd = Utilities.getPercentDifference(new BigDecimal(0.474), new BigDecimal(0.441), 4);
+		assertThat(bd).isEqualTo(Utilities.roundToBigDecimal((float)7.2131, 4));
+    }
 }

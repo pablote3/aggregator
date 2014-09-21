@@ -1,6 +1,7 @@
 package util;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 
@@ -27,22 +28,20 @@ public class Utilities {
 
 	
     public static BigDecimal roundToBigDecimal(float d, int scale) {
-    	//use to retain number of decimal places with ending zeros
         BigDecimal bd = new BigDecimal(Float.toString(d));
         bd = bd.setScale(scale, BigDecimal.ROUND_HALF_UP);
         return bd;
     }
     
-    public static float roundToFloat(float d, int scale) {
-    	//use to retain number of decimal places with ending zeros
-        BigDecimal bd = new BigDecimal(Float.toString(d));
-        bd = bd.setScale(scale, BigDecimal.ROUND_HALF_UP);
-        return bd.floatValue();
-    }
-    
     public static BigDecimal getAverage(int int1, int int2, int scale) {
     	return roundToBigDecimal(((float)int1/int2), scale);
     }
+    
+    public static BigDecimal getPercentDifference(BigDecimal arg1, BigDecimal arg2, int scale) {
+    	BigDecimal bdAdd = arg1.add(arg2).divide(new BigDecimal(2), scale + 2, RoundingMode.HALF_UP);
+    	BigDecimal bdSubtract = arg1.subtract(arg2);
+    	return bdSubtract.divide(bdAdd, scale + 2, RoundingMode.HALF_UP).multiply(new BigDecimal(100)).setScale(scale);
+    }   
     
     public static ArrayList<String> teamList() {
     	ArrayList<String> list = new ArrayList<String>();
