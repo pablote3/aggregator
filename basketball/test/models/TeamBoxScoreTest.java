@@ -388,7 +388,7 @@ public class TeamBoxScoreTest {
         });
     }
     
-//  @Ignore
+  @Ignore
   @Test
   public void boxScoresAdvancedOffense2() {
       running(fakeApplication(), new Runnable() {
@@ -409,6 +409,56 @@ public class TeamBoxScoreTest {
       	  System.out.println(leagueSummary.toString_Advanced_Offense2());
       	  
       	  System.out.println(teamSummary.toStringFooter_Advanced_Offense2());
+        }
+      });
+  }
+  
+  @Ignore
+  @Test
+  public void boxScoresAdvancedDefense() {
+      running(fakeApplication(), new Runnable() {
+        public void run() {
+      	  ArrayList<String> teams = Utilities.teamList();
+      	  TeamSummary leagueSummary = TeamBoxScore.sumLeagueBoxScoreFromDateMaxDate("2013-10-29", ProcessingType.online);
+      	  TeamSummary teamSummary = null;
+      	  
+      	  for (int i = 0; i < teams.size(); i++) {
+      		  teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2013-10-29", teams.get(i), ProcessingType.online);
+      		  if (i == 0) {
+      			  System.out.println(Utilities.padLeft("Advanced Statistics: 2013-2014 Season", 109));
+      			  System.out.println(Utilities.padLeft("Defensive Stats", 99) + "\n");
+      			  System.out.println(teamSummary.toStringHeader_Advanced_Defense());
+      		  }
+          	  System.out.println(teamSummary.toString_Advanced_Defense());
+      	  }        	  
+      	  System.out.println(leagueSummary.toString_Advanced_Defense());
+      	  
+      	  System.out.println(teamSummary.toStringFooter_Advanced_Defense());
+        }
+      });
+  }
+  
+//  @Ignore
+  @Test
+  public void boxScoresAdvancedEfficiency() {
+      running(fakeApplication(), new Runnable() {
+        public void run() {
+      	  ArrayList<String> teams = Utilities.teamList();
+      	  TeamSummary leagueSummary = TeamBoxScore.sumLeagueBoxScoreFromDateMaxDate("2013-10-29", ProcessingType.online);
+      	  TeamSummary teamSummary = null;
+      	  
+      	  for (int i = 0; i < teams.size(); i++) {
+      		  teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2013-10-29", teams.get(i), ProcessingType.online);
+      		  if (i == 0) {
+      			  System.out.println(Utilities.padLeft("Advanced Statistics: 2013-2014 Season", 109));
+      			  System.out.println(Utilities.padLeft("Efficiency Stats", 99) + "\n");
+      			  System.out.println(teamSummary.toStringHeader_Advanced_Efficiency());
+      		  }
+          	  System.out.println(teamSummary.toString_Advanced_Efficiency());
+      	  }        	  
+      	  System.out.println(leagueSummary.toString_Advanced_Efficiency());
+      	  
+      	  System.out.println(teamSummary.toStringFooter_Advanced_Efficiency());
         }
       });
   }
