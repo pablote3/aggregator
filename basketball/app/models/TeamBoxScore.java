@@ -126,6 +126,15 @@ public class TeamBoxScore extends Model {
 	public void setTeamResult(Result teamResult) {
 		this.teamResult = teamResult;
 	}
+	
+	@Column(name="teamMinutes", nullable=false)
+	private Short teamMinutes;
+	public Short getTeamMinutes() {
+		return teamMinutes;
+	}
+	public void setTeamMinutes(Short teamMinutes) {
+		this.teamMinutes = teamMinutes;
+	}
 
 	@Column(name="teamPoints", nullable=false)
 	private Short teamPoints;
@@ -325,6 +334,33 @@ public class TeamBoxScore extends Model {
 		this.teamPointsQ8 = teamPointsQ8;
 	}
 	
+	@Column(name="teamOpptOpptWins", nullable=false)
+	private Short teamOpptOpptWins;
+	public Short getTeamOpptOpptWins() {
+		return teamOpptOpptWins;
+	}
+	public void setTeamOpptOpptWins(Short teamOpptOpptWins) {
+		this.teamOpptOpptWins = teamOpptOpptWins;
+	}
+	
+	@Column(name="teamOpptOpptGamesPlayed", nullable=false)
+	private Short teamOpptOpptGamesPlayed;
+	public Short getTeamOpptOpptGamesPlayed() {
+		return teamOpptOpptGamesPlayed;
+	}
+	public void setTeamOpptOpptGamesPlayed(Short teamOpptOpptGamesPlayed) {
+		this.teamOpptOpptGamesPlayed = teamOpptOpptGamesPlayed;
+	}
+	
+	@Column(name="teamSeasonOpptOpptWinPercent", nullable=false)
+	private Float teamSeasonOpptOpptWinPercent;
+	public Float getTeamSeasonOpptOpptWinPercent() {
+		return teamSeasonOpptOpptWinPercent;
+	}
+	public void setTeamSeasonOpptOpptWinPercent(Float teamSeasonOpptOpptWinPercent) {
+		this.teamSeasonOpptOpptWinPercent = teamSeasonOpptOpptWinPercent;
+	}
+	
 	@Required
 	@Enumerated(EnumType.STRING)
 	@Column(name="opptAbbr", length=3, nullable=false)
@@ -378,6 +414,15 @@ public class TeamBoxScore extends Model {
 	}
 	public void setOpptResult(Result opptResult) {
 		this.opptResult = opptResult;
+	}
+	
+	@Column(name="opptMinutes", nullable=false)
+	private Short opptMinutes;
+	public Short getOpptMinutes() {
+		return opptMinutes;
+	}
+	public void setOpptMinutes(Short opptMinutes) {
+		this.opptMinutes = opptMinutes;
 	}
 	
 	@Column(name="opptPoints", nullable=false)
@@ -578,58 +623,31 @@ public class TeamBoxScore extends Model {
 		this.opptPointsQ8 = opptPointsQ8;
 	}
 	
-	@Column(name="official1LastName", length=25, nullable=false)
-	private String official1LastName;
-	public String getOfficial1LastName() {
-		return official1LastName;
+	@Column(name="opptOpptOpptWins", nullable=false)
+	private Short opptOpptOpptWins;
+	public Short getOpptOpptOpptWins() {
+		return opptOpptOpptWins;
 	}
-	public void setOfficial1LastName(String official1LastName) {
-		this.official1LastName = official1LastName;
-	}
-	
-	@Column(name="official1FirstName", length=25, nullable=false)
-	private String official1FirstName;
-	public String getOfficial1FirstName() {
-		return official1FirstName;
-	}
-	public void setOfficial1FirstName(String official1FirstName) {
-		this.official1FirstName = official1FirstName;
+	public void setOpptOpptOpptWins(Short opptOpptOpptWins) {
+		this.opptOpptOpptWins = opptOpptOpptWins;
 	}
 	
-	@Column(name="official2LastName", length=25, nullable=false)
-	private String official2LastName;
-	public String getOfficial2LastName() {
-		return official2LastName;
+	@Column(name="opptOpptOpptGamesPlayed", nullable=false)
+	private Short opptOpptOpptGamesPlayed;
+	public Short getOpptOpptOpptGamesPlayed() {
+		return opptOpptOpptGamesPlayed;
 	}
-	public void setOfficial2LastName(String official2LastName) {
-		this.official2LastName = official2LastName;
-	}
-	
-	@Column(name="official2FirstName", length=25, nullable=false)
-	private String official2FirstName;
-	public String getOfficial2FirstName() {
-		return official2FirstName;
-	}
-	public void setOfficial2FirstName(String official2FirstName) {
-		this.official2FirstName = official2FirstName;
+	public void setOpptOpptOpptGamesPlayed(Short opptOpptOpptGamesPlayed) {
+		this.opptOpptOpptGamesPlayed = opptOpptOpptGamesPlayed;
 	}
 	
-	@Column(name="official3LastName", length=25, nullable=false)
-	private String official3LastName;
-	public String getOfficial3LastName() {
-		return official3LastName;
+	@Column(name="opptSeasonOpptOpptWinPercent", nullable=false)
+	private Float opptSeasonOpptOpptWinPercent;
+	public Float getOpptSeasonOpptOpptWinPercent() {
+		return opptSeasonOpptOpptWinPercent;
 	}
-	public void setOfficial3LastName(String official3LastName) {
-		this.official3LastName = official3LastName;
-	}
-	
-	@Column(name="official3FirstName", length=25, nullable=false)
-	private String official3FirstName;
-	public String getOfficial3FirstName() {
-		return official3FirstName;
-	}
-	public void setOfficial3FirstName(String official3FirstName) {
-		this.official3FirstName = official3FirstName;
+	public void setOpptSeasonOpptOpptWinPercent(Float opptSeasonOpptOpptWinPercent) {
+		this.opptSeasonOpptOpptWinPercent = opptSeasonOpptOpptWinPercent;
 	}
 	
 //	public static TeamBoxScore findById(Long id, ProcessingType processingType) {

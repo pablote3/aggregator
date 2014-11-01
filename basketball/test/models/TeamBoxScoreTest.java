@@ -75,7 +75,6 @@ public class TeamBoxScoreTest {
         	  TeamBoxScore teamBoxScore = TeamBoxScore.findByDateTeam("2012-10-31", "SAC", ProcessingType.online);
         	  assertThat(teamBoxScore.getSeasonType()).isEqualTo(SeasonType.regular);
        		  assertThat(teamBoxScore.getOpptPoints()).isEqualTo((short)87);
-        	  assertThat(teamBoxScore.getOfficial1LastName()).isEqualTo("Jones");
           }
         });
     }
