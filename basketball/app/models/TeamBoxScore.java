@@ -334,6 +334,24 @@ public class TeamBoxScore extends Model {
 		this.teamPointsQ8 = teamPointsQ8;
 	}
 	
+	@Column(name="teamOpptWins", nullable=false)
+	private Short teamOpptWins;
+	public Short getTeamOpptWins() {
+		return teamOpptWins;
+	}
+	public void setTeamOpptWins(Short teamOpptWins) {
+		this.teamOpptWins = teamOpptWins;
+	}
+	
+	@Column(name="teamOpptGamesPlayed", nullable=false)
+	private Short teamOpptGamesPlayed;
+	public Short getTeamOpptGamesPlayed() {
+		return teamOpptGamesPlayed;
+	}
+	public void setTeamOpptGamesPlayed(Short teamOpptGamesPlayed) {
+		this.teamOpptGamesPlayed = teamOpptGamesPlayed;
+	}
+	
 	@Column(name="teamOpptOpptWins", nullable=false)
 	private Short teamOpptOpptWins;
 	public Short getTeamOpptOpptWins() {
@@ -350,15 +368,6 @@ public class TeamBoxScore extends Model {
 	}
 	public void setTeamOpptOpptGamesPlayed(Short teamOpptOpptGamesPlayed) {
 		this.teamOpptOpptGamesPlayed = teamOpptOpptGamesPlayed;
-	}
-	
-	@Column(name="teamSeasonOpptOpptWinPercent", nullable=false)
-	private Float teamSeasonOpptOpptWinPercent;
-	public Float getTeamSeasonOpptOpptWinPercent() {
-		return teamSeasonOpptOpptWinPercent;
-	}
-	public void setTeamSeasonOpptOpptWinPercent(Float teamSeasonOpptOpptWinPercent) {
-		this.teamSeasonOpptOpptWinPercent = teamSeasonOpptOpptWinPercent;
 	}
 	
 	@Required
@@ -623,6 +632,24 @@ public class TeamBoxScore extends Model {
 		this.opptPointsQ8 = opptPointsQ8;
 	}
 	
+	@Column(name="opptOpptWins", nullable=false)
+	private Short opptOpptWins;
+	public Short getOpptOpptWins() {
+		return opptOpptWins;
+	}
+	public void setOpptOpptWins(Short opptOpptWins) {
+		this.opptOpptWins = opptOpptWins;
+	}
+	
+	@Column(name="opptOpptGamesPlayed", nullable=false)
+	private Short opptOpptGamesPlayed;
+	public Short getOpptOpptGamesPlayed() {
+		return opptOpptGamesPlayed;
+	}
+	public void setOpptOpptGamesPlayed(Short opptOpptGamesPlayed) {
+		this.opptOpptGamesPlayed = opptOpptGamesPlayed;
+	}
+	
 	@Column(name="opptOpptOpptWins", nullable=false)
 	private Short opptOpptOpptWins;
 	public Short getOpptOpptOpptWins() {
@@ -639,15 +666,6 @@ public class TeamBoxScore extends Model {
 	}
 	public void setOpptOpptOpptGamesPlayed(Short opptOpptOpptGamesPlayed) {
 		this.opptOpptOpptGamesPlayed = opptOpptOpptGamesPlayed;
-	}
-	
-	@Column(name="opptSeasonOpptOpptWinPercent", nullable=false)
-	private Float opptSeasonOpptOpptWinPercent;
-	public Float getOpptSeasonOpptOpptWinPercent() {
-		return opptSeasonOpptOpptWinPercent;
-	}
-	public void setOpptSeasonOpptOpptWinPercent(Float opptSeasonOpptOpptWinPercent) {
-		this.opptSeasonOpptOpptWinPercent = opptSeasonOpptOpptWinPercent;
 	}
 	
 //	public static TeamBoxScore findById(Long id, ProcessingType processingType) {
