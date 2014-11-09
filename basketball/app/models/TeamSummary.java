@@ -21,7 +21,6 @@ public class TeamSummary extends Model {
 	@Enumerated(EnumType.STRING)
 	private TeamAbbr teamAbbr;	
 	private Integer teamGamesPlayed;
-	
 	private Integer teamSumPoints;
 	private Integer teamSumAssists;
 	private Integer teamSumTurnovers;
@@ -45,6 +44,8 @@ public class TeamSummary extends Model {
 	private Integer teamMaxOpptOpptWins;
 	private Integer teamMaxOpptOpptGamesPlayed;
 	
+	private TeamAbbr opptAbbr;
+	private Integer opptGamesPlayed;
 	private Integer opptSumPoints;
 	private Integer opptSumAssists;
 	private Integer opptSumTurnovers;
@@ -451,6 +452,17 @@ public class TeamSummary extends Model {
 			.setScale(scale, RoundingMode.HALF_UP);
 	}
 	
+	public BigDecimal getOpptOffensiveRating(int scale) {
+		return getOpptAvgPoints(2)
+			.divide(getTeamPossessions(), 4, RoundingMode.HALF_UP)
+			.multiply(new BigDecimal(100))
+			.setScale(scale, RoundingMode.HALF_UP);
+	}
+	
+	public BigDecimal getTeamOpptOffensiveRatingDiff(int scale) {
+		return Utilities.getPercentDifference(getTeamOffensiveRating(scale), getOpptOffensiveRating(scale), scale);
+	}
+	
 	public BigDecimal getTeamDefensiveRating(int scale) {
 		return getOpptAvgPoints(2)
 			.divide(getTeamPossessions(), 4, RoundingMode.HALF_UP)
@@ -458,17 +470,28 @@ public class TeamSummary extends Model {
 			.setScale(scale, RoundingMode.HALF_UP);
 	}
 	
+	public BigDecimal getOpptDefensiveRating(int scale) {
+		return getTeamAvgPoints(2)
+			.divide(getTeamPossessions(), 4, RoundingMode.HALF_UP)
+			.multiply(new BigDecimal(100))
+			.setScale(scale, RoundingMode.HALF_UP);
+	}
+	
+	public BigDecimal getTeamOpptDefensiveRatingDiff(int scale) {
+		return Utilities.getPercentDifference(getTeamDefensiveRating(scale), getOpptDefensiveRating(scale), scale);
+	}
+	
 	public BigDecimal getTeamOffensiveDefensiveRatingDiff(int scale) {
 		return Utilities.getPercentDifference(getTeamOffensiveRating(2), getTeamDefensiveRating(2), scale);
 	}
 	
-	public BigDecimal getTeamEfficiencyDifferential() {
+	public BigDecimal getTeamEfficiencyDifferential(int scale) {
 		return getTeamOffensiveRating(2)
 			.subtract(getTeamDefensiveRating(2))
-			.setScale(2, RoundingMode.HALF_UP);
+			.setScale(scale, RoundingMode.HALF_UP);
 	}
 	
-	public BigDecimal getTeamFloorImpactCounter() {
+	public BigDecimal getTeamFloorImpactCounter(int scale) {
 		BigDecimal bd =  new BigDecimal(getTeamSumPoints())
 			.add(new BigDecimal(getTeamSumReboundsOffense()))
 			.add(new BigDecimal(getTeamSumReboundsOffense() * 0.75))
@@ -478,7 +501,24 @@ public class TeamSummary extends Model {
 			.subtract(new BigDecimal(getTeamSumFreeThrowAttempts() * 0.375))
 			.subtract(new BigDecimal(getTeamSumTurnovers()))
 			.subtract(new BigDecimal(getTeamSumPersonalFouls() * 0.5));
-		return bd.divide(new BigDecimal(getTeamGamesPlayed()), 2, RoundingMode.HALF_UP);
+		return bd.divide(new BigDecimal(getTeamGamesPlayed()), scale, RoundingMode.HALF_UP);
+	}
+	
+	public BigDecimal getOpptFloorImpactCounter(int scale) {
+		BigDecimal bd =  new BigDecimal(getOpptSumPoints())
+			.add(new BigDecimal(getOpptSumReboundsOffense()))
+			.add(new BigDecimal(getOpptSumReboundsOffense() * 0.75))
+			.add(new BigDecimal(getOpptSumAssists()))
+			.add(new BigDecimal(getOpptSumSteals()))
+			.subtract(new BigDecimal(getOpptSumFieldGoalAttempts() * 0.75))
+			.subtract(new BigDecimal(getOpptSumFreeThrowAttempts() * 0.375))
+			.subtract(new BigDecimal(getOpptSumTurnovers()))
+			.subtract(new BigDecimal(getOpptSumPersonalFouls() * 0.5));
+		return bd.divide(new BigDecimal(getOpptGamesPlayed()), scale, RoundingMode.HALF_UP);
+	}
+	
+	public BigDecimal getTeamOpptFloorImpactCounterDiff(int scale) {
+		return Utilities.getPercentDifference(getTeamFloorImpactCounter(scale), getOpptFloorImpactCounter(scale), scale);
 	}
 	
 	public BigDecimal getTeamPythagoreanWinningPercentage13_91(int scale) {
@@ -574,6 +614,27 @@ public class TeamSummary extends Model {
 
 		return teamPossessions.add(opptPossessions).divide(new BigDecimal(2)).setScale(2, RoundingMode.HALF_UP);
 	}
+	
+	public BigDecimal getOpptPossessions() {
+		BigDecimal teamPossessions = new BigDecimal(teamSumFieldGoalAttempts)
+			.subtract(Utilities.getAverage(teamSumReboundsOffense, teamSumReboundsOffense + opptSumReboundsDefense, 4)
+			.multiply(new BigDecimal((teamSumFieldGoalAttempts - teamSumFieldGoalMade) * 1.07)))
+			.add(new BigDecimal(teamSumTurnovers))
+			.add(new BigDecimal(teamSumFreeThrowAttempts * (0.4)))
+			.divide(new BigDecimal(teamGamesPlayed), 2, RoundingMode.HALF_UP);
+
+		BigDecimal opptPossessions = new BigDecimal(opptSumFieldGoalAttempts)
+			.subtract(Utilities.getAverage(opptSumReboundsOffense, opptSumReboundsOffense + teamSumReboundsDefense, 4)
+			.multiply(new BigDecimal((opptSumFieldGoalAttempts - opptSumFieldGoalMade) * 1.07)))
+			.add(new BigDecimal(opptSumTurnovers))
+			.add(new BigDecimal(opptSumFreeThrowAttempts * (0.4)))
+			.divide(new BigDecimal(teamGamesPlayed), 2, RoundingMode.HALF_UP);
+
+		return teamPossessions.add(opptPossessions).divide(new BigDecimal(2)).setScale(2, RoundingMode.HALF_UP);
+	}
+	
+	public TeamAbbr getOpptAbbr() { return opptAbbr; }
+	public Integer getOpptGamesPlayed() { return opptGamesPlayed; }
 	
 	public Integer getOpptSumPoints() { return opptSumPoints; }
 	public Integer getOpptSumAssists() { return opptSumAssists; }
@@ -914,9 +975,9 @@ public class TeamSummary extends Model {
 	
 	public String toStringHeader_Advanced_Efficiency() {
 		return new StringBuffer()
-			.append("     |            Efficiency Ratio             |                    Winning%                     |               Strength of Schedule             |" + "\r")
-			.append("     |                 Overall                 |       Pyth 13.91       |       Pyth 16.5        |      |        SOS         |        RPI         |" + "\r")
-			.append("Team | ORtg   DRtg    Δ%   eDiff   FIC   Poss  | Pyth%   WPyth   LPyth  | Pyth%   WPyth   LPyth  | MOV  | Own    Oppt    Δ%  | Own    Oppt    Δ%  |")
+			.append("     |                                      Efficiency Ratio                                     |" + "\r")
+			.append("     |        ORtg        |        DRtg        |       |        FIC         |        Poss        |" + "\r")
+			.append("Team | Own    Opp     Δ%  | Own    Opp     Δ%  | eDiff | Own    Opp     Δ%  | Own    Opp     Δ%  |")
 			.toString();
 	}
 	
@@ -924,11 +985,42 @@ public class TeamSummary extends Model {
 		return new StringBuffer()
 			.append(this.getTeamAbbr() != null ? Utilities.padRight(this.teamAbbr.toString(), 4): Utilities.padRight("", 4))
 			.append(" " + Utilities.padLeft(getTeamOffensiveRating(1).toString(), 6))
+			.append(" " + Utilities.padLeft(getOpptOffensiveRating(1).toString(), 6))
+			.append(" " + Utilities.padLeft(getTeamOpptOffensiveRatingDiff(2).toPlainString(), 6))
 			.append(" " + Utilities.padLeft(getTeamDefensiveRating(1).toString(), 6))
-			.append(" " + Utilities.padLeft(getTeamOffensiveDefensiveRatingDiff(2).toString(), 6))
-			.append(" " + Utilities.padLeft(getTeamEfficiencyDifferential().toString(), 6))			
-			.append(" " + Utilities.padLeft(getTeamFloorImpactCounter().toString(), 6))
+			.append(" " + Utilities.padLeft(getOpptDefensiveRating(1).toString(), 6))
+			.append(" " + Utilities.padLeft(getTeamOpptDefensiveRatingDiff(2).toString(), 6))
+			.append(" " + Utilities.padLeft(getTeamEfficiencyDifferential(2).toString(), 6))	
+			.append("  " + Utilities.padLeft(getTeamFloorImpactCounter(2).toString(), 6))
+			.append(" " + Utilities.padLeft(getOpptFloorImpactCounter(2).toString(), 6))
+			.append(" " + Utilities.padLeft(getTeamOpptFloorImpactCounterDiff(2).toString(), 6))
 			.append(" " + Utilities.padLeft(getTeamPossessions().toString(), 6))
+			.append(" " + Utilities.padLeft(getOpptPossessions().toString(), 6))
+//			.append(" " + Utilities.padLeft(getTeamOpptPossessionsDiff(2).toString(), 6))
+			.toString();
+	}
+	
+	public String toStringFooter_Advanced_Efficiency() {
+		return new StringBuffer()
+			.append("\r  " + Utilities.padRight("ORtg: Offensive Rating", 40) + "Team PTS / Poss")
+			.append("\r  " + Utilities.padRight("DRtg: Defensive Rating", 40) + "Oppt PTS / Poss")
+			.append("\r  " + Utilities.padRight("eDiff: Efficiency Differential", 40) + "ORtg - DRtg")
+			.append("\r  " + Utilities.padRight("FIC: Floor Impact Counter", 40) + "(PTS + ORB + 0.75 DRB + AST + STL - 0.75 FGA - 0.375 FTA - TO - 0.5 PF) / GP")
+			.append("\r  " + Utilities.padRight("Poss: Estimated Possessions", 40) + "FGA – (OREB / OREB + DDREB) * (FGA – FGM) * 1.07 + TOV + (0.4 * FTA)")
+			.toString();
+	}
+	
+	public String toStringHeader_Advanced_StrengthOfSchedule() {
+		return new StringBuffer()
+			.append("     |                    Winning%                     |               Strength of Schedule             |" + "\r")
+			.append("     |       Pyth 13.91       |       Pyth 16.5        |      |        SOS         |        RPI         |" + "\r")
+			.append("Team | Pyth%   WPyth   LPyth  | Pyth%   WPyth   LPyth  | MOV  | Own    Oppt    Δ%  | Own    Oppt    Δ%  |")
+			.toString();
+	}
+	
+	public String toString_Advanced_StrengthOfSchedule() {
+		return new StringBuffer()
+			.append(this.getTeamAbbr() != null ? Utilities.padRight(this.teamAbbr.toString(), 4): Utilities.padRight("", 4))
 			.append("  " + Utilities.padLeft(getTeamPythagoreanWinningPercentage13_91(3).toString(), 6))
 			.append(" " + Utilities.padLeft(getTeamPythagoreanWins13_91(2).toString(), 7))
 			.append(" " + Utilities.padLeft(getTeamPythagoreanLosses13_91(2).toString(), 7))
@@ -941,13 +1033,8 @@ public class TeamSummary extends Model {
 			.toString();
 	}
 	
-	public String toStringFooter_Advanced_Efficiency() {
+	public String toStringFooter_Advanced_StrengthOfSchedule() {
 		return new StringBuffer()
-			.append("\r  " + Utilities.padRight("ORtg: Offensive Rating", 40) + "Team PTS / Poss")
-			.append("\r  " + Utilities.padRight("DRtg: Defensive Rating", 40) + "Oppt PTS / Poss")
-			.append("\r  " + Utilities.padRight("eDiff: Efficiency Differential", 40) + "ORtg - DRtg")
-			.append("\r  " + Utilities.padRight("FIC: Floor Impact Counter", 40) + "(PTS + ORB + 0.75 DRB + AST + STL - 0.75 FGA - 0.375 FTA - TO - 0.5 PF) / GP")
-			.append("\r  " + Utilities.padRight("Poss: Estimated Possessions", 40) + "FGA – (OREB / OREB + DDREB) * (FGA – FGM) * 1.07 + TOV + (0.4 * FTA)")
 			.append("\r  " + Utilities.padRight("Pyth% 13.91: Pythagorean Winning% 13.91", 40) + "Team PTS^13.91 / (Team PTS^13.91 + Oppt PTS^13.91)")
 			.append("\r  " + Utilities.padRight("Pyth% 16.5: Pythagorean Winning% 16.5", 40) + "Team PTS^16.5 / (Team PTS^16.5 + Oppt PTS^16.5)")
 			.append("\r  " + Utilities.padRight("WPyth: Pythagorean Wins", 40) + "Pyth% * 82")

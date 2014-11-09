@@ -759,7 +759,7 @@ public class TeamBoxScore extends Model {
 	  	
 	  	LocalDate maxDate = DateTimeUtil.getDateMaxSeason(DateTimeUtil.createDateFromStringDate(fromDate));
 	  	
-		String sql 	= " select teamAbbr as Team, count(teamPoints) as teamGamesPlayed,"
+		String sql 	= " select teamAbbr as teamAbbr, count(teamPoints) as teamGamesPlayed,"
 					+ " sum(teamPoints) as teamSumPoints, sum(teamAssists) as teamSumAssists, sum(teamTurnovers) as teamSumTurnovers,"
 					+ " sum(teamSteals) as teamSumSteals, sum(teamBlocks) as teamSumBlocks, sum(teamPersonalFouls) as teamSumPersonalFouls,"
 					+ " sum(teamFieldGoalAttempts) as teamSumFieldGoalAttempts, sum(teamFieldGoalMade) as teamSumFieldGoalMade,"
@@ -770,6 +770,7 @@ public class TeamBoxScore extends Model {
 					+ " sum(teamPointsQ3) as teamSumPointsQ3, sum(teamPointsQ4) as teamSumPointsQ4,"
 					+ " max(teamOpptWins) as teamMaxOpptWins, max(teamOpptGamesPlayed) as teamMaxOpptGamesPlayed,"
 					+ " max(teamOpptOpptWins) as teamMaxOpptOpptWins, max(teamOpptOpptGamesPlayed) as teamMaxOpptOpptGamesPlayed,"
+					+ " opptAbbr as opptAbbr, count(opptPoints) as opptGamesPlayed,"
 					+ " sum(opptPoints) as opptSumPoints, sum(opptAssists) as opptSumAssists, sum(opptTurnovers) as opptSumTurnovers,"
 					+ " sum(opptSteals) as opptSumSteals, sum(opptBlocks) as opptSumBlocks, sum(opptPersonalFouls) as opptSumPersonalFouls,"
 					+ " sum(opptFieldGoalAttempts) as opptSumFieldGoalAttempts, sum(opptFieldGoalMade) as opptSumFieldGoalMade,"
@@ -819,6 +820,7 @@ public class TeamBoxScore extends Model {
 					+ " sum(teamPointsQ3) as teamSumPointsQ3, sum(teamPointsQ4) as teamSumPointsQ4,"
 					+ " max(teamOpptWins) as teamMaxOpptWins, max(teamOpptGamesPlayed) as teamMaxOpptGamesPlayed,"
 					+ " max(teamOpptOpptWins) as teamMaxOpptOpptWins, max(teamOpptOpptGamesPlayed) as teamMaxOpptOpptGamesPlayed,"
+					+ " count(opptPoints) as opptGamesPlayed,"
 					+ " sum(opptPoints) as opptSumPoints, sum(opptAssists) as opptSumAssists, sum(opptTurnovers) as opptSumTurnovers,"
 					+ " sum(opptSteals) as opptSumSteals, sum(opptBlocks) as opptSumBlocks, sum(opptPersonalFouls) as opptSumPersonalFouls,"
 					+ " sum(opptFieldGoalAttempts) as opptSumFieldGoalAttempts, sum(opptFieldGoalMade) as opptSumFieldGoalMade,"
