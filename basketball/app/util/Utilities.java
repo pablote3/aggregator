@@ -39,8 +39,13 @@ public class Utilities {
     
     public static BigDecimal getPercentDifference(BigDecimal arg1, BigDecimal arg2, int scale) {
     	BigDecimal bdAdd = arg1.add(arg2).divide(new BigDecimal(2), scale + 2, RoundingMode.HALF_UP);
-    	BigDecimal bdSubtract = arg1.subtract(arg2);
-    	return bdSubtract.divide(bdAdd, scale + 2, RoundingMode.HALF_UP).multiply(new BigDecimal(100)).setScale(scale);
+    	if (bdAdd.compareTo(BigDecimal.ZERO) == 0) {
+    		return BigDecimal.ZERO;
+    	}
+    	else {
+    		BigDecimal bdSubtract = arg1.subtract(arg2);
+    		return bdSubtract.divide(bdAdd, scale + 2, RoundingMode.HALF_UP).multiply(new BigDecimal(100)).setScale(scale);
+    	}
     }   
     
     public static ArrayList<String> teamList() {
