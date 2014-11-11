@@ -768,7 +768,7 @@ public class TeamBoxScore extends Model {
 					+ " sum(teamReboundsOffense) as teamSumReboundsOffense, sum(teamReboundsDefense) as teamSumReboundsDefense,"
 					+ " sum(teamPointsQ1) as teamSumPointsQ1, sum(teamPointsQ2) as teamSumPointsQ2,"
 					+ " sum(teamPointsQ3) as teamSumPointsQ3, sum(teamPointsQ4) as teamSumPointsQ4,"
-					+ " max(teamOpptWins) as teamMaxOpptWins, max(teamOpptGamesPlayed) as teamMaxOpptGamesPlayed,"
+					+ " sum(teamOpptWins) as teamSumOpptWins, sum(teamOpptGamesPlayed) as teamSumOpptGamesPlayed,"
 					+ " max(teamOpptOpptWins) as teamMaxOpptOpptWins, max(teamOpptOpptGamesPlayed) as teamMaxOpptOpptGamesPlayed,"
 					+ " opptAbbr as opptAbbr, count(opptPoints) as opptGamesPlayed,"
 					+ " sum(opptPoints) as opptSumPoints, sum(opptAssists) as opptSumAssists, sum(opptTurnovers) as opptSumTurnovers,"
@@ -779,7 +779,7 @@ public class TeamBoxScore extends Model {
 					+ " sum(opptReboundsOffense) as opptSumReboundsOffense, sum(opptReboundsDefense) as opptSumReboundsDefense,"
 					+ " sum(opptPointsQ1) as opptSumPointsQ1, sum(opptPointsQ2) as opptSumPointsQ2,"
 					+ " sum(opptPointsQ3) as opptSumPointsQ3, sum(opptPointsQ4) as opptSumPointsQ4,"
-					+ " max(opptOpptWins) as opptMaxOpptWins, max(opptOpptGamesPlayed) as opptMaxOpptGamesPlayed,"
+					+ " sum(opptOpptWins) as opptSumOpptWins, sum(opptOpptGamesPlayed) as opptSumOpptGamesPlayed,"
 					+ " max(opptOpptOpptWins) as opptMaxOpptOpptWins, max(opptOpptOpptGamesPlayed) as opptMaxOpptOpptGamesPlayed"
 					+ " from team_box_score"
 					+ " group by teamAbbr";
@@ -818,7 +818,7 @@ public class TeamBoxScore extends Model {
 					+ " sum(teamReboundsOffense) as teamSumReboundsOffense, sum(teamReboundsDefense) as teamSumReboundsDefense,"
 					+ " sum(teamPointsQ1) as teamSumPointsQ1, sum(teamPointsQ2) as teamSumPointsQ2,"
 					+ " sum(teamPointsQ3) as teamSumPointsQ3, sum(teamPointsQ4) as teamSumPointsQ4,"
-					+ " max(teamOpptWins) as teamMaxOpptWins, max(teamOpptGamesPlayed) as teamMaxOpptGamesPlayed,"
+					+ " sum(teamOpptWins) as teamSumOpptWins, sum(teamOpptGamesPlayed) as teamSumOpptGamesPlayed,"
 					+ " max(teamOpptOpptWins) as teamMaxOpptOpptWins, max(teamOpptOpptGamesPlayed) as teamMaxOpptOpptGamesPlayed,"
 					+ " count(opptPoints) as opptGamesPlayed,"
 					+ " sum(opptPoints) as opptSumPoints, sum(opptAssists) as opptSumAssists, sum(opptTurnovers) as opptSumTurnovers,"
@@ -829,7 +829,7 @@ public class TeamBoxScore extends Model {
 					+ " sum(opptReboundsOffense) as opptSumReboundsOffense, sum(opptReboundsDefense) as opptSumReboundsDefense,"
 					+ " sum(opptPointsQ1) as opptSumPointsQ1, sum(opptPointsQ2) as opptSumPointsQ2,"
 					+ " sum(opptPointsQ3) as opptSumPointsQ3, sum(opptPointsQ4) as opptSumPointsQ4,"
-					+ " max(opptOpptWins) as opptMaxOpptWins, max(opptOpptGamesPlayed) as opptMaxOpptGamesPlayed,"
+					+ " sum(opptOpptWins) as opptSumOpptWins, sum(opptOpptGamesPlayed) as opptSumOpptGamesPlayed,"
 					+ " max(opptOpptOpptWins) as opptMaxOpptOpptWins, max(opptOpptOpptGamesPlayed) as opptMaxOpptOpptGamesPlayed"
 					+ " from team_box_score";
 	  
