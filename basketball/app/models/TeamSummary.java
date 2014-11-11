@@ -709,6 +709,20 @@ public class TeamSummary extends Model {
 		return Utilities.getPercentDifference(getTeamRelativePercentageIndex(scale), getOpptRelativePercentageIndex(scale), scale);
 	}
 	
+	public BigDecimal getTeamSimpleRatingSystem(int scale) {
+		return getTeamMarginOfVictory(3)
+			.subtract(getTeamStrengthOfSchedule(3))
+			.setScale(scale, RoundingMode.HALF_UP);
+	}
+	
+	public BigDecimal getTeamProjectedWinningPercentage(int scale) {
+		return getTeamMarginOfVictory(3)
+			.multiply(new BigDecimal(2.7))
+			.add(new BigDecimal(41))
+			.divide(new BigDecimal(82), 4, RoundingMode.HALF_UP)
+			.setScale(scale, RoundingMode.HALF_UP);
+	}
+	
 	// Pace
 //	public BigDecimal getTeamPace() {
 //		return getTeamPossessions()
@@ -1002,9 +1016,9 @@ public class TeamSummary extends Model {
 	
 	public String toStringHeader_Advanced_Efficiency() {
 		return new StringBuffer()
-			.append("     |                               Efficiency Ratio                               |                    Winning%                   |               Strength of Schedule             |" + "\r")
-			.append("     |        ORtg        |        DRtg        |       |       |        FIC         |       Pyth 13.91      |       Pyth 16.5       |      |        SOS         |        RPI         |" + "\r")
-			.append("Team | Own    Opp     Δ%  | Own    Opp     Δ%  | eDiff | Poss  | Own    Opp     Δ%  | Pyth%   WPyth   LPyth | Pyth%   WPyth   LPyth | MOV  | Own    Oppt    Δ%  | Own    Oppt    Δ%  |")
+			.append("     |                               Efficiency Ratio                               |                    Winning%                   |                      Strength of Schedule                       |" + "\r")
+			.append("     |        ORtg        |        DRtg        |       |       |        FIC         |       Pyth 13.91      |       Pyth 16.5       |        SOS         |        RPI         |       |       |       |" + "\r")
+			.append("Team | Own    Opp     Δ%  | Own    Opp     Δ%  | eDiff | Poss  | Own    Opp     Δ%  | Pyth%   WPyth   LPyth | Pyth%   WPyth   LPyth | Own    Oppt    Δ%  | Own    Oppt    Δ%  |  MOV  |  SRS  |  PW%  |")
 			.toString();
 	}
 	
@@ -1028,13 +1042,15 @@ public class TeamSummary extends Model {
 			.append(" " + Utilities.padLeft(getTeamPythagoreanWinningPercentage16_5(3).toString(), 7))
 			.append(" " + Utilities.padLeft(getTeamPythagoreanWins16_5(2).toString(), 7))
 			.append(" " + Utilities.padLeft(getTeamPythagoreanLosses16_5(2).toString(), 7))
-			.append(" " + Utilities.padLeft(getTeamMarginOfVictory(2).toString(), 6))
 			.append(" " + Utilities.padLeft(getTeamStrengthOfSchedule(3).toString(), 6))
 			.append(" " + Utilities.padLeft(getOpptStrengthOfSchedule(3).toString(), 6))
 			.append(" " + Utilities.padLeft(getTeamOpptStrengthOfScheduleDiff(2).toString(), 6))
 			.append(" " + Utilities.padLeft(getTeamRelativePercentageIndex(3).toString(), 6))
 			.append(" " + Utilities.padLeft(getOpptRelativePercentageIndex(3).toString(), 6))
 			.append(" " + Utilities.padLeft(getTeamOpptRelativePercentageIndexDiff(2).toString(), 6))
+			.append("  " + Utilities.padLeft(getTeamMarginOfVictory(2).toString(), 6))
+			.append("  " + Utilities.padLeft(getTeamSimpleRatingSystem(2).toString(), 6))
+			.append("  " + Utilities.padLeft(getTeamProjectedWinningPercentage(3).toString(), 6))
 			.toString();
 	}
 	
@@ -1049,34 +1065,11 @@ public class TeamSummary extends Model {
 			.append("\r  " + Utilities.padRight("WPyth: Pythagorean Wins", 40) + "Pyth% * 82")
 			.append("\r  " + Utilities.padRight("LPyth: Pythagorean Losses", 40) + "82 - WPyth")
 			.append("\r  " + Utilities.padRight("Poss: Estimated Possessions", 40) + "FGA – (OREB / OREB + DDREB) * (FGA – FGM) * 1.07 + TOV + (0.4 * FTA)")
-			.append("\r  " + Utilities.padRight("MOV: Margin of Victory", 40) + "Team PTS - Oppt PTS")
 			.append("\r  " + Utilities.padRight("SOS: Strength of Schedule", 40) + "(2 * Oppt Win% + Oppt Oppt Win%) / 3")
 			.append("\r  " + Utilities.padRight("RPI: Relative Percentage Index", 40) + "0.25 * Team Win% + 0.5 * Oppt Win% + 0.25 * Oppt Oppt Win%")
-			.toString();
-	}
-	
-	public String toStringHeader_Advanced_StrengthOfSchedule() {
-		return new StringBuffer()
-			.append("     |               Strength of Schedule             |" + "\r")
-			.append("     |      |        SOS         |        RPI         |" + "\r")
-			.append("Team | MOV  | Own    Oppt    Δ%  | Own    Oppt    Δ%  |")
-			.toString();
-	}
-	
-	public String toString_Advanced_StrengthOfSchedule() {
-		return new StringBuffer()
-			.append(this.getTeamAbbr() != null ? Utilities.padRight(this.teamAbbr.toString(), 4): Utilities.padRight("", 4))
-			.append(" " + Utilities.padLeft(getTeamMarginOfVictory(2).toString(), 7))
-			.append(" " + Utilities.padLeft(getTeamStrengthOfSchedule(2).toString(), 7))
-			.append(" " + Utilities.padLeft(getOpptStrengthOfSchedule(2).toString(), 7))
-			.toString();
-	}
-	
-	public String toStringFooter_Advanced_StrengthOfSchedule() {
-		return new StringBuffer()
 			.append("\r  " + Utilities.padRight("MOV: Margin of Victory", 40) + "Team PTS - Oppt PTS")
-			.append("\r  " + Utilities.padRight("SOS: Strength of Schedule", 40) + "(2 * Oppt Win% + Oppt Oppt Win%) / 3")
-			.append("\r  " + Utilities.padRight("RPI: Relative Percentage Index", 40) + "0.25 * Team Win% + 0.5 * Oppt Win% + 0.25 * Oppt Oppt Win%")
+			.append("\r  " + Utilities.padRight("SRS: Simple Rating System", 40) + "MOV - SOS")
+			.append("\r  " + Utilities.padRight("PW%: Projected Winning Percentage", 40) + "((MOV * 2.7) + 41) / 82")
 			.toString();
 	}
 }
