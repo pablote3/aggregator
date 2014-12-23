@@ -447,7 +447,7 @@ public class TeamBoxScoreTest {
       	  TeamSummary teamSummary = null;
       	  
       	  for (int i = 0; i < teams.size(); i++) {
-      		  teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2013-10-29", teams.get(i), ProcessingType.online);
+      		  teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2014-10-29", teams.get(i), ProcessingType.online);
       		  if (i == 0) {
       			  System.out.println(Utilities.padLeft("Advanced Statistics: 2013-2014 Season", 109));
       			  System.out.println(Utilities.padLeft("Efficiency Stats", 99) + "\n");

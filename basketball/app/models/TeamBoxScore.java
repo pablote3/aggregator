@@ -334,51 +334,15 @@ public class TeamBoxScore extends Model {
 		this.teamPointsQ8 = teamPointsQ8;
 	}
 	
-	@Column(name="teamOpptWins", nullable=false)
-	private Short teamOpptWins;
-	public Short getTeamOpptWins() {
-		return teamOpptWins;
-	}
-	public void setTeamOpptWins(Short teamOpptWins) {
-		this.teamOpptWins = teamOpptWins;
-	}
-	
-	@Column(name="teamOpptGamesPlayed", nullable=false)
-	private Short teamOpptGamesPlayed;
-	public Short getTeamOpptGamesPlayed() {
-		return teamOpptGamesPlayed;
-	}
-	public void setTeamOpptGamesPlayed(Short teamOpptGamesPlayed) {
-		this.teamOpptGamesPlayed = teamOpptGamesPlayed;
-	}
-	
-	@Column(name="teamOpptOpptWins", nullable=false)
-	private Short teamOpptOpptWins;
-	public Short getTeamOpptOpptWins() {
-		return teamOpptOpptWins;
-	}
-	public void setTeamOpptOpptWins(Short teamOpptOpptWins) {
-		this.teamOpptOpptWins = teamOpptOpptWins;
-	}
-	
-	@Column(name="teamOpptOpptGamesPlayed", nullable=false)
-	private Short teamOpptOpptGamesPlayed;
-	public Short getTeamOpptOpptGamesPlayed() {
-		return teamOpptOpptGamesPlayed;
-	}
-	public void setTeamOpptOpptGamesPlayed(Short teamOpptOpptGamesPlayed) {
-		this.teamOpptOpptGamesPlayed = teamOpptOpptGamesPlayed;
-	}
-	
 	@Required
 	@Enumerated(EnumType.STRING)
-	@Column(name="opptAbbr", length=3, nullable=false)
-	private TeamAbbr opptAbbr;
-	public TeamAbbr getOpptAbbr() {
-		return opptAbbr;
+	@Column(name="opptTeamAbbr", length=3, nullable=false)
+	private TeamAbbr opptTeamAbbr;
+	public TeamAbbr getOpptTeamAbbr() {
+		return opptTeamAbbr;
 	}
-	public void setOpptAbbr(TeamAbbr opptAbbr) {
-		this.opptAbbr = opptAbbr;
+	public void setOpptTeamAbbr(TeamAbbr opptTeamAbbr) {
+		this.opptTeamAbbr = opptTeamAbbr;
 	}
 	
 	@Required
@@ -631,43 +595,7 @@ public class TeamBoxScore extends Model {
 	public void setOpptPointsQ8(Short opptPointsQ8) {
 		this.opptPointsQ8 = opptPointsQ8;
 	}
-	
-	@Column(name="opptOpptWins", nullable=false)
-	private Short opptOpptWins;
-	public Short getOpptOpptWins() {
-		return opptOpptWins;
-	}
-	public void setOpptOpptWins(Short opptOpptWins) {
-		this.opptOpptWins = opptOpptWins;
-	}
-	
-	@Column(name="opptOpptGamesPlayed", nullable=false)
-	private Short opptOpptGamesPlayed;
-	public Short getOpptOpptGamesPlayed() {
-		return opptOpptGamesPlayed;
-	}
-	public void setOpptOpptGamesPlayed(Short opptOpptGamesPlayed) {
-		this.opptOpptGamesPlayed = opptOpptGamesPlayed;
-	}
-	
-	@Column(name="opptOpptOpptWins", nullable=false)
-	private Short opptOpptOpptWins;
-	public Short getOpptOpptOpptWins() {
-		return opptOpptOpptWins;
-	}
-	public void setOpptOpptOpptWins(Short opptOpptOpptWins) {
-		this.opptOpptOpptWins = opptOpptOpptWins;
-	}
-	
-	@Column(name="opptOpptOpptGamesPlayed", nullable=false)
-	private Short opptOpptOpptGamesPlayed;
-	public Short getOpptOpptOpptGamesPlayed() {
-		return opptOpptOpptGamesPlayed;
-	}
-	public void setOpptOpptOpptGamesPlayed(Short opptOpptOpptGamesPlayed) {
-		this.opptOpptOpptGamesPlayed = opptOpptOpptGamesPlayed;
-	}
-	
+
 //	public static TeamBoxScore findById(Long id, ProcessingType processingType) {
 //		TeamBoxScore teamBoxScore;
 //		if (processingType.equals(ProcessingType.batch))

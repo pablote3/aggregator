@@ -433,12 +433,12 @@ public class PlayerBoxScore extends Model {
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name="opptTeamAbbr", length=3, nullable=false)
-	private TeamAbbr opptAbbr;
-	public TeamAbbr getOpptAbbr() {
-		return opptAbbr;
+	private TeamAbbr opptTeamAbbr;
+	public TeamAbbr getOpptTeamAbbr() {
+		return opptTeamAbbr;
 	}
-	public void setOpptAbbr(TeamAbbr opptAbbr) {
-		this.opptAbbr = opptAbbr;
+	public void setOpptTeamAbbr(TeamAbbr opptTeamAbbr) {
+		this.opptTeamAbbr = opptTeamAbbr;
 	}
 	
 	@Enumerated(EnumType.STRING)
