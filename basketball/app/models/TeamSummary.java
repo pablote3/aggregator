@@ -39,12 +39,8 @@ public class TeamSummary extends Model {
 	private Integer teamSumPointsQ2;
 	private Integer teamSumPointsQ3;
 	private Integer teamSumPointsQ4;
-	private Integer teamSumOpptWins;
-	private Integer teamSumOpptGamesPlayed;
-	private Integer teamMaxOpptOpptWins;
-	private Integer teamMaxOpptOpptGamesPlayed;
 	
-	private TeamAbbr opptAbbr;
+	private TeamAbbr opptTeamAbbr;
 	private Integer opptGamesPlayed;
 	private Integer opptSumPoints;
 	private Integer opptSumAssists;
@@ -64,10 +60,6 @@ public class TeamSummary extends Model {
 	private Integer opptSumPointsQ2;
 	private Integer opptSumPointsQ3;
 	private Integer opptSumPointsQ4;
-	private Integer opptSumOpptWins;
-	private Integer opptSumOpptGamesPlayed;
-	private Integer opptMaxOpptOpptWins;
-	private Integer opptMaxOpptOpptGamesPlayed;
 
 	// Basic Stats
 	public TeamAbbr getTeamAbbr() { return teamAbbr; }
@@ -88,17 +80,11 @@ public class TeamSummary extends Model {
 	public Integer getTeamSumReboundsOffense() { return teamSumReboundsOffense; }
 	public Integer getTeamSumReboundsDefense() { return teamSumReboundsDefense; }	
 	public Integer getTeamSumReboundsTotal() { return (Integer)(teamSumReboundsOffense + teamSumReboundsDefense); }
-	public Integer getTeamSumWins() { return opptSumOpptWins; }
-	public Integer getTeamSumGamesPlayed() { return opptSumOpptGamesPlayed; }
-	public Integer getTeamSumOpptWins() { return teamSumOpptWins; }
-	public Integer getTeamSumOpptGamesPlayed() { return teamSumOpptGamesPlayed; }
-	public Integer getTeamMaxOpptOpptWins() { return teamMaxOpptOpptWins; }
-	public Integer getTeamMaxOpptOpptGamesPlayed() { return teamMaxOpptOpptGamesPlayed; }
 	public Integer getTeamSumPointsQ1() { return teamSumPointsQ1; }
 	public Integer getTeamSumPointsQ2() { return teamSumPointsQ2; }
 	public Integer getTeamSumPointsQ3() { return teamSumPointsQ3; }
 	public Integer getTeamSumPointsQ4() { return teamSumPointsQ4; }
-	public TeamAbbr getOpptAbbr() { return opptAbbr; }
+	public TeamAbbr getOpptTeamAbbr() { return opptTeamAbbr; }
 	public Integer getOpptGamesPlayed() { return opptGamesPlayed; }
 	
 	public Integer getOpptSumPoints() { return opptSumPoints; }
@@ -120,12 +106,6 @@ public class TeamSummary extends Model {
 	public Integer getOpptSumPointsQ2() { return opptSumPointsQ2; }
 	public Integer getOpptSumPointsQ3() { return opptSumPointsQ3; }
 	public Integer getOpptSumPointsQ4() { return opptSumPointsQ4; }
-	public Integer getOpptSumWins() { return teamSumOpptWins; }
-	public Integer getOpptSumGamesPlayed() { return teamSumOpptGamesPlayed; }
-	public Integer getOpptSumOpptWins() { return opptSumOpptWins; }
-	public Integer getOpptSumOpptGamesPlayed() { return opptSumOpptGamesPlayed; }
-	public Integer getOpptMaxOpptOpptWins() { return opptMaxOpptOpptWins; }
-	public Integer getOpptMaxOpptOpptGamesPlayed() { return opptMaxOpptOpptGamesPlayed; }
 	
 	public BigDecimal getTeamAvgPoints(int scale) { return Utilities.getAverage(teamSumPoints, teamGamesPlayed, scale); }
 	public BigDecimal getTeamAvgAssists(int scale) { return Utilities.getAverage(teamSumAssists, teamGamesPlayed, scale); }
@@ -148,7 +128,7 @@ public class TeamSummary extends Model {
 	public BigDecimal getTeamAvgPointsQ1() { return Utilities.getAverage(teamSumPointsQ1, teamGamesPlayed, 2); }	
 	public BigDecimal getTeamAvgPointsQ2() { return Utilities.getAverage(teamSumPointsQ2, teamGamesPlayed, 2); }	
 	public BigDecimal getTeamAvgPointsQ3() { return Utilities.getAverage(teamSumPointsQ3, teamGamesPlayed, 2); }	
-	public BigDecimal getTeamAvgPointsQ4() { return Utilities.getAverage(teamSumPointsQ4, teamGamesPlayed, 2); }	
+	public BigDecimal getTeamAvgPointsQ4() { return Utilities.getAverage(teamSumPointsQ4, teamGamesPlayed, 2); }
 
 	public BigDecimal getOpptAvgPoints(int scale) { return Utilities.getAverage(opptSumPoints, teamGamesPlayed, scale); }	
 	public BigDecimal getOpptAvgAssists(int scale) { return Utilities.getAverage(opptSumAssists, teamGamesPlayed, scale); }
@@ -643,78 +623,6 @@ public class TeamSummary extends Model {
 			.setScale(scale, RoundingMode.HALF_UP);
 	}
 	
-	public BigDecimal getTeamStrengthOfSchedule(int scale) {
-		BigDecimal opptOpptWinPercent = new BigDecimal(getOpptSumOpptWins())
-			.divide(new BigDecimal(getOpptSumOpptGamesPlayed()), 4, RoundingMode.HALF_UP)
-			.multiply(new BigDecimal(2));
-		BigDecimal opptOpptOpptWinPercent = new BigDecimal(getOpptMaxOpptOpptWins())
-			.divide(new BigDecimal(getOpptMaxOpptOpptGamesPlayed()), 4, RoundingMode.HALF_UP);
-		return opptOpptWinPercent
-			.add(opptOpptOpptWinPercent)
-			.divide(new BigDecimal(3), 4, RoundingMode.HALF_UP)
-			.setScale(scale, RoundingMode.HALF_UP);
-	}
-	
-	public BigDecimal getOpptStrengthOfSchedule(int scale) {
-		BigDecimal teamOpptWinPercent = new BigDecimal(getTeamSumOpptWins())
-			.divide(new BigDecimal(getTeamSumOpptGamesPlayed()), 4, RoundingMode.HALF_UP)
-			.multiply(new BigDecimal(2));
-		BigDecimal teamOpptOpptWinPercent = new BigDecimal(getTeamMaxOpptOpptWins())
-			.divide(new BigDecimal(getTeamMaxOpptOpptGamesPlayed()), 4, RoundingMode.HALF_UP);
-		return teamOpptWinPercent
-			.add(teamOpptOpptWinPercent)
-			.divide(new BigDecimal(3), 4, RoundingMode.HALF_UP)
-			.setScale(scale, RoundingMode.HALF_UP);
-	}
-	
-	public BigDecimal getTeamOpptStrengthOfScheduleDiff(int scale) {
-		return Utilities.getPercentDifference(getTeamStrengthOfSchedule(scale), getOpptStrengthOfSchedule(scale), scale);
-	}
-	
-	public BigDecimal getTeamRelativePercentageIndex(int scale) {
-		BigDecimal teamWinPercent = new BigDecimal(getTeamSumWins())
-			.divide(new BigDecimal(getTeamSumGamesPlayed()), 4, RoundingMode.HALF_UP)
-			.multiply(new BigDecimal(.25));
-		BigDecimal opptWinPercent = new BigDecimal(getOpptSumOpptWins())
-			.divide(new BigDecimal(getOpptSumOpptGamesPlayed()), 4, RoundingMode.HALF_UP)
-			.multiply(new BigDecimal(.5));
-		BigDecimal opptOpptWinPercent = new BigDecimal(getOpptMaxOpptOpptWins())
-			.divide(new BigDecimal(getOpptMaxOpptOpptGamesPlayed()), 4, RoundingMode.HALF_UP)
-			.multiply(new BigDecimal(.25));
-		return teamWinPercent
-			.add(opptWinPercent)
-			.add(opptOpptWinPercent)
-			.divide(new BigDecimal(3), 4, RoundingMode.HALF_UP)
-			.setScale(scale, RoundingMode.HALF_UP);
-	}
-	
-	public BigDecimal getOpptRelativePercentageIndex(int scale) {
-		BigDecimal teamWinPercent = new BigDecimal(getOpptSumWins())
-			.divide(new BigDecimal(getOpptSumGamesPlayed()), 4, RoundingMode.HALF_UP)
-			.multiply(new BigDecimal(.25));
-		BigDecimal opptWinPercent = new BigDecimal(getTeamSumWins())
-			.divide(new BigDecimal(getTeamSumGamesPlayed()), 4, RoundingMode.HALF_UP)
-			.multiply(new BigDecimal(.5));
-		BigDecimal opptOpptWinPercent = new BigDecimal(getTeamMaxOpptOpptWins())
-			.divide(new BigDecimal(getTeamMaxOpptOpptGamesPlayed()), 4, RoundingMode.HALF_UP)
-			.multiply(new BigDecimal(.25));
-		return teamWinPercent
-			.add(opptWinPercent)
-			.add(opptOpptWinPercent)
-			.divide(new BigDecimal(3), 4, RoundingMode.HALF_UP)
-			.setScale(scale, RoundingMode.HALF_UP);
-	}
-	
-	public BigDecimal getTeamOpptRelativePercentageIndexDiff(int scale) {
-		return Utilities.getPercentDifference(getTeamRelativePercentageIndex(scale), getOpptRelativePercentageIndex(scale), scale);
-	}
-	
-	public BigDecimal getTeamSimpleRatingSystem(int scale) {
-		return getTeamMarginOfVictory(3)
-			.subtract(getTeamStrengthOfSchedule(3))
-			.setScale(scale, RoundingMode.HALF_UP);
-	}
-	
 	public BigDecimal getTeamProjectedWinningPercentage(int scale) {
 		return getTeamMarginOfVictory(3)
 			.multiply(new BigDecimal(2.7))
@@ -1042,14 +950,14 @@ public class TeamSummary extends Model {
 			.append(" " + Utilities.padLeft(getTeamPythagoreanWinningPercentage16_5(3).toString(), 7))
 			.append(" " + Utilities.padLeft(getTeamPythagoreanWins16_5(2).toString(), 7))
 			.append(" " + Utilities.padLeft(getTeamPythagoreanLosses16_5(2).toString(), 7))
-			.append(" " + Utilities.padLeft(getTeamStrengthOfSchedule(3).toString(), 6))
-			.append(" " + Utilities.padLeft(getOpptStrengthOfSchedule(3).toString(), 6))
-			.append(" " + Utilities.padLeft(getTeamOpptStrengthOfScheduleDiff(2).toString(), 6))
-			.append(" " + Utilities.padLeft(getTeamRelativePercentageIndex(3).toString(), 6))
-			.append(" " + Utilities.padLeft(getOpptRelativePercentageIndex(3).toString(), 6))
-			.append(" " + Utilities.padLeft(getTeamOpptRelativePercentageIndexDiff(2).toString(), 6))
+//			.append(" " + Utilities.padLeft(getTeamStrengthOfSchedule(3).toString(), 6))
+//			.append(" " + Utilities.padLeft(getOpptStrengthOfSchedule(3).toString(), 6))
+//			.append(" " + Utilities.padLeft(getTeamOpptStrengthOfScheduleDiff(2).toString(), 6))
+//			.append(" " + Utilities.padLeft(getTeamRelativePercentageIndex(3).toString(), 6))
+//			.append(" " + Utilities.padLeft(getOpptRelativePercentageIndex(3).toString(), 6))
+//			.append(" " + Utilities.padLeft(getTeamOpptRelativePercentageIndexDiff(2).toString(), 6))
 			.append("  " + Utilities.padLeft(getTeamMarginOfVictory(2).toString(), 6))
-			.append("  " + Utilities.padLeft(getTeamSimpleRatingSystem(2).toString(), 6))
+//			.append("  " + Utilities.padLeft(getTeamSimpleRatingSystem(2).toString(), 6))
 			.append("  " + Utilities.padLeft(getTeamProjectedWinningPercentage(3).toString(), 6))
 			.toString();
 	}

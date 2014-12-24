@@ -650,7 +650,7 @@ public class TeamBoxScore extends Model {
 	  		query = Ebean.find(TeamBoxScore.class);
 	  	
 	  	query.where().between("gameDate", date + " 00:00:00", date + " 23:59:59");
-	    query.where().eq("opptAbbr", teamAbbr);
+	    query.where().eq("opptTeamAbbr", teamAbbr);
 	
 	    TeamBoxScore teamBoxScore = query.findUnique();
 	    return teamBoxScore;
@@ -696,9 +696,7 @@ public class TeamBoxScore extends Model {
 					+ " sum(teamReboundsOffense) as teamSumReboundsOffense, sum(teamReboundsDefense) as teamSumReboundsDefense,"
 					+ " sum(teamPointsQ1) as teamSumPointsQ1, sum(teamPointsQ2) as teamSumPointsQ2,"
 					+ " sum(teamPointsQ3) as teamSumPointsQ3, sum(teamPointsQ4) as teamSumPointsQ4,"
-					+ " sum(teamOpptWins) as teamSumOpptWins, sum(teamOpptGamesPlayed) as teamSumOpptGamesPlayed,"
-					+ " max(teamOpptOpptWins) as teamMaxOpptOpptWins, max(teamOpptOpptGamesPlayed) as teamMaxOpptOpptGamesPlayed,"
-					+ " opptAbbr as opptAbbr, count(opptPoints) as opptGamesPlayed,"
+					+ " opptTeamAbbr as opptTeamAbbr, count(opptPoints) as opptGamesPlayed,"
 					+ " sum(opptPoints) as opptSumPoints, sum(opptAssists) as opptSumAssists, sum(opptTurnovers) as opptSumTurnovers,"
 					+ " sum(opptSteals) as opptSumSteals, sum(opptBlocks) as opptSumBlocks, sum(opptPersonalFouls) as opptSumPersonalFouls,"
 					+ " sum(opptFieldGoalAttempts) as opptSumFieldGoalAttempts, sum(opptFieldGoalMade) as opptSumFieldGoalMade,"
@@ -706,9 +704,7 @@ public class TeamBoxScore extends Model {
 					+ " sum(opptFreeThrowAttempts) as opptSumFreeThrowAttempts, sum(opptFreeThrowMade) as opptSumFreeThrowMade,"
 					+ " sum(opptReboundsOffense) as opptSumReboundsOffense, sum(opptReboundsDefense) as opptSumReboundsDefense,"
 					+ " sum(opptPointsQ1) as opptSumPointsQ1, sum(opptPointsQ2) as opptSumPointsQ2,"
-					+ " sum(opptPointsQ3) as opptSumPointsQ3, sum(opptPointsQ4) as opptSumPointsQ4,"
-					+ " sum(opptOpptWins) as opptSumOpptWins, sum(opptOpptGamesPlayed) as opptSumOpptGamesPlayed,"
-					+ " max(opptOpptOpptWins) as opptMaxOpptOpptWins, max(opptOpptOpptGamesPlayed) as opptMaxOpptOpptGamesPlayed"
+					+ " sum(opptPointsQ3) as opptSumPointsQ3, sum(opptPointsQ4) as opptSumPointsQ4"
 					+ " from team_box_score"
 					+ " group by teamAbbr";
 	  
@@ -746,8 +742,6 @@ public class TeamBoxScore extends Model {
 					+ " sum(teamReboundsOffense) as teamSumReboundsOffense, sum(teamReboundsDefense) as teamSumReboundsDefense,"
 					+ " sum(teamPointsQ1) as teamSumPointsQ1, sum(teamPointsQ2) as teamSumPointsQ2,"
 					+ " sum(teamPointsQ3) as teamSumPointsQ3, sum(teamPointsQ4) as teamSumPointsQ4,"
-					+ " sum(teamOpptWins) as teamSumOpptWins, sum(teamOpptGamesPlayed) as teamSumOpptGamesPlayed,"
-					+ " max(teamOpptOpptWins) as teamMaxOpptOpptWins, max(teamOpptOpptGamesPlayed) as teamMaxOpptOpptGamesPlayed,"
 					+ " count(opptPoints) as opptGamesPlayed,"
 					+ " sum(opptPoints) as opptSumPoints, sum(opptAssists) as opptSumAssists, sum(opptTurnovers) as opptSumTurnovers,"
 					+ " sum(opptSteals) as opptSumSteals, sum(opptBlocks) as opptSumBlocks, sum(opptPersonalFouls) as opptSumPersonalFouls,"
@@ -756,9 +750,7 @@ public class TeamBoxScore extends Model {
 					+ " sum(opptFreeThrowAttempts) as opptSumFreeThrowAttempts, sum(opptFreeThrowMade) as opptSumFreeThrowMade,"
 					+ " sum(opptReboundsOffense) as opptSumReboundsOffense, sum(opptReboundsDefense) as opptSumReboundsDefense,"
 					+ " sum(opptPointsQ1) as opptSumPointsQ1, sum(opptPointsQ2) as opptSumPointsQ2,"
-					+ " sum(opptPointsQ3) as opptSumPointsQ3, sum(opptPointsQ4) as opptSumPointsQ4,"
-					+ " sum(opptOpptWins) as opptSumOpptWins, sum(opptOpptGamesPlayed) as opptSumOpptGamesPlayed,"
-					+ " max(opptOpptOpptWins) as opptMaxOpptOpptWins, max(opptOpptOpptGamesPlayed) as opptMaxOpptOpptGamesPlayed"
+					+ " sum(opptPointsQ3) as opptSumPointsQ3, sum(opptPointsQ4) as opptSumPointsQ4"
 					+ " from team_box_score";
 	  
 		RawSql rawSql =
