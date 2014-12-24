@@ -36,7 +36,7 @@ create table official_box_score (
   teamPointsQ6              smallint not null,
   teamPointsQ7              smallint not null,
   teamPointsQ8              smallint not null,
-  opptAbbr                  varchar(3) not null,
+  opptTeamAbbr              varchar(3) not null,
   opptConference            varchar(4) not null,
   opptDivision              varchar(9) not null,
   opptLocation              varchar(4) not null,
@@ -69,7 +69,7 @@ create table official_box_score (
   constraint ck_official_box_score_teamDivision check (teamDivision in ('Central','Atlantic','Northwest','Pacific','Southeast','Southwest')),
   constraint ck_official_box_score_teamLocation check (teamLocation in ('Away','Home')),
   constraint ck_official_box_score_teamResult check (teamResult in ('Loss','Win')),
-  constraint ck_official_box_score_opptAbbr check (opptAbbr in ('MIA','NY','DAL','OKC','HOU','DEN','NO','DET','ORL','MIL','CHI','MIN','UTA','LAC','CHA','SAC','IND','BKN','CLE','ATL','WAS','BOS','MEM','POR','GS','LAL','PHO','TOR','PHI','SA')),
+  constraint ck_official_box_score_opptTeamAbbr check (opptTeamAbbr in ('MIA','NY','DAL','OKC','HOU','DEN','NO','DET','ORL','MIL','CHI','MIN','UTA','LAC','CHA','SAC','IND','BKN','CLE','ATL','WAS','BOS','MEM','POR','GS','LAL','PHO','TOR','PHI','SA')),
   constraint ck_official_box_score_opptConference check (opptConference in ('West','East')),
   constraint ck_official_box_score_opptDivision check (opptDivision in ('Central','Atlantic','Northwest','Pacific','Southeast','Southwest')),
   constraint ck_official_box_score_opptLocation check (opptLocation in ('Away','Home')),
@@ -141,6 +141,43 @@ create table player_box_score (
   constraint pk_player_box_score primary key (id))
 ;
 
+create table standing (
+  id                        bigint auto_increment not null,
+  date                      date not null,
+  teamAbbr                  varchar(3) not null,
+  rank                      smallint not null,
+  ordinalRank               varchar(255) not null,
+  gamesWon                  smallint not null,
+  gamesLost                 smallint not null,
+  streak                    varchar(255) not null,
+  streakType                varchar(255) not null,
+  streakTotal               smallint not null,
+  gamesBack                 float not null,
+  pointsFor                 smallint not null,
+  pointsAgainst             smallint not null,
+  homeWins                  smallint not null,
+  homeLosses                smallint not null,
+  awayWins                  smallint not null,
+  awayLosses                smallint not null,
+  conferenceWins            smallint not null,
+  conferenceLosses          smallint not null,
+  lastFive                  varchar(255) not null,
+  lastTen                   varchar(255) not null,
+  gamesPlayed               smallint not null,
+  pointsScoredPerGame       float not null,
+  pointsAllowedPerGame      float not null,
+  winPercentage             float not null,
+  pointDifferential         smallint not null,
+  pointDifferentialPerGame  float not null,
+  opptGamesWon              integer,
+  opptGamesPlayed           integer,
+  opptOpptGamesWon          integer,
+  opptOpptGamesPlayed       integer,
+  last_update               datetime not null,
+  constraint ck_standing_teamAbbr check (teamAbbr in ('MIA','NY','DAL','OKC','HOU','DEN','NO','DET','ORL','MIL','CHI','MIN','UTA','LAC','CHA','SAC','IND','BKN','CLE','ATL','WAS','BOS','MEM','POR','GS','LAL','PHO','TOR','PHI','SA')),
+  constraint pk_standing primary key (id))
+;
+
 create table team_box_score (
   id                        bigint auto_increment not null,
   gameDate                  datetime not null,
@@ -173,7 +210,7 @@ create table team_box_score (
   teamPointsQ6              smallint not null,
   teamPointsQ7              smallint not null,
   teamPointsQ8              smallint not null,
-  opptAbbr                  varchar(3) not null,
+  opptTeamAbbr              varchar(3) not null,
   opptConference            varchar(4) not null,
   opptDivision              varchar(9) not null,
   opptLocation              varchar(4) not null,
@@ -207,7 +244,7 @@ create table team_box_score (
   constraint ck_team_box_score_teamDivision check (teamDivision in ('Central','Atlantic','Northwest','Pacific','Southeast','Southwest')),
   constraint ck_team_box_score_teamLocation check (teamLocation in ('Away','Home')),
   constraint ck_team_box_score_teamResult check (teamResult in ('Loss','Win')),
-  constraint ck_team_box_score_opptAbbr check (opptAbbr in ('MIA','NY','DAL','OKC','HOU','DEN','NO','DET','ORL','MIL','CHI','MIN','UTA','LAC','CHA','SAC','IND','BKN','CLE','ATL','WAS','BOS','MEM','POR','GS','LAL','PHO','TOR','PHI','SA')),
+  constraint ck_team_box_score_opptTeamAbbr check (opptTeamAbbr in ('MIA','NY','DAL','OKC','HOU','DEN','NO','DET','ORL','MIL','CHI','MIN','UTA','LAC','CHA','SAC','IND','BKN','CLE','ATL','WAS','BOS','MEM','POR','GS','LAL','PHO','TOR','PHI','SA')),
   constraint ck_team_box_score_opptConference check (opptConference in ('West','East')),
   constraint ck_team_box_score_opptDivision check (opptDivision in ('Central','Atlantic','Northwest','Pacific','Southeast','Southwest')),
   constraint ck_team_box_score_opptLocation check (opptLocation in ('Away','Home')),
@@ -225,6 +262,8 @@ SET FOREIGN_KEY_CHECKS=0;
 drop table official_box_score;
 
 drop table player_box_score;
+
+drop table standing;
 
 drop table team_box_score;
 
