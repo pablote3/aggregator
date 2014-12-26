@@ -631,11 +631,10 @@ public class TeamSummary extends Model {
 			.setScale(scale, RoundingMode.HALF_UP);
 	}
 	
-	// Pace
-//	public BigDecimal getTeamPace() {
-//		return getTeamPossessions()
-//				.divide(new BigDecimal(teamMinutes * 240), 2, RoundingMode.HALF_UP);
-//	}
+	public BigDecimal getTeamOpptPace() {
+		return getTeamOpptPossessions()
+				.divide(new BigDecimal(teamGamesPlayed), 2, RoundingMode.HALF_UP);
+	}
 	
 	public BigDecimal getTeamOpptPossessions() {
 		BigDecimal teamPossessions = new BigDecimal(teamSumFieldGoalAttempts)
@@ -772,6 +771,28 @@ public class TeamSummary extends Model {
 			.append("  " +	this.getOpptAvgSteals())
 			.append("  " +	this.getOpptAvgBlocks())
 			.append("  " +	Utilities.padLeft(this.getOpptAvgPoints(2).toPlainString(), 6))
+			.toString();
+	}
+	
+	public String toString_Team_Advanced() {
+		return new StringBuffer()
+			.append(this.getTeamAbbr() != null ? Utilities.padRight(this.teamAbbr.toString(), 4): Utilities.padRight("", 2))
+			.append("  " +	this.getTeamTrueShootingPercentage())
+			.append("  " +	this.getTeamEffectiveFieldGoalPercentage())
+			.append("  " +	this.getTeamOffensiveReboundPercentage())
+			.append("   " +	this.getTeamDefensiveReboundPercentage())
+			.append("  " +	this.getTeamTotalReboundPercentage())
+			.append("  " +	this.getTeamAssistPercentage())
+			.append("   " +	this.getTeamTurnoverPercentage())
+			.append("  " +	this.getTeamStealPercentage())
+			.append("  " +	this.getTeamBlockPercentage())
+			.append("   " +	this.getTeamPointsPerShot())
+			.append("  " +	this.getTeamFloorImpactCounter(2))
+			.append("  " +	this.getTeamOffensiveRating(2))			
+			.append("  " +	this.getTeamDefensiveRating(2))
+			.append("  " +	this.getTeamEfficiencyDifferential(2))			
+			.append("  " +	this.getTeamOpptPossessions())
+			.append("  " +	this.getTeamOpptPace())
 			.toString();
 	}
 	
