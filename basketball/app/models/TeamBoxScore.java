@@ -687,7 +687,7 @@ public class TeamBoxScore extends Model {
 	  	
 	  	LocalDate maxDate = DateTimeUtil.getDateMaxSeason(DateTimeUtil.createDateFromStringDate(fromDate));
 	  	
-		String sql 	= " select teamAbbr as teamAbbr, count(teamPoints) as teamGamesPlayed,"
+		String sql 	= " select teamAbbr as teamAbbr, count(teamPoints) as teamGamesPlayed, sum(teamMinutes) as teamSumMinutes,"
 					+ " sum(teamPoints) as teamSumPoints, sum(teamAssists) as teamSumAssists, sum(teamTurnovers) as teamSumTurnovers,"
 					+ " sum(teamSteals) as teamSumSteals, sum(teamBlocks) as teamSumBlocks, sum(teamPersonalFouls) as teamSumPersonalFouls,"
 					+ " sum(teamFieldGoalAttempts) as teamSumFieldGoalAttempts, sum(teamFieldGoalMade) as teamSumFieldGoalMade,"
@@ -733,7 +733,7 @@ public class TeamBoxScore extends Model {
 	  	
 	  	LocalDate maxDate = DateTimeUtil.getDateMaxSeason(DateTimeUtil.createDateFromStringDate(fromDate));
 	  	
-		String sql 	= " select count(teamPoints) as teamGamesPlayed,"
+		String sql 	= " select count(teamPoints) as teamGamesPlayed, sum(teamMinutes) as teamSumMinutes,"
 					+ " sum(teamPoints) as teamSumPoints, sum(teamAssists) as teamSumAssists, sum(teamTurnovers) as teamSumTurnovers,"
 					+ " sum(teamSteals) as teamSumSteals, sum(teamBlocks) as teamSumBlocks, sum(teamPersonalFouls) as teamSumPersonalFouls,"
 					+ " sum(teamFieldGoalAttempts) as teamSumFieldGoalAttempts, sum(teamFieldGoalMade) as teamSumFieldGoalMade,"

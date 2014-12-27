@@ -105,7 +105,8 @@ public class TeamBoxScoreTest {
         	  assertThat(teamSummary.getTeamSumPointsQ2()).isEqualTo((short)2017);
         	  assertThat(teamSummary.getTeamSumPointsQ3()).isEqualTo((short)2069);
         	  assertThat(teamSummary.getTeamSumPointsQ4()).isEqualTo((short)2008);
-        	  assertThat(teamSummary.getTeamOpptPossessions()).isEqualTo(Utilities.roundToBigDecimal((float)95.07, 2));
+        	  assertThat(teamSummary.getTeamOpptPossessions()).isEqualTo(Utilities.roundToBigDecimal((float)7795.71, 2));
+        	  assertThat(teamSummary.getTeamOpptPace()).isEqualTo(Utilities.roundToBigDecimal((float)94.30, 2));
         	  
         	  assertThat(teamSummary.getOpptSumPoints()).isEqualTo((short)8479);
         	  assertThat(teamSummary.getOpptSumAssists()).isEqualTo((short)1927);
@@ -292,7 +293,7 @@ public class TeamBoxScoreTest {
         });
     }
     
-//    @Ignore
+    @Ignore
     @Test
     public void boxScoresBasicTeam() {
         running(fakeApplication(), new Runnable() {
@@ -358,6 +359,31 @@ public class TeamBoxScoreTest {
         	  System.out.println(TeamBoxScoreHelper.toString_OpptAverages_Basic(leagueSummary));
         	  
         	  System.out.println(TeamBoxScoreHelper.toStringFooter_Basic());
+          }
+        });
+    }
+    
+//   @Ignore
+    @Test
+    public void boxScoresAdvanced() {
+        running(fakeApplication(), new Runnable() {
+          public void run() {
+        	  ArrayList<String> teams = Utilities.teamList();
+        	  TeamSummary leagueSummary = TeamBoxScore.sumLeagueBoxScoreFromDateMaxDate("2013-10-29", ProcessingType.online);
+        	  TeamSummary teamSummary = null;
+        	  
+        	  for (int i = 0; i < teams.size(); i++) {
+        		  teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2013-10-29", teams.get(i), ProcessingType.online);
+        		  if (i == 0) {
+        			  System.out.println("\r" + Utilities.padLeft("Advanced Statistics - Team: 2013-2014 Season", 80));
+        			  System.out.println("\r" + "Team Totals");
+        			  System.out.println(TeamBoxScoreHelper.toStringHeader_Advanced());
+        		  }
+            	  System.out.println(TeamBoxScoreHelper.toString_Team_Advanced(teamSummary));
+        	  }
+        	  System.out.println(TeamBoxScoreHelper.toString_Team_Advanced(leagueSummary));
+        	  
+        	  System.out.println(TeamBoxScoreHelper.toStringFooter_Advanced());
           }
         });
     }

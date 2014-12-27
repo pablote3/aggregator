@@ -124,25 +124,50 @@ public class TeamBoxScoreHelper {
 			.toString();
 	}
 	
+	public static String toStringHeader_Advanced() {
+		return "Team   TS%    eFG%  OREB%  DREB%  TREB%   AST%   TOV%  STL%  BLK%   PPS    FIC   ORtg  DRtg    eDiff    Poss";
+	}
+	
 	public static String toString_Team_Advanced(TeamSummary teamSummary) {
 		return new StringBuffer()
-			.append(teamSummary.getTeamAbbr() != null ? Utilities.padRight(teamSummary.getTeamAbbr().toString(), 4): Utilities.padRight("", 2))
+			.append(teamSummary.getTeamAbbr() != null ? Utilities.padRight(teamSummary.getTeamAbbr().toString(), 4): Utilities.padRight("", 4))
 			.append("  " +	teamSummary.getTeamTrueShootingPercentage())
 			.append("  " +	teamSummary.getTeamEffectiveFieldGoalPercentage())
 			.append("  " +	teamSummary.getTeamOffensiveReboundPercentage())
-			.append("   " +	teamSummary.getTeamDefensiveReboundPercentage())
+			.append("  " +	teamSummary.getTeamDefensiveReboundPercentage())
 			.append("  " +	teamSummary.getTeamTotalReboundPercentage())
 			.append("  " +	teamSummary.getTeamAssistPercentage())
-			.append("   " +	teamSummary.getTeamTurnoverPercentage())
+			.append("  " +	teamSummary.getTeamTurnoverPercentage())
 			.append("  " +	teamSummary.getTeamStealPercentage())
 			.append("  " +	teamSummary.getTeamBlockPercentage())
-			.append("   " +	teamSummary.getTeamPointsPerShot())
+			.append("  " +	teamSummary.getTeamPointsPerShot())
 			.append("  " +	teamSummary.getTeamFloorImpactCounter(2))
-			.append("  " +	teamSummary.getTeamOffensiveRating(2))			
-			.append("  " +	teamSummary.getTeamDefensiveRating(2))
-			.append("  " +	teamSummary.getTeamEfficiencyDifferential(2))			
-			.append("  " +	teamSummary.getTeamOpptPossessions())
-			.append("  " +	teamSummary.getTeamOpptPace())
+			.append("  " +	Utilities.padLeft(teamSummary.getTeamOffensiveRating(2).toPlainString(), 4))			
+			.append("  " +	Utilities.padLeft(teamSummary.getTeamDefensiveRating(2).toPlainString(), 4))
+			.append("  " +	Utilities.padLeft(teamSummary.getTeamEfficiencyDifferential(2).toPlainString(), 6))		
+			.append("  " +	Utilities.padLeft(teamSummary.getTeamOpptPossessions().toPlainString(), 9))
+			.append("  " +	Utilities.padLeft(teamSummary.getTeamOpptPace().toPlainString(), 6))	
+			.toString();
+	}
+	
+	public static String toStringFooter_Advanced() {
+		return new StringBuffer()
+			.append("\r" + "Stats Legend")
+			.append("\r  " + Utilities.padRight("TS%: True Shooting Percentage", 40) + "PTS / (2 * (FGA + FTA * 0.44))")
+			.append("\r  " + Utilities.padRight("eFG%: Effective Field Goal Percentage", 40) + "FGM + (0.5 * 3PM) / FGA")
+			.append("\r  " + Utilities.padRight("OREB%: Offensive Rebound Percentage", 40) + "OREB * 100 / (OREB + DDREB)")
+			.append("\r  " + Utilities.padRight("DREB%: Defensive Rebound Percentage", 40) + "DREB * 100 / (DREB + DOREB)")
+			.append("\r  " + Utilities.padRight("TREB%: Total Rebound Percentage", 40) + "TREB * 100 / (TREB + DTREB)")
+			.append("\r  " + Utilities.padRight("AST%: Assisted Field Goal Percentage", 40) + "AST / FGM")
+			.append("\r  " + Utilities.padRight("TO%: Turnover Percentage", 40) + "TO * 100 / Poss")
+			.append("\r  " + Utilities.padRight("STL%: Steal Percentage", 40) + "STL * 100 / Poss")
+			.append("\r  " + Utilities.padRight("BLK%: Block Percentage", 40) + "BLK * 100 / Poss")
+			.append("\r  " + Utilities.padRight("PPS: Points Per Shot", 40) + "PTS / (FGA + 3PA + FTA)")
+			.append("\r  " + Utilities.padRight("FIC: Floor Impact Counter", 40) + "(PTS + ORB + 0.75 DRB + AST + STL - 0.75 FGA - 0.375 FTA - TO - 0.5 PF) / GP")
+			.append("\r  " + Utilities.padRight("ORtg: Offensive Rating", 40) + "Team PTS / Poss")
+			.append("\r  " + Utilities.padRight("DRtg: Defensive Rating", 40) + "Oppt PTS / Poss")
+			.append("\r  " + Utilities.padRight("eDiff: Efficiency Differential", 40) + "ORtg - DRtg")
+			.append("\r  " + Utilities.padRight("Poss: Estimated Possessions", 40) + "FGA – (OREB / OREB + DDREB) * (FGA – FGM) * 1.07 + TOV + (0.4 * FTA)")
 			.toString();
 	}
 	
