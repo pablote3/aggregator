@@ -252,17 +252,13 @@ public class TeamSummary extends Model {
 	}
 	
 	public BigDecimal getTeamPointsPerShot() {
-		BigDecimal bd =  new BigDecimal(getTeamSumFieldGoalAttempts())
-			.add(new BigDecimal(getTeamSumThreePointAttempts()))
-			.add(new BigDecimal(getTeamSumFreeThrowAttempts()));
-		return bd.divide(new BigDecimal(getTeamSumPoints()), 3, RoundingMode.HALF_UP);
+		return new BigDecimal(getTeamSumPoints())
+			.divide(new BigDecimal(getTeamSumFieldGoalAttempts()), 2, RoundingMode.HALF_UP);
 	}
 	
 	public BigDecimal getOpptPointsPerShot() {
-		BigDecimal bd =  new BigDecimal(getOpptSumFieldGoalAttempts())
-			.add(new BigDecimal(getOpptSumThreePointAttempts()))
-			.add(new BigDecimal(getOpptSumFreeThrowAttempts()));
-		return bd.divide(new BigDecimal(getOpptSumPoints()), 3, RoundingMode.HALF_UP);
+		return new BigDecimal(getOpptSumPoints())
+			.divide(new BigDecimal(getOpptSumFieldGoalAttempts()), 2, RoundingMode.HALF_UP);
 	}
 	
 	public BigDecimal getTeamOpptPointsPerShotDiff(int scale) {
