@@ -499,17 +499,17 @@ public class TeamSummary extends Model {
 	
 	// Advanced Stats Efficiency
 	public BigDecimal getTeamOffensiveRating(int scale) {
-		return getTeamAvgPoints(2)
-			.divide(getTeamOpptPace(), 4, RoundingMode.HALF_UP)
+		return new BigDecimal(getTeamSumPoints())
+			.divide(getTeamOpptPossessions(), 4, RoundingMode.HALF_UP)
 			.multiply(new BigDecimal(100))
-			.setScale(scale, RoundingMode.HALF_UP);
+			.setScale(scale);
 	}
 	
 	public BigDecimal getOpptOffensiveRating(int scale) {
-		return getOpptAvgPoints(2)
-			.divide(getTeamOpptPace(), 4, RoundingMode.HALF_UP)
+		return new BigDecimal(getOpptSumPoints())
+			.divide(getTeamOpptPossessions(), 4, RoundingMode.HALF_UP)
 			.multiply(new BigDecimal(100))
-			.setScale(scale, RoundingMode.HALF_UP);
+			.setScale(scale);
 	}
 	
 	public BigDecimal getTeamOpptOffensiveRatingDiff(int scale) {
@@ -517,15 +517,15 @@ public class TeamSummary extends Model {
 	}
 	
 	public BigDecimal getTeamDefensiveRating(int scale) {
-		return getOpptAvgPoints(2)
-			.divide(getTeamOpptPace(), 4, RoundingMode.HALF_UP)
+		return new BigDecimal(getOpptSumPoints())
+			.divide(getTeamOpptPossessions(), 4, RoundingMode.HALF_UP)
 			.multiply(new BigDecimal(100))
 			.setScale(scale, RoundingMode.HALF_UP);
 	}
 	
 	public BigDecimal getOpptDefensiveRating(int scale) {
-		return getTeamAvgPoints(2)
-			.divide(getTeamOpptPace(), 4, RoundingMode.HALF_UP)
+		return new BigDecimal(getTeamSumPoints())
+			.divide(getTeamOpptPossessions(), 4, RoundingMode.HALF_UP)
 			.multiply(new BigDecimal(100))
 			.setScale(scale, RoundingMode.HALF_UP);
 	}

@@ -166,12 +166,13 @@ public class TeamBoxScoreHelper {
 			.append("\r  " + Utilities.padRight("BLK%: Block Percentage", 40) + "BLK * 100 / Poss")
 			.append("\r  " + Utilities.padRight("BLKR: Block Rate", 40) + "BLK * 100 / FGA - 3PA")
 			.append("\r  " + Utilities.padRight("PPS: Points Per Shot", 40) + "PTS / FGA")
-			.append("\r  " + Utilities.padRight("FIC: Floor Impact Counter", 40) + "(PTS + ORB + 0.75 DRB + AST + STL - 0.75 FGA - 0.375 FTA - TO - 0.5 PF) / GP")
+			.append("\r  " + Utilities.padRight("FIC: Floor Impact Counter", 40) + "(PTS + ORB + 0.75 DRB + AST + STL + BLK - 0.75 FGA - 0.375 FTA - TO - 0.5 PF) / GP")
+			.append("\r  " + Utilities.padRight("FIC40: FIC Per 40 Minutes", 40) + "((PTS + ORB + 0.75 DRB + AST + STL + BLK - 0.75 FGA - 0.375 FTA - TO - 0.5 PF) * 40 * 5) / Team Minutes")
 			.append("\r  " + Utilities.padRight("ORtg: Offensive Rating", 40) + "Team PTS / Poss")
 			.append("\r  " + Utilities.padRight("DRtg: Defensive Rating", 40) + "Oppt PTS / Poss")
 			.append("\r  " + Utilities.padRight("eDiff: Efficiency Differential", 40) + "ORtg - DRtg")
 			.append("\r  " + Utilities.padRight("Poss: Est Possessions", 40) + "FGA – (OREB / OREB + DDREB) * (FGA – FGM) * 1.07 + TO + (0.4 * FTA)")
-			.append("\r  " + Utilities.padRight("Pace: Est Possessions Per Game Duration", 40) + "Poss * GP / (Team Minutes Played * 48 * 5)")
+			.append("\r  " + Utilities.padRight("Pace: Est Possessions Per Game Duration", 40) + "Poss / (Team Minutes Played * 48 * 5)")
 			.toString();
 	}
 	
@@ -367,7 +368,7 @@ public class TeamBoxScoreHelper {
 			.append("\r  " + Utilities.padRight("ORtg: Offensive Rating", 40) + "Team PTS / Poss")
 			.append("\r  " + Utilities.padRight("DRtg: Defensive Rating", 40) + "Oppt PTS / Poss")
 			.append("\r  " + Utilities.padRight("eDiff: Efficiency Differential", 40) + "ORtg - DRtg")
-			.append("\r  " + Utilities.padRight("FIC: Floor Impact Counter", 40) + "(PTS + ORB + 0.75 DRB + AST + STL - 0.75 FGA - 0.375 FTA - TO - 0.5 PF) / GP")
+			.append("\r  " + Utilities.padRight("FIC: Floor Impact Counter", 40) + "(PTS + ORB + 0.75 DRB + AST + STL + BLK - 0.75 FGA - 0.375 FTA - TO - 0.5 PF) / GP")
 			.append("\r  " + Utilities.padRight("Pyth% 13.91: Pythagorean Winning% 13.91", 40) + "Team PTS^13.91 / (Team PTS^13.91 + Oppt PTS^13.91)")
 			.append("\r  " + Utilities.padRight("Pyth% 16.5: Pythagorean Winning% 16.5", 40) + "Team PTS^16.5 / (Team PTS^16.5 + Oppt PTS^16.5)")
 			.append("\r  " + Utilities.padRight("WPyth: Pythagorean Wins", 40) + "Pyth% * 82")
