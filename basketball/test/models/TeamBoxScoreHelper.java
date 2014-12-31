@@ -125,7 +125,7 @@ public class TeamBoxScoreHelper {
 	}
 	
 	public static String toStringHeader_Advanced() {
-		return "Team   TS%    eFG%  OREB%  DREB%  TREB%   AST%   TO%   STL%  BLK%   BLKR   PPS   FIC    ORtg    DRtg    eDiff      Poss     Pace";
+		return "Team   TS%    eFG%  OREB%  DREB%  TREB%   AST%   TO%   STL%  BLK%   BLKR   PPS   FIC   FIC40   ORtg    DRtg    eDiff     Poss     Pace";
 	}
 	
 	public static String toString_Team_Advanced(TeamSummary teamSummary) {
@@ -143,6 +143,7 @@ public class TeamBoxScoreHelper {
 			.append("  " +	Utilities.padLeft(teamSummary.getTeamBlockRate().toPlainString(), 5))
 			.append("  " +	teamSummary.getTeamPointsPerShot())
 			.append("  " +	teamSummary.getTeamFloorImpactCounter(2))
+			.append("  " +	teamSummary.getTeamFloorImpactCounter40(2))
 			.append("  " +	Utilities.padLeft(teamSummary.getTeamOffensiveRating(2).toPlainString(), 6))			
 			.append("  " +	Utilities.padLeft(teamSummary.getTeamDefensiveRating(2).toPlainString(), 6))
 			.append("  " +	Utilities.padLeft(teamSummary.getTeamEfficiencyDifferential(2).toPlainString(), 6))		

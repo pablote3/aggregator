@@ -544,12 +544,20 @@ public class TeamSummary extends Model {
 			.setScale(scale, RoundingMode.HALF_UP);
 	}
 	
+	public BigDecimal getTeamFloorImpactCounter40(int scale) {
+		return getTeamFloorImpactCounter(scale)
+			.multiply(new BigDecimal(40 * 5))
+			.multiply(new BigDecimal(getTeamGamesPlayed()))
+			.divide(new BigDecimal(getTeamSumMinutes()), scale, RoundingMode.HALF_UP);
+	}
+	
 	public BigDecimal getTeamFloorImpactCounter(int scale) {
 		BigDecimal bd =  new BigDecimal(getTeamSumPoints())
 			.add(new BigDecimal(getTeamSumReboundsOffense()))
-			.add(new BigDecimal(getTeamSumReboundsOffense() * 0.75))
+			.add(new BigDecimal(getTeamSumReboundsDefense() * 0.75))
 			.add(new BigDecimal(getTeamSumAssists()))
 			.add(new BigDecimal(getTeamSumSteals()))
+			.add(new BigDecimal(getTeamSumBlocks()))
 			.subtract(new BigDecimal(getTeamSumFieldGoalAttempts() * 0.75))
 			.subtract(new BigDecimal(getTeamSumFreeThrowAttempts() * 0.375))
 			.subtract(new BigDecimal(getTeamSumTurnovers()))
@@ -560,7 +568,7 @@ public class TeamSummary extends Model {
 	public BigDecimal getOpptFloorImpactCounter(int scale) {
 		BigDecimal bd =  new BigDecimal(getOpptSumPoints())
 			.add(new BigDecimal(getOpptSumReboundsOffense()))
-			.add(new BigDecimal(getOpptSumReboundsOffense() * 0.75))
+			.add(new BigDecimal(getOpptSumReboundsDefense() * 0.75))
 			.add(new BigDecimal(getOpptSumAssists()))
 			.add(new BigDecimal(getOpptSumSteals()))
 			.subtract(new BigDecimal(getOpptSumFieldGoalAttempts() * 0.75))
@@ -629,26 +637,26 @@ public class TeamSummary extends Model {
 	}
 	
 	public BigDecimal getTeamOpptPace() {
-		BigDecimal bd =  new BigDecimal(teamSumMinutes)
-			.multiply(new BigDecimal(teamGamesPlayed));
 		return getTeamOpptPossessions()
-			.multiply(new BigDecimal((teamGamesPlayed) * 48 * 5))
-			.divide(bd, 2, RoundingMode.HALF_UP);
+			.multiply(new BigDecimal(48 * 5))
+			.divide(new BigDecimal(getTeamSumMinutes()), 2, RoundingMode.HALF_UP);
 	}
 	
 	public BigDecimal getTeamOpptPossessions() {
-		BigDecimal teamPossessions = new BigDecimal(teamSumFieldGoalAttempts)
-			.subtract(Utilities.getAverage(teamSumReboundsOffense, teamSumReboundsOffense + opptSumReboundsDefense, 4)
-			.multiply(new BigDecimal((teamSumFieldGoalAttempts - teamSumFieldGoalMade) * 1.07)))
-			.add(new BigDecimal(teamSumTurnovers))
-			.add(new BigDecimal(teamSumFreeThrowAttempts * (0.4)));
+		BigDecimal teamPossessions = new BigDecimal(getTeamSumFieldGoalAttempts())
+			.subtract(Utilities.getAverage(getTeamSumReboundsOffense(), getTeamSumReboundsOffense() + getOpptSumReboundsDefense(), 4)
+			.multiply(new BigDecimal((getTeamSumFieldGoalAttempts() - getTeamSumFieldGoalMade()) * 1.07)))
+			.add(new BigDecimal(getTeamSumTurnovers()))
+			.add(new BigDecimal(getTeamSumFreeThrowAttempts() * (0.4)));
 
-		BigDecimal opptPossessions = new BigDecimal(opptSumFieldGoalAttempts)
-			.subtract(Utilities.getAverage(opptSumReboundsOffense, opptSumReboundsOffense + teamSumReboundsDefense, 4)
-			.multiply(new BigDecimal((opptSumFieldGoalAttempts - opptSumFieldGoalMade) * 1.07)))
-			.add(new BigDecimal(opptSumTurnovers))
-			.add(new BigDecimal(opptSumFreeThrowAttempts * (0.4)));
+		BigDecimal opptPossessions = new BigDecimal(getOpptSumFieldGoalAttempts())
+			.subtract(Utilities.getAverage(getOpptSumReboundsOffense(), getOpptSumReboundsOffense() + getTeamSumReboundsDefense(), 4)
+			.multiply(new BigDecimal((getOpptSumFieldGoalAttempts() - getOpptSumFieldGoalMade()) * 1.07)))
+			.add(new BigDecimal(getOpptSumTurnovers()))
+			.add(new BigDecimal(getOpptSumFreeThrowAttempts() * (0.4)));
 
-		return teamPossessions.add(opptPossessions).divide(new BigDecimal(2)).setScale(2, RoundingMode.HALF_UP);
+		return teamPossessions
+			.add(opptPossessions)
+			.divide(new BigDecimal(2)).setScale(2, RoundingMode.HALF_UP);
 	}
 }
