@@ -1,6 +1,7 @@
 package models;
 
-import java.sql.Timestamp;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -13,32 +14,25 @@ import javax.persistence.Id;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Version;
 
 import org.joda.time.LocalDate;
 
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
-import services.EbeanServerService;
-import services.EbeanServerServiceImpl;
-import services.InjectorModule;
 import util.Enumerations.ProcessingType;
 import util.Enumerations.TeamAbbr;
 
 import com.avaje.ebean.Ebean;
-import com.avaje.ebean.EbeanServer;
 import com.avaje.ebean.Query;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
 
 @Entity
 public class Standing extends Model {
 	private static final long serialVersionUID = 1L;
 	
-	private static Injector injector = Guice.createInjector(new InjectorModule());
-	private static EbeanServerService service = injector.getInstance(EbeanServerServiceImpl.class);	
-	private static EbeanServer ebeanServer = service.createEbeanServer();
+//	private static Injector injector = Guice.createInjector(new InjectorModule());
+//	private static EbeanServerService service = injector.getInstance(EbeanServerServiceImpl.class);	
+//	private static EbeanServer ebeanServer = service.createEbeanServer();
 
 	@Id
 	@TableGenerator(name="table_gen", table="seq_table", pkColumnName="seq_name", valueColumnName="seq_count", pkColumnValue="standing_seq", initialValue=1)
@@ -46,15 +40,6 @@ public class Standing extends Model {
 	private Long id;
 	public Long getId() {
 		return id;
-	}
-	
-	@Version
-	private Timestamp lastUpdate;
-	public Timestamp getLastUpdate()  {
-		return lastUpdate;
-	}
-	public void setLastUpdate(Timestamp lastUpdate) {
-		this.lastUpdate = lastUpdate;
 	}
 	
 	@Required
@@ -347,58 +332,79 @@ public class Standing extends Model {
 	}
 	
 	public static Standing findById(Long id, ProcessingType processingType) {
-		Standing standing = null;
+		Query<Standing> query;
 		if (processingType.equals(ProcessingType.batch))
-			standing = ebeanServer.find(Standing.class, id);
-		else if (processingType.equals(ProcessingType.online))
-			standing = Ebean.find(Standing.class, id);
-		return standing;
+			//standing = ebeanServer.find(Standing.class, id);
+			query = null;
+		else 
+			query = Ebean.find(Standing.class);
+		return query.findUnique();
 	}
 	
 	public static List<Standing> findByDate(String date, ProcessingType processingType) {
-		Query<Standing> query = null;
+		Query<Standing> query;
 		if (processingType.equals(ProcessingType.batch))
-			query = ebeanServer.find(Standing.class);
-		else if (processingType.equals(ProcessingType.online))
-	  		query = Ebean.find(Standing.class);
-		
+			//query = ebeanServer.find(Standing.class);
+			query = null;
+		else
+	  		query = Ebean.find(Standing.class);		
 		query.where().eq("date", date);
 	    return query.findList();
 	}
 	
-	public static Standing findByDateTeam(String date, String teamKey, ProcessingType processingType) {
+	public static Standing findByDateTeam(String date, String teamAbbr, ProcessingType processingType) {
 		Standing standing;
 	  	Query<Standing> query = null;
 	  	if (processingType.equals(ProcessingType.batch)) 
-	  		query = ebeanServer.find(Standing.class);
-  		else if (processingType.equals(ProcessingType.online))
+	  		//query = ebeanServer.find(Standing.class);
+	  		query = null;
+  		else
   			query = Ebean.find(Standing.class);	
-	  	query.fetch("team");
 	  	query.where().eq("date", date);
-	    query.where().eq("t1.team_key", teamKey);
+	    query.where().eq("teamAbbr", teamAbbr);
 	    standing = query.findUnique();
 	    return standing;
 	}
 	
-	public static void create(Standing standing, ProcessingType processingType) {
-		if (processingType.equals(ProcessingType.batch))
-			ebeanServer.save(standing);
-		else if (processingType.equals(ProcessingType.online))
-			Ebean.save(standing);
+	public BigDecimal getStrengthOfSchedule(int scale) {
+		BigDecimal opptOpptWinPercent = new BigDecimal(getOpptOpptGamesWon())
+			.divide(new BigDecimal(getOpptOpptGamesPlayed()), 4, RoundingMode.HALF_UP)
+			.multiply(new BigDecimal(2));
+		BigDecimal opptOpptOpptWinPercent = new BigDecimal(getOpptOpptGamesWon())
+			.divide(new BigDecimal(getOpptOpptGamesPlayed()), 4, RoundingMode.HALF_UP);
+		return opptOpptWinPercent
+			.add(opptOpptOpptWinPercent)
+			.divide(new BigDecimal(3), 4, RoundingMode.HALF_UP)
+			.setScale(scale, RoundingMode.HALF_UP);
 	}
 	
-	public static void update(Standing standing, ProcessingType processingType) {
-		if (processingType.equals(ProcessingType.batch))
-			ebeanServer.update(standing);
-		else if (processingType.equals(ProcessingType.online))
-			Ebean.update(standing);
+	public BigDecimal getRelativePercentageIndex(int scale) {
+		BigDecimal teamWinPercent = new BigDecimal(getGamesWon())
+			.divide(new BigDecimal(getGamesPlayed()), 4, RoundingMode.HALF_UP)
+			.multiply(new BigDecimal(.25));
+		BigDecimal opptWinPercent = new BigDecimal(getOpptGamesWon())
+			.divide(new BigDecimal(getOpptGamesPlayed()), 4, RoundingMode.HALF_UP)
+			.multiply(new BigDecimal(.5));
+		BigDecimal opptOpptWinPercent = new BigDecimal(getOpptOpptGamesWon())
+			.divide(new BigDecimal(getOpptOpptGamesPlayed()), 4, RoundingMode.HALF_UP)
+			.multiply(new BigDecimal(.25));
+		return teamWinPercent
+			.add(opptWinPercent)
+			.add(opptOpptWinPercent)
+			.divide(new BigDecimal(3), 4, RoundingMode.HALF_UP)
+			.setScale(scale, RoundingMode.HALF_UP);
 	}
-	  
-	public static void delete(Standing standing, ProcessingType processingType) {
-		if (processingType.equals(ProcessingType.batch))
-			ebeanServer.delete(standing);
-		else if (processingType.equals(ProcessingType.online))
-			Ebean.delete(standing);
+	
+	public BigDecimal getMarginOfVictory() {
+		TeamSummary teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2013-10-29", "SAC", ProcessingType.online);
+		return new BigDecimal(teamSummary.getTeamSumPoints())
+			.subtract(new BigDecimal(teamSummary.getOpptSumPoints()));
+	}
+	
+	public BigDecimal getSimpleRatingSystem(int scale) {
+		return getMarginOfVictory()
+			.subtract(getStrengthOfSchedule(scale))
+			.setScale(scale, RoundingMode.HALF_UP);
 	}
 
 	public String toString() {

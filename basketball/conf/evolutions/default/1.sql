@@ -173,7 +173,6 @@ create table standing (
   opptGamesPlayed           integer,
   opptOpptGamesWon          integer,
   opptOpptGamesPlayed       integer,
-  last_update               datetime not null,
   constraint ck_standing_teamAbbr check (teamAbbr in ('MIA','NY','DAL','OKC','HOU','DEN','NO','DET','ORL','MIL','CHI','MIN','UTA','LAC','CHA','SAC','IND','BKN','CLE','ATL','WAS','BOS','MEM','POR','GS','LAL','PHO','TOR','PHI','SA')),
   constraint pk_standing primary key (id))
 ;
