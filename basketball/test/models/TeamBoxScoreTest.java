@@ -307,23 +307,23 @@ public class TeamBoxScoreTest {
         		  if (i == 0) {
         			  System.out.println("\r" + Utilities.padLeft("Basic Statistics - Team: 2013-2014 Season", 85));
         			  System.out.println("\r" + "Team Totals");
-        			  System.out.println(TeamBoxScoreHelper.toStringHeader_Basic());
+        			  System.out.println(ReportHelper.toStringHeader_Basic());
         		  }
-            	  System.out.println(TeamBoxScoreHelper.toString_TeamTotals_Basic(teamSummary));
+            	  System.out.println(ReportHelper.toString_TeamTotals_Basic(teamSummary));
         	  }        	  
-        	  System.out.println(TeamBoxScoreHelper.toString_TeamTotals_Basic(leagueSummary));
+        	  System.out.println(ReportHelper.toString_TeamTotals_Basic(leagueSummary));
         	  
         	  for (int i = 0; i < teams.size(); i++) {
         		  teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2013-10-29", teams.get(i), ProcessingType.online);
         		  if (i == 0) {
         			  System.out.println("\r" + "Team Averages");
-        			  System.out.println(TeamBoxScoreHelper.toStringHeader_Basic());
+        			  System.out.println(ReportHelper.toStringHeader_Basic());
         		  }
-            	  System.out.println(TeamBoxScoreHelper.toString_TeamAverages_Basic(teamSummary));
+            	  System.out.println(ReportHelper.toString_TeamAverages_Basic(teamSummary));
         	  }
-        	  System.out.println(TeamBoxScoreHelper.toString_TeamAverages_Basic(leagueSummary));
+        	  System.out.println(ReportHelper.toString_TeamAverages_Basic(leagueSummary));
         	  
-        	  System.out.println(TeamBoxScoreHelper.toStringFooter_Basic());
+        	  System.out.println(ReportHelper.toStringFooter_Basic());
           }
         });
     }
@@ -342,23 +342,23 @@ public class TeamBoxScoreTest {
         		  if (i == 0) {
         			  System.out.println("\r" + Utilities.padLeft("Basic Statistics - Oppt: 2013-2014 Season", 85));
         			  System.out.println("\r" + "Oppt Totals");
-        			  System.out.println(TeamBoxScoreHelper.toStringHeader_Basic());
+        			  System.out.println(ReportHelper.toStringHeader_Basic());
         		  }
-            	  System.out.println(TeamBoxScoreHelper.toString_OpptTotals_Basic(teamSummary));
+            	  System.out.println(ReportHelper.toString_OpptTotals_Basic(teamSummary));
         	  }
-        	  System.out.println(TeamBoxScoreHelper.toString_OpptTotals_Basic(leagueSummary));
+        	  System.out.println(ReportHelper.toString_OpptTotals_Basic(leagueSummary));
         	  
         	  for (int i = 0; i < teams.size(); i++) {
         		  teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2013-10-29", teams.get(i), ProcessingType.online);
         		  if (i == 0) {
         			  System.out.println("\r" + "Oppt Averages");
-        			  System.out.println(TeamBoxScoreHelper.toStringHeader_Basic());
+        			  System.out.println(ReportHelper.toStringHeader_Basic());
         		  }
-            	  System.out.println(TeamBoxScoreHelper.toString_OpptAverages_Basic(teamSummary));
+            	  System.out.println(ReportHelper.toString_OpptAverages_Basic(teamSummary));
         	  } 
-        	  System.out.println(TeamBoxScoreHelper.toString_OpptAverages_Basic(leagueSummary));
+        	  System.out.println(ReportHelper.toString_OpptAverages_Basic(leagueSummary));
         	  
-        	  System.out.println(TeamBoxScoreHelper.toStringFooter_Basic());
+        	  System.out.println(ReportHelper.toStringFooter_Basic());
           }
         });
     }
@@ -377,13 +377,13 @@ public class TeamBoxScoreTest {
         		  if (i == 0) {
         			  System.out.println("\r" + Utilities.padLeft("Advanced Statistics - Team: 2013-2014 Season", 80));
         			  System.out.println("\r" + "Team Totals");
-        			  System.out.println(TeamBoxScoreHelper.toStringHeader_Advanced());
+        			  System.out.println(ReportHelper.toStringHeader_Advanced());
         		  }
-            	  System.out.println(TeamBoxScoreHelper.toString_Team_Advanced(teamSummary));
+            	  System.out.println(ReportHelper.toString_Team_Advanced(teamSummary));
         	  }
-        	  System.out.println(TeamBoxScoreHelper.toString_Team_Advanced(leagueSummary));
+        	  System.out.println(ReportHelper.toString_Team_Advanced(leagueSummary));
         	  
-        	  System.out.println(TeamBoxScoreHelper.toStringFooter_Advanced());
+        	  System.out.println(ReportHelper.toStringFooter_Advanced());
           }
         });
     }
@@ -402,13 +402,13 @@ public class TeamBoxScoreTest {
         		  if (i == 0) {
         			  System.out.println(Utilities.padLeft("Advanced Statistics: 2013-2014 Season", 109));
         			  System.out.println(Utilities.padLeft("Offensive Stats 1", 99) + "\n");
-        			  System.out.println(TeamBoxScoreHelper.toStringHeader_Advanced_Offense1());
+        			  System.out.println(ReportHelper.toStringHeader_Advanced_Offense1());
         		  }
-            	  System.out.println(TeamBoxScoreHelper.toString_Advanced_Offense1(teamSummary));
+            	  System.out.println(ReportHelper.toString_Advanced_Offense1(teamSummary));
         	  }        	  
-        	  System.out.println(TeamBoxScoreHelper.toString_Advanced_Offense1(leagueSummary));
+        	  System.out.println(ReportHelper.toString_Advanced_Offense1(leagueSummary));
         	  
-        	  System.out.println(TeamBoxScoreHelper.toStringFooter_Advanced_Offense1());
+        	  System.out.println(ReportHelper.toStringFooter_Advanced_Offense1());
           }
         });
     }
@@ -427,13 +427,13 @@ public class TeamBoxScoreTest {
       		  if (i == 0) {
       			  System.out.println(Utilities.padLeft("Advanced Statistics: 2013-2014 Season", 109));
       			  System.out.println(Utilities.padLeft("Offensive Stats 2", 99) + "\n");
-      			  System.out.println(TeamBoxScoreHelper.toStringHeader_Advanced_Offense2());
+      			  System.out.println(ReportHelper.toStringHeader_Advanced_Offense2());
       		  }
-          	  System.out.println(TeamBoxScoreHelper.toString_Advanced_Offense2(teamSummary));
+          	  System.out.println(ReportHelper.toString_Advanced_Offense2(teamSummary));
       	  }        	  
-      	  System.out.println(TeamBoxScoreHelper.toString_Advanced_Offense2(leagueSummary));
+      	  System.out.println(ReportHelper.toString_Advanced_Offense2(leagueSummary));
       	  
-      	  System.out.println(TeamBoxScoreHelper.toStringFooter_Advanced_Offense2());
+      	  System.out.println(ReportHelper.toStringFooter_Advanced_Offense2());
         }
       });
   }
@@ -452,13 +452,13 @@ public class TeamBoxScoreTest {
       		  if (i == 0) {
       			  System.out.println(Utilities.padLeft("Advanced Statistics: 2013-2014 Season", 109));
       			  System.out.println(Utilities.padLeft("Defensive Stats", 99) + "\n");
-      			  System.out.println(TeamBoxScoreHelper.toStringHeader_Advanced_Defense());
+      			  System.out.println(ReportHelper.toStringHeader_Advanced_Defense());
       		  }
-          	  System.out.println(TeamBoxScoreHelper.toString_Advanced_Defense(teamSummary));
+          	  System.out.println(ReportHelper.toString_Advanced_Defense(teamSummary));
       	  }        	  
-      	  System.out.println(TeamBoxScoreHelper.toString_Advanced_Defense(leagueSummary));
+      	  System.out.println(ReportHelper.toString_Advanced_Defense(leagueSummary));
       	  
-      	  System.out.println(TeamBoxScoreHelper.toStringFooter_Advanced_Defense());
+      	  System.out.println(ReportHelper.toStringFooter_Advanced_Defense());
         }
       });
   }
@@ -477,13 +477,13 @@ public class TeamBoxScoreTest {
       		  if (i == 0) {
       			  System.out.println(Utilities.padLeft("Advanced Statistics: 2013-2014 Season", 109));
       			  System.out.println(Utilities.padLeft("Efficiency Stats", 99) + "\n");
-      			  System.out.println(TeamBoxScoreHelper.toStringHeader_Advanced_Efficiency());
+      			  System.out.println(ReportHelper.toStringHeader_Advanced_Efficiency());
       		  }
-          	  System.out.println(TeamBoxScoreHelper.toString_Advanced_Efficiency(teamSummary));
+          	  System.out.println(ReportHelper.toString_Advanced_Efficiency(teamSummary));
       	  }        	  
-      	  System.out.println(TeamBoxScoreHelper.toString_Advanced_Efficiency(leagueSummary));
+      	  System.out.println(ReportHelper.toString_Advanced_Efficiency(leagueSummary));
       	  
-      	  System.out.println(TeamBoxScoreHelper.toStringFooter_Advanced_Efficiency());
+      	  System.out.println(ReportHelper.toStringFooter_Advanced_Efficiency());
         }
       });
   }
