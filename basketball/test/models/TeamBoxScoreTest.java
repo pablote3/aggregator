@@ -363,7 +363,7 @@ public class TeamBoxScoreTest {
         });
     }
     
-//   @Ignore
+    @Ignore
     @Test
     public void boxScoresAdvanced() {
         running(fakeApplication(), new Runnable() {
@@ -463,7 +463,7 @@ public class TeamBoxScoreTest {
       });
   }
   
-  @Ignore
+//  @Ignore
   @Test
   public void boxScoresAdvancedEfficiency() {
       running(fakeApplication(), new Runnable() {

@@ -325,9 +325,9 @@ public class ReportHelper {
 	
 	public static String toStringHeader_Advanced_Efficiency() {
 		return new StringBuffer()
-			.append("     |                               Efficiency Ratio                               |                    Winning%                   |                      Strength of Schedule                       |" + "\r")
-			.append("     |        ORtg        |        DRtg        |       |       |        FIC         |       Pyth 13.91      |       Pyth 16.5       |        SOS         |        RPI         |       |       |       |" + "\r")
-			.append("Team | Own    Opp     Δ%  | Own    Opp     Δ%  | eDiff | Poss  | Own    Opp     Δ%  | Pyth%   WPyth   LPyth | Pyth%   WPyth   LPyth | Own    Oppt    Δ%  | Own    Oppt    Δ%  |  MOV  |  SRS  |  PW%  |")
+			.append("     |                               Efficiency Ratio                       |                    Winning%                   |        Pace        |" + "\r")
+			.append("     |        ORtg        |        DRtg        |       |        FIC         |       Pyth 13.91      |       Pyth 16.5       |                    |" + "\r")
+			.append("Team | Own    Opp     Δ%  | Own    Opp     Δ%  | eDiff | Own    Opp     Δ%  | Pyth%   WPyth   LPyth | Pyth%   WPyth   LPyth |   Poss      Pace   |" + "\r")
 			.toString();
 	}
 	
@@ -341,7 +341,6 @@ public class ReportHelper {
 			.append(" " + Utilities.padLeft(teamSummary.getOpptDefensiveRating(1).toString(), 6))
 			.append(" " + Utilities.padLeft(teamSummary.getTeamOpptDefensiveRatingDiff(2).toString(), 6))
 			.append("  " + Utilities.padLeft(teamSummary.getTeamEfficiencyDifferential(2).toString(), 6))
-			.append("  " + Utilities.padLeft(teamSummary.getTeamOpptPossessions().toString(), 6))
 			.append(" " + Utilities.padLeft(teamSummary.getTeamFloorImpactCounter(2).toString(), 6))
 			.append(" " + Utilities.padLeft(teamSummary.getOpptFloorImpactCounter(2).toString(), 6))
 			.append(" " + Utilities.padLeft(teamSummary.getTeamOpptFloorImpactCounterDiff(2).toString(), 6))
@@ -351,15 +350,8 @@ public class ReportHelper {
 			.append(" " + Utilities.padLeft(teamSummary.getTeamPythagoreanWinningPercentage16_5(3).toString(), 7))
 			.append(" " + Utilities.padLeft(teamSummary.getTeamPythagoreanWins16_5(2).toString(), 7))
 			.append(" " + Utilities.padLeft(teamSummary.getTeamPythagoreanLosses16_5(2).toString(), 7))
-//			.append(" " + Utilities.padLeft(teamSummary.getTeamStrengthOfSchedule(3).toString(), 6))
-//			.append(" " + Utilities.padLeft(teamSummary.getOpptStrengthOfSchedule(3).toString(), 6))
-//			.append(" " + Utilities.padLeft(teamSummary.getTeamOpptStrengthOfScheduleDiff(2).toString(), 6))
-//			.append(" " + Utilities.padLeft(teamSummary.getTeamRelativePercentageIndex(3).toString(), 6))
-//			.append(" " + Utilities.padLeft(teamSummary.getOpptRelativePercentageIndex(3).toString(), 6))
-//			.append(" " + Utilities.padLeft(teamSummary.getTeamOpptRelativePercentageIndexDiff(2).toString(), 6))
-			.append("  " + Utilities.padLeft(teamSummary.getTeamMarginOfVictory(2).toString(), 6))
-//			.append("  " + Utilities.padLeft(teamSummary.getTeamSimpleRatingSystem(2).toString(), 6))
-			.append("  " + Utilities.padLeft(teamSummary.getTeamProjectedWinningPercentage(3).toString(), 6))
+			.append("  " +	Utilities.padLeft(teamSummary.getTeamOpptPossessions().toPlainString(), 9))
+			.append("  " +	Utilities.padLeft(teamSummary.getTeamOpptPace().toPlainString(), 6))
 			.toString();
 	}
 	
@@ -373,12 +365,8 @@ public class ReportHelper {
 			.append("\r  " + Utilities.padRight("Pyth% 16.5: Pythagorean Winning% 16.5", 40) + "Team PTS^16.5 / (Team PTS^16.5 + Oppt PTS^16.5)")
 			.append("\r  " + Utilities.padRight("WPyth: Pythagorean Wins", 40) + "Pyth% * 82")
 			.append("\r  " + Utilities.padRight("LPyth: Pythagorean Losses", 40) + "82 - WPyth")
-			.append("\r  " + Utilities.padRight("Poss: Estimated Possessions", 40) + "FGA – (OREB / OREB + DDREB) * (FGA – FGM) * 1.07 + TOV + (0.4 * FTA)")
-			.append("\r  " + Utilities.padRight("SOS: Strength of Schedule", 40) + "(2 * Oppt Win% + Oppt Oppt Win%) / 3")
-			.append("\r  " + Utilities.padRight("RPI: Relative Percentage Index", 40) + "0.25 * Team Win% + 0.5 * Oppt Win% + 0.25 * Oppt Oppt Win%")
-			.append("\r  " + Utilities.padRight("MOV: Margin of Victory", 40) + "Team PTS - Oppt PTS")
-			.append("\r  " + Utilities.padRight("SRS: Simple Rating System", 40) + "MOV - SOS")
-			.append("\r  " + Utilities.padRight("PW%: Projected Winning Percentage", 40) + "((MOV * 2.7) + 41) / 82")
+			.append("\r  " + Utilities.padRight("Poss: Est Possessions", 40) + "FGA – (OREB / OREB + DDREB) * (FGA – FGM) * 1.07 + TO + (0.4 * FTA)")
+			.append("\r  " + Utilities.padRight("Pace: Est Possessions Per Game Duration", 40) + "Poss / (Team Minutes Played * 48 * 5)")
 			.toString();
 	}
 	
