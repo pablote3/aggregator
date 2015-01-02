@@ -8,7 +8,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import util.Enumerations.ProcessingType;
@@ -60,45 +59,31 @@ public class StandingTest {
         	  assertThat(standing.getOpptGamesWon()).isEqualTo((short)201);
         	  assertThat(standing.getOpptOpptGamesPlayed()).isEqualTo((short)7592);
         	  assertThat(standing.getOpptOpptGamesWon()).isEqualTo((short)3963);
-        	  assertThat(standing.getMarginOfVictory()).isEqualTo(new BigDecimal(-238));
-        	  assertThat(standing.getRelativePercentageIndex(3)).isEqualTo(new BigDecimal("0.161"));
-        	  assertThat(standing.getSimpleRatingSystem(3)).isEqualTo(new BigDecimal("-238.522"));
-        	  assertThat(standing.getStrengthOfSchedule(3)).isEqualTo(new BigDecimal("0.522"));
+        	  assertThat(standing.getMarginOfVictory(2)).isEqualTo(new BigDecimal("-2.10"));
+        	  assertThat(standing.getRelativePercentageIndex(3)).isEqualTo(new BigDecimal("0.483"));
+        	  assertThat(standing.getSimpleRatingSystem(3)).isEqualTo(new BigDecimal("-2.638"));
+        	  assertThat(standing.getStrengthOfSchedule(3)).isEqualTo(new BigDecimal("0.538"));
+        	  assertThat(standing.getProjectedWinningPercentage(3)).isEqualTo(new BigDecimal("0.431"));
           }
         });
     }
 
-    @Ignore
     @Test
-    public void boxScoresBasicTeam() {
+    public void standingsBasic() {
         running(fakeApplication(), new Runnable() {
           public void run() {
         	  ArrayList<String> teams = Utilities.teamList();
-        	  TeamSummary leagueSummary = TeamBoxScore.sumLeagueBoxScoreFromDateMaxDate("2013-10-29", ProcessingType.online);
-        	  TeamSummary teamSummary = null;
-        	  
+        	  Standing standing = null;
         	  for (int i = 0; i < teams.size(); i++) {
-        		  teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2013-10-29", teams.get(i), ProcessingType.online);
+        		  standing = Standing.findByDateTeam("2014-04-16", teams.get(i), ProcessingType.online);
         		  if (i == 0) {
-        			  System.out.println("\r" + Utilities.padLeft("Basic Statistics - Team: 2013-2014 Season", 85));
-        			  System.out.println("\r" + "Team Totals");
-        			  System.out.println(TeamBoxScoreHelper.toStringHeader_Basic());
+        			  System.out.println("\r" + Utilities.padLeft("Standings: 2013-2014 Season", 85));
+        			  System.out.println("Standings 2014-04-16");
+        			  System.out.println(ReportHelper.toStringHeader_Standings());
         		  }
-            	  System.out.println(TeamBoxScoreHelper.toString_TeamTotals_Basic(teamSummary));
-        	  }        	  
-        	  System.out.println(TeamBoxScoreHelper.toString_TeamTotals_Basic(leagueSummary));
-        	  
-        	  for (int i = 0; i < teams.size(); i++) {
-        		  teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2013-10-29", teams.get(i), ProcessingType.online);
-        		  if (i == 0) {
-        			  System.out.println("\r" + "Team Averages");
-        			  System.out.println(TeamBoxScoreHelper.toStringHeader_Basic());
-        		  }
-            	  System.out.println(TeamBoxScoreHelper.toString_TeamAverages_Basic(teamSummary));
+            	  System.out.println(ReportHelper.toString_Standings(standing));
         	  }
-        	  System.out.println(TeamBoxScoreHelper.toString_TeamAverages_Basic(leagueSummary));
-        	  
-        	  System.out.println(TeamBoxScoreHelper.toStringFooter_Basic());
+        	  System.out.println(ReportHelper.toStringFooter_Standings());
           }
         });
     }
