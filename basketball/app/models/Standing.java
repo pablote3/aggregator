@@ -367,13 +367,13 @@ public class Standing extends Model {
 	}
 	
 	public BigDecimal getStrengthOfSchedule(int scale) {
-		BigDecimal opptOpptWinPercent = new BigDecimal(getOpptOpptGamesWon())
-			.divide(new BigDecimal(getOpptOpptGamesPlayed()), 4, RoundingMode.HALF_UP)
+		BigDecimal opptWinPercent = new BigDecimal(getOpptGamesWon())
+			.divide(new BigDecimal(getOpptGamesPlayed()), 4, RoundingMode.HALF_UP)
 			.multiply(new BigDecimal(2));
-		BigDecimal opptOpptOpptWinPercent = new BigDecimal(getOpptOpptGamesWon())
+		BigDecimal opptOpptWinPercent = new BigDecimal(getOpptOpptGamesWon())
 			.divide(new BigDecimal(getOpptOpptGamesPlayed()), 4, RoundingMode.HALF_UP);
-		return opptOpptWinPercent
-			.add(opptOpptOpptWinPercent)
+		return opptWinPercent
+			.add(opptOpptWinPercent)
 			.divide(new BigDecimal(3), 4, RoundingMode.HALF_UP)
 			.setScale(scale, RoundingMode.HALF_UP);
 	}
@@ -391,19 +391,25 @@ public class Standing extends Model {
 		return teamWinPercent
 			.add(opptWinPercent)
 			.add(opptOpptWinPercent)
-			.divide(new BigDecimal(3), 4, RoundingMode.HALF_UP)
 			.setScale(scale, RoundingMode.HALF_UP);
 	}
 	
-	public BigDecimal getMarginOfVictory() {
-		TeamSummary teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2013-10-29", "SAC", ProcessingType.online);
-		return new BigDecimal(teamSummary.getTeamSumPoints())
-			.subtract(new BigDecimal(teamSummary.getOpptSumPoints()));
+	public BigDecimal getMarginOfVictory(int scale) {
+		return new BigDecimal(getPointDifferentialPerGame())
+		.setScale(scale, RoundingMode.HALF_UP);
 	}
 	
 	public BigDecimal getSimpleRatingSystem(int scale) {
-		return getMarginOfVictory()
+		return getMarginOfVictory(scale)
 			.subtract(getStrengthOfSchedule(scale))
+			.setScale(scale, RoundingMode.HALF_UP);
+	}
+	
+	public BigDecimal getProjectedWinningPercentage(int scale) {
+		return getMarginOfVictory(scale)
+			.multiply(new BigDecimal(2.7))
+			.add(new BigDecimal(41))
+			.divide(new BigDecimal(82), 4, RoundingMode.HALF_UP)
 			.setScale(scale, RoundingMode.HALF_UP);
 	}
 
