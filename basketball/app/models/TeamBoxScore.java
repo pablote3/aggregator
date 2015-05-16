@@ -72,6 +72,33 @@ public class TeamBoxScore extends Model {
 		this.seasonType = seasonType;
 	}
 	
+	@Column(name="minutes", nullable=false)
+	private Short minutes;
+	public Short getMinutes() {
+		return minutes;
+	}
+	public void setMinutes(Short minutes) {
+		this.minutes = minutes;
+	}
+	
+	@Column(name="possessions", nullable=false)
+	private Float possessions;
+	public Float getPossessions() {
+		return possessions;
+	}
+	public void setPossessions(Float possessions) {
+		this.possessions = possessions;
+	}
+	
+	@Column(name="pace", nullable=false)
+	private Float pace;
+	public Float getPace() {
+		return pace;
+	}
+	public void setPace(Float pace) {
+		this.pace = pace;
+	}
+	
 	@Required
 	@Enumerated(EnumType.STRING)
 	@Column(name="teamAbbr", length=3, nullable=false)
@@ -127,13 +154,13 @@ public class TeamBoxScore extends Model {
 		this.teamResult = teamResult;
 	}
 	
-	@Column(name="teamMinutes", nullable=false)
-	private Short teamMinutes;
-	public Short getTeamMinutes() {
-		return teamMinutes;
+	@Column(name="teamDaysOff", nullable=false)
+	private Short teamDaysOff;
+	public Short getTeamDaysOff() {
+		return teamDaysOff;
 	}
-	public void setTeamMinutes(Short teamMinutes) {
-		this.teamMinutes = teamMinutes;
+	public void setTeamDaysOff(Short teamDaysOff) {
+		this.teamDaysOff = teamDaysOff;
 	}
 
 	@Column(name="teamPoints", nullable=false)
@@ -389,13 +416,13 @@ public class TeamBoxScore extends Model {
 		this.opptResult = opptResult;
 	}
 	
-	@Column(name="opptMinutes", nullable=false)
-	private Short opptMinutes;
-	public Short getOpptMinutes() {
-		return opptMinutes;
+	@Column(name="opptDaysOff", nullable=false)
+	private Short opptDaysOff;
+	public Short getOpptDaysOff() {
+		return opptDaysOff;
 	}
-	public void setOpptMinutes(Short opptMinutes) {
-		this.opptMinutes = opptMinutes;
+	public void setOpptDaysOff(Short opptDaysOff) {
+		this.opptDaysOff = opptDaysOff;
 	}
 	
 	@Column(name="opptPoints", nullable=false)
@@ -687,7 +714,8 @@ public class TeamBoxScore extends Model {
 	  	
 	  	LocalDate maxDate = DateTimeUtil.getDateMaxSeason(DateTimeUtil.createDateFromStringDate(fromDate));
 	  	
-		String sql 	= " select teamAbbr as teamAbbr, count(teamPoints) as teamGamesPlayed, sum(teamMinutes) as teamSumMinutes,"
+		String sql 	= " select count(minutes) as gamesPlayed, sum(minutes) as sumMinutes, sum(possessions) as sumPossessions, sum(pace) as sumPace,"
+					+ " teamAbbr as teamAbbr, "
 					+ " sum(teamPoints) as teamSumPoints, sum(teamAssists) as teamSumAssists, sum(teamTurnovers) as teamSumTurnovers,"
 					+ " sum(teamSteals) as teamSumSteals, sum(teamBlocks) as teamSumBlocks, sum(teamPersonalFouls) as teamSumPersonalFouls,"
 					+ " sum(teamFieldGoalAttempts) as teamSumFieldGoalAttempts, sum(teamFieldGoalMade) as teamSumFieldGoalMade,"
@@ -696,7 +724,7 @@ public class TeamBoxScore extends Model {
 					+ " sum(teamReboundsOffense) as teamSumReboundsOffense, sum(teamReboundsDefense) as teamSumReboundsDefense,"
 					+ " sum(teamPointsQ1) as teamSumPointsQ1, sum(teamPointsQ2) as teamSumPointsQ2,"
 					+ " sum(teamPointsQ3) as teamSumPointsQ3, sum(teamPointsQ4) as teamSumPointsQ4,"
-					+ " opptTeamAbbr as opptTeamAbbr, count(opptPoints) as opptGamesPlayed,"
+					+ " opptTeamAbbr as opptTeamAbbr, "
 					+ " sum(opptPoints) as opptSumPoints, sum(opptAssists) as opptSumAssists, sum(opptTurnovers) as opptSumTurnovers,"
 					+ " sum(opptSteals) as opptSumSteals, sum(opptBlocks) as opptSumBlocks, sum(opptPersonalFouls) as opptSumPersonalFouls,"
 					+ " sum(opptFieldGoalAttempts) as opptSumFieldGoalAttempts, sum(opptFieldGoalMade) as opptSumFieldGoalMade,"
@@ -733,7 +761,7 @@ public class TeamBoxScore extends Model {
 	  	
 	  	LocalDate maxDate = DateTimeUtil.getDateMaxSeason(DateTimeUtil.createDateFromStringDate(fromDate));
 	  	
-		String sql 	= " select count(teamPoints) as teamGamesPlayed, sum(teamMinutes) as teamSumMinutes,"
+		String sql 	= " select count(minutes) as gamesPlayed, sum(minutes) as sumMinutes, sum(possessions) as sumPossessions, sum(pace) as sumPace,"
 					+ " sum(teamPoints) as teamSumPoints, sum(teamAssists) as teamSumAssists, sum(teamTurnovers) as teamSumTurnovers,"
 					+ " sum(teamSteals) as teamSumSteals, sum(teamBlocks) as teamSumBlocks, sum(teamPersonalFouls) as teamSumPersonalFouls,"
 					+ " sum(teamFieldGoalAttempts) as teamSumFieldGoalAttempts, sum(teamFieldGoalMade) as teamSumFieldGoalMade,"
@@ -742,7 +770,6 @@ public class TeamBoxScore extends Model {
 					+ " sum(teamReboundsOffense) as teamSumReboundsOffense, sum(teamReboundsDefense) as teamSumReboundsDefense,"
 					+ " sum(teamPointsQ1) as teamSumPointsQ1, sum(teamPointsQ2) as teamSumPointsQ2,"
 					+ " sum(teamPointsQ3) as teamSumPointsQ3, sum(teamPointsQ4) as teamSumPointsQ4,"
-					+ " count(opptPoints) as opptGamesPlayed,"
 					+ " sum(opptPoints) as opptSumPoints, sum(opptAssists) as opptSumAssists, sum(opptTurnovers) as opptSumTurnovers,"
 					+ " sum(opptSteals) as opptSumSteals, sum(opptBlocks) as opptSumBlocks, sum(opptPersonalFouls) as opptSumPersonalFouls,"
 					+ " sum(opptFieldGoalAttempts) as opptSumFieldGoalAttempts, sum(opptFieldGoalMade) as opptSumFieldGoalMade,"

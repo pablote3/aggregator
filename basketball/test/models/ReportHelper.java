@@ -27,7 +27,7 @@ public class ReportHelper {
 	public static String toString_TeamTotals_Basic(TeamSummary teamSummary) {
 		return new StringBuffer()
 			.append(teamSummary.getTeamAbbr() != null ? Utilities.padRight(teamSummary.getTeamAbbr().toString(), 4): Utilities.padRight("", 2))
-			.append("  " + teamSummary.getTeamGamesPlayed())
+			.append("  " + teamSummary.getGamesPlayed())
 			.append("  " + Utilities.padLeft(teamSummary.getTeamSumFieldGoalMade().toString(), 5))
 			.append(" " + Utilities.padLeft(teamSummary.getTeamSumFieldGoalAttempts().toString(), 6))
 			.append("   " + teamSummary.getTeamAvgFieldGoalPct())
@@ -52,7 +52,7 @@ public class ReportHelper {
 	public static String toString_OpptTotals_Basic(TeamSummary teamSummary) {
 		return new StringBuffer()
 			.append(teamSummary.getTeamAbbr() != null ? Utilities.padRight(teamSummary.getTeamAbbr().toString(), 4): Utilities.padRight("", 2))
-			.append("  " + teamSummary.getTeamGamesPlayed())
+			.append("  " + teamSummary.getGamesPlayed())
 			.append("  " + Utilities.padLeft(teamSummary.getOpptSumFieldGoalMade().toString(), 5))
 			.append(" " + Utilities.padLeft(teamSummary.getOpptSumFieldGoalAttempts().toString(), 6))
 			.append("   " + teamSummary.getOpptAvgFieldGoalPct())
@@ -77,7 +77,7 @@ public class ReportHelper {
 	public static String toString_TeamAverages_Basic(TeamSummary teamSummary) {
 		return new StringBuffer()
 			.append(teamSummary.getTeamAbbr() != null ? Utilities.padRight(teamSummary.getTeamAbbr().toString(), 4): Utilities.padRight("", 2))
-			.append("  " +	teamSummary.getTeamGamesPlayed())
+			.append("  " +	teamSummary.getGamesPlayed())
 			.append("  " +	teamSummary.getTeamAvgFieldGoalMade())
 			.append("  " +	teamSummary.getTeamAvgFieldGoalAttempts())
 			.append("   " +	teamSummary.getTeamAvgFieldGoalPct())
@@ -102,7 +102,7 @@ public class ReportHelper {
 	public static String toString_OpptAverages_Basic(TeamSummary teamSummary) {
 		return new StringBuffer()
 			.append(teamSummary.getTeamAbbr() != null ? Utilities.padRight(teamSummary.getTeamAbbr().toString(), 4): Utilities.padRight("", 2))
-			.append("  " +	teamSummary.getTeamGamesPlayed())
+			.append("  " +	teamSummary.getGamesPlayed())
 			.append("  " +	teamSummary.getOpptAvgFieldGoalMade())
 			.append("  " +	teamSummary.getOpptAvgFieldGoalAttempts())
 			.append("   " +	teamSummary.getOpptAvgFieldGoalPct())
@@ -148,7 +148,7 @@ public class ReportHelper {
 			.append("  " +	Utilities.padLeft(teamSummary.getTeamDefensiveRating(2).toPlainString(), 6))
 			.append("  " +	Utilities.padLeft(teamSummary.getTeamEfficiencyDifferential(2).toPlainString(), 6))		
 			.append("  " +	Utilities.padLeft(teamSummary.getTeamOpptPossessions().toPlainString(), 9))
-			.append("  " +	Utilities.padLeft(teamSummary.getTeamOpptPace().toPlainString(), 6))	
+			.append("  " +	Utilities.padLeft(teamSummary.getTeamOpptPace(2).toPlainString(), 6))	
 			.toString();
 	}
 	
@@ -167,12 +167,12 @@ public class ReportHelper {
 			.append("\r  " + Utilities.padRight("BLKR: Block Rate", 40) + "BLK * 100 / FGA - 3PA")
 			.append("\r  " + Utilities.padRight("PPS: Points Per Shot", 40) + "PTS / FGA")
 			.append("\r  " + Utilities.padRight("FIC: Floor Impact Counter", 40) + "(PTS + ORB + 0.75 DRB + AST + STL + BLK - 0.75 FGA - 0.375 FTA - TO - 0.5 PF) / GP")
-			.append("\r  " + Utilities.padRight("FIC40: FIC Per 40 Minutes", 40) + "((PTS + ORB + 0.75 DRB + AST + STL + BLK - 0.75 FGA - 0.375 FTA - TO - 0.5 PF) * 40 * 5) / Team Minutes")
+			.append("\r  " + Utilities.padRight("FIC40: FIC Per 40 Minutes", 40) + "((PTS + ORB + 0.75 DRB + AST + STL + BLK - 0.75 FGA - 0.375 FTA - TO - 0.5 PF) * 40 * 5) / Minutes Played")
 			.append("\r  " + Utilities.padRight("ORtg: Offensive Rating", 40) + "Team PTS / Poss")
 			.append("\r  " + Utilities.padRight("DRtg: Defensive Rating", 40) + "Oppt PTS / Poss")
 			.append("\r  " + Utilities.padRight("eDiff: Efficiency Differential", 40) + "ORtg - DRtg")
 			.append("\r  " + Utilities.padRight("Poss: Est Possessions", 40) + "FGA – (OREB / OREB + DDREB) * (FGA – FGM) * 1.07 + TO + (0.4 * FTA)")
-			.append("\r  " + Utilities.padRight("Pace: Est Possessions Per Game Duration", 40) + "Poss / (Team Minutes Played * 48 * 5)")
+			.append("\r  " + Utilities.padRight("Pace: Est Possessions Per Game Duration", 40) + "Poss / (Minutes Played * 48 * 5)")
 			.toString();
 	}
 	
@@ -351,7 +351,7 @@ public class ReportHelper {
 			.append(" " + Utilities.padLeft(teamSummary.getTeamPythagoreanWins16_5(2).toString(), 7))
 			.append(" " + Utilities.padLeft(teamSummary.getTeamPythagoreanLosses16_5(2).toString(), 7))
 			.append("  " +	Utilities.padLeft(teamSummary.getTeamOpptPossessions().toPlainString(), 9))
-			.append("  " +	Utilities.padLeft(teamSummary.getTeamOpptPace().toPlainString(), 6))
+			.append("  " +	Utilities.padLeft(teamSummary.getTeamOpptPace(2).toPlainString(), 6))
 			.toString();
 	}
 	
@@ -366,7 +366,7 @@ public class ReportHelper {
 			.append("\r  " + Utilities.padRight("WPyth: Pythagorean Wins", 40) + "Pyth% * 82")
 			.append("\r  " + Utilities.padRight("LPyth: Pythagorean Losses", 40) + "82 - WPyth")
 			.append("\r  " + Utilities.padRight("Poss: Est Possessions", 40) + "FGA – (OREB / OREB + DDREB) * (FGA – FGM) * 1.07 + TO + (0.4 * FTA)")
-			.append("\r  " + Utilities.padRight("Pace: Est Possessions Per Game Duration", 40) + "Poss / (Team Minutes Played * 48 * 5)")
+			.append("\r  " + Utilities.padRight("Pace: Est Possessions Per Game Duration", 40) + "Poss / (Minutes Played * 48 * 5)")
 			.toString();
 	}
 	

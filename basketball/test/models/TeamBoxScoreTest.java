@@ -84,8 +84,8 @@ public class TeamBoxScoreTest {
         running(fakeApplication(), new Runnable() {
           public void run() {
         	  TeamSummary teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2013-10-29", "SAC", ProcessingType.online);
+        	  assertThat(teamSummary.getGamesPlayed()).isEqualTo((short)82);
         	  assertThat(teamSummary.getTeamAbbr()).isEqualTo(TeamAbbr.SAC);
-        	  assertThat(teamSummary.getTeamGamesPlayed()).isEqualTo((short)82);
         	  assertThat(teamSummary.getTeamSumPoints()).isEqualTo((short)8241);
         	  assertThat(teamSummary.getTeamSumAssists()).isEqualTo((short)1547);
         	  assertThat(teamSummary.getTeamSumTurnovers()).isEqualTo((short)1249);
@@ -105,8 +105,8 @@ public class TeamBoxScoreTest {
         	  assertThat(teamSummary.getTeamSumPointsQ2()).isEqualTo((short)2017);
         	  assertThat(teamSummary.getTeamSumPointsQ3()).isEqualTo((short)2069);
         	  assertThat(teamSummary.getTeamSumPointsQ4()).isEqualTo((short)2008);
-        	  assertThat(teamSummary.getTeamOpptPossessions()).isEqualTo(Utilities.roundToBigDecimal((float)7795.71, 2));
-        	  assertThat(teamSummary.getTeamOpptPace()).isEqualTo(Utilities.roundToBigDecimal((float)94.30, 2));
+        	  assertThat(teamSummary.getTeamOpptPossessions()).isEqualTo(Utilities.roundToBigDecimal((float)7796.56, 2));
+        	  assertThat(teamSummary.getTeamOpptPace(2)).isEqualTo(Utilities.roundToBigDecimal((float)94.37, 2));
         	  
         	  assertThat(teamSummary.getOpptSumPoints()).isEqualTo((short)8479);
         	  assertThat(teamSummary.getOpptSumAssists()).isEqualTo((short)1927);
@@ -136,7 +136,7 @@ public class TeamBoxScoreTest {
         running(fakeApplication(), new Runnable() {
           public void run() {
         	  TeamSummary leagueSummary = TeamBoxScore.sumLeagueBoxScoreFromDateMaxDate("2013-10-29", ProcessingType.online);
-        	  assertThat(leagueSummary.getTeamGamesPlayed()).isEqualTo((int)2460);
+        	  assertThat(leagueSummary.getGamesPlayed()).isEqualTo((int)2460);
         	  assertThat(leagueSummary.getTeamSumPoints()).isEqualTo((int)248482);
         	  assertThat(leagueSummary.getTeamSumAssists()).isEqualTo((int)54131);
         	  assertThat(leagueSummary.getTeamSumTurnovers()).isEqualTo((int)36040);
@@ -185,8 +185,8 @@ public class TeamBoxScoreTest {
         running(fakeApplication(), new Runnable() {
           public void run() {
         	  TeamSummary teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2013-10-29", "SAC", ProcessingType.online);
+        	  assertThat(teamSummary.getGamesPlayed()).isEqualTo((short)82);
         	  assertThat(teamSummary.getTeamAbbr()).isEqualTo(TeamAbbr.SAC);
-        	  assertThat(teamSummary.getTeamGamesPlayed()).isEqualTo((short)82);
         	  assertThat(new BigDecimal(0)).isEqualTo(new BigDecimal(0));
         	  
         	  assertThat(new BigDecimal(teamSummary.getTeamAvgPoints(2).toString())).isEqualTo(Utilities.roundToBigDecimal((float)100.5, 2));
@@ -243,7 +243,7 @@ public class TeamBoxScoreTest {
         running(fakeApplication(), new Runnable() {
           public void run() {
         	  TeamSummary leagueSummary = TeamBoxScore.sumLeagueBoxScoreFromDateMaxDate("2013-10-29", ProcessingType.online);
-        	  assertThat(leagueSummary.getTeamGamesPlayed()).isEqualTo((short)2460);
+        	  assertThat(leagueSummary.getGamesPlayed()).isEqualTo((short)2460);
         	  assertThat(leagueSummary.getTeamAvgPoints(2)).isEqualTo(Utilities.roundToBigDecimal((float)101.01, 2));
         	  assertThat(leagueSummary.getTeamAvgAssists(2)).isEqualTo(Utilities.roundToBigDecimal((float)22.00, 2));
         	  assertThat(leagueSummary.getTeamAvgTurnovers()).isEqualTo(Utilities.roundToBigDecimal((float)14.65, 2));
@@ -473,7 +473,7 @@ public class TeamBoxScoreTest {
       	  TeamSummary teamSummary = null;
       	  
       	  for (int i = 0; i < teams.size(); i++) {
-      		  teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2014-10-29", teams.get(i), ProcessingType.online);
+      		  teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2013-10-29", teams.get(i), ProcessingType.online);
       		  if (i == 0) {
       			  System.out.println(Utilities.padLeft("Advanced Statistics: 2013-2014 Season", 109));
       			  System.out.println(Utilities.padLeft("Efficiency Stats", 99) + "\n");

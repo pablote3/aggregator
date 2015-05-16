@@ -80,6 +80,33 @@ public class OfficialBoxScore extends Model {
 		this.seasonType = seasonType;
 	}
 	
+	@Column(name="minutes", nullable=false)
+	private Short minutes;
+	public Short getMinutes() {
+		return minutes;
+	}
+	public void setMinutes(Short minutes) {
+		this.minutes = minutes;
+	}
+	
+	@Column(name="possessions", nullable=false)
+	private Float possessions;
+	public Float getPossessions() {
+		return possessions;
+	}
+	public void setPossessions(Float possessions) {
+		this.possessions = possessions;
+	}
+	
+	@Column(name="pace", nullable=false)
+	private Float pace;
+	public Float getPace() {
+		return pace;
+	}
+	public void setPace(Float pace) {
+		this.pace = pace;
+	}
+	
 	@Required
 	@Enumerated(EnumType.STRING)
 	@Column(name="teamAbbr", length=3, nullable=false)
@@ -133,6 +160,15 @@ public class OfficialBoxScore extends Model {
 	}
 	public void setTeamResult(Result teamResult) {
 		this.teamResult = teamResult;
+	}
+	
+	@Column(name="teamDaysOff", nullable=false)
+	private Short teamDaysOff;
+	public Short getTeamDaysOff() {
+		return teamDaysOff;
+	}
+	public void setTeamDaysOff(Short teamDaysOff) {
+		this.teamDaysOff = teamDaysOff;
 	}
 
 	@Column(name="teamPoints", nullable=false)
@@ -386,6 +422,15 @@ public class OfficialBoxScore extends Model {
 	}
 	public void setOpptResult(Result opptResult) {
 		this.opptResult = opptResult;
+	}
+	
+	@Column(name="opptDaysOff", nullable=false)
+	private Short opptDaysOff;
+	public Short getOpptDaysOff() {
+		return opptDaysOff;
+	}
+	public void setOpptDaysOff(Short opptDaysOff) {
+		this.opptDaysOff = opptDaysOff;
 	}
 	
 	@Column(name="opptPoints", nullable=false)

@@ -24,7 +24,6 @@ import util.Enumerations.TeamAbbr;
 
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Query;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class Standing extends Model {
@@ -74,7 +73,6 @@ public class Standing extends Model {
 	}
 	
 	@Column(name="ordinalRank", nullable=false)
-	@JsonProperty("ordinal_rank")
 	private String ordinalRank;
 	public String getOrdinalRank() {
 		return ordinalRank;
@@ -84,7 +82,6 @@ public class Standing extends Model {
 	}
 	
 	@Column(name="gamesWon", nullable=false)
-	@JsonProperty("won")
 	private Short gamesWon;
 	public Short getGamesWon() {
 		return gamesWon;
@@ -93,7 +90,6 @@ public class Standing extends Model {
 		this.gamesWon = gamesWon;
 	}
 	@Column(name="gamesLost", nullable=false)
-	@JsonProperty("lost")
 	private Short gamesLost;
 	public Short getGamesLost() {
 		return gamesLost;
@@ -112,7 +108,6 @@ public class Standing extends Model {
 	}
 	
 	@Column(name="streakType", nullable=false)
-	@JsonProperty("streak_type")
 	private String streakType;
 	public String getStreakType() {
 		return streakType;
@@ -122,7 +117,6 @@ public class Standing extends Model {
 	}
 	
 	@Column(name="streakTotal", nullable=false)
-	@JsonProperty("streak_total")
 	private Short streakTotal;
 	public Short getStreakTotal() {
 		return streakTotal;
@@ -132,7 +126,6 @@ public class Standing extends Model {
 	}
 	
 	@Column(name="gamesBack", nullable=false)
-	@JsonProperty("games_back")
 	private Float gamesBack;
 	public Float getGamesBack() {
 		return gamesBack;
@@ -142,7 +135,6 @@ public class Standing extends Model {
 	}
 	
 	@Column(name="pointsFor", nullable=false)
-	@JsonProperty("points_for")
 	private Short pointsFor;
 	public Short getPointsFor() {
 		return pointsFor;
@@ -152,7 +144,6 @@ public class Standing extends Model {
 	}
 	
 	@Column(name="pointsAgainst", nullable=false)
-	@JsonProperty("points_against")
 	private Short pointsAgainst;
 	public Short getPointsAgainst() {
 		return pointsAgainst;
@@ -162,7 +153,6 @@ public class Standing extends Model {
 	}
 	
 	@Column(name="homeWins", nullable=false)
-	@JsonProperty("home_won")
 	private Short homeWins;
 	public Short getHomeWins() {
 		return homeWins;
@@ -171,7 +161,6 @@ public class Standing extends Model {
 		this.homeWins = homeWins;
 	}
 	@Column(name="homeLosses", nullable=false)
-	@JsonProperty("home_lost")
 	private Short homeLosses;
 	public Short getHomeLosses() {
 		return homeLosses;
@@ -180,7 +169,6 @@ public class Standing extends Model {
 		this.homeLosses = homeLosses;
 	}
 	@Column(name="awayWins", nullable=false)
-	@JsonProperty("away_won")
 	private Short awayWins;
 	public Short getAwayWins() {
 		return awayWins;
@@ -189,7 +177,6 @@ public class Standing extends Model {
 		this.awayWins = awayWins;
 	}
 	@Column(name="awayLosses", nullable=false)
-	@JsonProperty("away_lost")
 	private Short awayLosses;
 	public Short getAwayLosses() {
 		return awayLosses;
@@ -199,7 +186,6 @@ public class Standing extends Model {
 	}
 	
 	@Column(name="conferenceWins", nullable=false)
-	@JsonProperty("conference_won")
 	private Short conferenceWins;
 	public Short getConferenceWins() {
 		return conferenceWins;
@@ -208,7 +194,6 @@ public class Standing extends Model {
 		this.conferenceWins = conferenceWins;
 	}
 	@Column(name="conferenceLosses", nullable=false)
-	@JsonProperty("conference_lost")
 	private Short conferenceLosses;
 	public Short getConferenceLosses() {
 		return conferenceLosses;
@@ -218,7 +203,6 @@ public class Standing extends Model {
 	}
 	
 	@Column(name="lastFive", nullable=false)
-	@JsonProperty("last_five")
 	private String lastFive;
 	public String getLastFive() {
 		return lastFive;
@@ -227,7 +211,6 @@ public class Standing extends Model {
 		this.lastFive = lastFive;
 	}
 	@Column(name="lastTen", nullable=false)
-	@JsonProperty("last_ten")
 	private String lastTen;
 	public String getLastTen() {
 		return lastTen;
@@ -237,7 +220,6 @@ public class Standing extends Model {
 	}
 	
 	@Column(name="gamesPlayed", nullable=false)
-	@JsonProperty("games_played")
 	private Short gamesPlayed;
 	public Short getGamesPlayed() {
 		return gamesPlayed;
@@ -247,7 +229,6 @@ public class Standing extends Model {
 	}
 	
 	@Column(name="pointsScoredPerGame", nullable=false)
-	@JsonProperty("points_scored_per_game")
 	private Float pointsScoredPerGame;
 	public Float getPointsScoredPerGame() {
 		return pointsScoredPerGame;
@@ -256,7 +237,6 @@ public class Standing extends Model {
 		this.pointsScoredPerGame = pointsScoredPerGame;
 	}
 	@Column(name="pointsAllowedPerGame", nullable=false)
-	@JsonProperty("points_allowed_per_game")
 	private Float pointsAllowedPerGame;
 	public Float getPointsAllowedPerGame() {
 		return pointsAllowedPerGame;
@@ -265,18 +245,7 @@ public class Standing extends Model {
 		this.pointsAllowedPerGame = pointsAllowedPerGame;
 	}
 	
-	@Column(name="winPercentage", nullable=false)
-	@JsonProperty("win_percentage")
-	private Float winPercentage;
-	public Float getWinPercentage() {
-		return winPercentage;
-	}
-	public void setWinPercentage(Float winPercentage) {
-		this.winPercentage = winPercentage;
-	}
-	
 	@Column(name="pointDifferential", nullable=false)
-	@JsonProperty("point_differential")
 	private Short pointDifferential;
 	public Short getPointDifferential() {
 		return pointDifferential;
@@ -286,7 +255,6 @@ public class Standing extends Model {
 	}
 	
 	@Column(name="pointDifferentialPerGame", nullable=false)
-	@JsonProperty("point_differential_per_game")
 	private Float pointDifferentialPerGame;
 	public Float getPointDifferentialPerGame() {
 		return pointDifferentialPerGame;
@@ -295,40 +263,31 @@ public class Standing extends Model {
 		this.pointDifferentialPerGame = pointDifferentialPerGame;
 	}
 	
-	@Column(name="opptGamesWon", nullable=true)
-	private Integer opptGamesWon;
-	public Integer getOpptGamesWon() {
-		return opptGamesWon;
+	@Column(name="teamWinPercentage", nullable=false)
+	private Float teamWinPercentage;
+	public Float getTeamWinPercentage() {
+		return teamWinPercentage;
 	}
-	public void setOpptGamesWon(Integer opptGamesWon) {
-		this.opptGamesWon = opptGamesWon;
-	}
-	
-	@Column(name="opptGamesPlayed", nullable=true)
-	private Integer opptGamesPlayed;
-	public Integer getOpptGamesPlayed() {
-		return opptGamesPlayed;
-	}
-	public void setOpptGamesPlayed(Integer opptGamesPlayed) {
-		this.opptGamesPlayed = opptGamesPlayed;
+	public void setTeamWinPercentage(Float teamWinPercentage) {
+		this.teamWinPercentage = teamWinPercentage;
 	}
 	
-	@Column(name="opptOpptGamesWon", nullable=true)
-	private Integer opptOpptGamesWon;
-	public Integer getOpptOpptGamesWon() {
-		return opptOpptGamesWon;
+	@Column(name="opptWinPercentage", nullable=true)
+	private Float opptWinPercentage;
+	public Float getOpptWinPercentage() {
+		return opptWinPercentage;
 	}
-	public void setOpptOpptGamesWon(Integer opptOpptGamesWon) {
-		this.opptOpptGamesWon = opptOpptGamesWon;
+	public void setOpptWinPercentage(Float opptWinPercentage) {
+		this.opptWinPercentage = opptWinPercentage;
 	}
 	
-	@Column(name="opptOpptGamesPlayed", nullable=true)
-	private Integer opptOpptGamesPlayed;
-	public Integer getOpptOpptGamesPlayed() {
-		return opptOpptGamesPlayed;
-	}	
-	public void setOpptOpptGamesPlayed(Integer opptOpptGamesPlayed) {
-		this.opptOpptGamesPlayed = opptOpptGamesPlayed;
+	@Column(name="opptOpptWinPercentage", nullable=true)
+	private Float opptOpptWinPercentage;
+	public Float getOpptOpptWinPercentage() {
+		return opptOpptWinPercentage;
+	}
+	public void setOpptOpptWinPercentage(Float opptOpptWinPercentage) {
+		this.opptOpptWinPercentage = opptOpptWinPercentage;
 	}
 	
 	public static Standing findById(Long id, ProcessingType processingType) {
@@ -367,13 +326,10 @@ public class Standing extends Model {
 	}
 	
 	public BigDecimal getStrengthOfSchedule(int scale) {
-		BigDecimal opptWinPercent = new BigDecimal(getOpptGamesWon())
-			.divide(new BigDecimal(getOpptGamesPlayed()), 4, RoundingMode.HALF_UP)
+		BigDecimal opptWinPercent = new BigDecimal(getOpptWinPercentage())
 			.multiply(new BigDecimal(2));
-		BigDecimal opptOpptWinPercent = new BigDecimal(getOpptOpptGamesWon())
-			.divide(new BigDecimal(getOpptOpptGamesPlayed()), 4, RoundingMode.HALF_UP);
 		return opptWinPercent
-			.add(opptOpptWinPercent)
+			.add(new BigDecimal(getOpptOpptWinPercentage()))
 			.divide(new BigDecimal(3), 4, RoundingMode.HALF_UP)
 			.setScale(scale, RoundingMode.HALF_UP);
 	}
@@ -382,11 +338,9 @@ public class Standing extends Model {
 		BigDecimal teamWinPercent = new BigDecimal(getGamesWon())
 			.divide(new BigDecimal(getGamesPlayed()), 4, RoundingMode.HALF_UP)
 			.multiply(new BigDecimal(.25));
-		BigDecimal opptWinPercent = new BigDecimal(getOpptGamesWon())
-			.divide(new BigDecimal(getOpptGamesPlayed()), 4, RoundingMode.HALF_UP)
+		BigDecimal opptWinPercent = new BigDecimal(getOpptWinPercentage())
 			.multiply(new BigDecimal(.5));
-		BigDecimal opptOpptWinPercent = new BigDecimal(getOpptOpptGamesWon())
-			.divide(new BigDecimal(getOpptOpptGamesPlayed()), 4, RoundingMode.HALF_UP)
+		BigDecimal opptOpptWinPercent = new BigDecimal(getOpptOpptWinPercentage())
 			.multiply(new BigDecimal(.25));
 		return teamWinPercent
 			.add(opptWinPercent)

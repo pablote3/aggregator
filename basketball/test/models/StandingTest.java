@@ -55,10 +55,8 @@ public class StandingTest {
         	  assertThat(standing.getStreakTotal()).isEqualTo((short)2);
         	  assertThat(standing.getStreakType()).isEqualTo("win");
         	  
-        	  assertThat(standing.getOpptGamesPlayed()).isEqualTo((short)368);
-        	  assertThat(standing.getOpptGamesWon()).isEqualTo((short)201);
-        	  assertThat(standing.getOpptOpptGamesPlayed()).isEqualTo((short)7592);
-        	  assertThat(standing.getOpptOpptGamesWon()).isEqualTo((short)3963);
+        	  assertThat(standing.getOpptWinPercentage()).isEqualTo((float)0.5462);
+        	  assertThat(standing.getOpptOpptWinPercentage()).isEqualTo((float)0.522);
         	  assertThat(standing.getMarginOfVictory(2)).isEqualTo(new BigDecimal("-2.10"));
         	  assertThat(standing.getRelativePercentageIndex(3)).isEqualTo(new BigDecimal("0.483"));
         	  assertThat(standing.getSimpleRatingSystem(3)).isEqualTo(new BigDecimal("-2.638"));
