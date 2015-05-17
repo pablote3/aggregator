@@ -1,5 +1,7 @@
 package models;
 
+import java.math.RoundingMode;
+
 import util.Utilities;
 
 public class ReportHelper {
@@ -125,7 +127,7 @@ public class ReportHelper {
 	}
 	
 	public static String toStringHeader_Advanced() {
-		return "Team   TS%    eFG%  OREB%  DREB%  TREB%   AST%   TO%   STL%  BLK%   BLKR   PPS   FIC   FIC40   ORtg    DRtg    eDiff     Poss     Pace";
+		return "Team   TS%    eFG%  OREB%  DREB%  TREB%   AST%   TO%   STL%  BLK%   BLKR   PPS   FIC   FIC40   ORtg    DRtg    eDiff      Poss    Pace";
 	}
 	
 	public static String toString_Team_Advanced(TeamSummary teamSummary) {
@@ -147,8 +149,8 @@ public class ReportHelper {
 			.append("  " +	Utilities.padLeft(teamSummary.getTeamOffensiveRating(2).toPlainString(), 6))			
 			.append("  " +	Utilities.padLeft(teamSummary.getTeamDefensiveRating(2).toPlainString(), 6))
 			.append("  " +	Utilities.padLeft(teamSummary.getTeamEfficiencyDifferential(2).toPlainString(), 6))		
-			.append("  " +	Utilities.padLeft(teamSummary.getTeamOpptPossessions().toPlainString(), 9))
-			.append("  " +	Utilities.padLeft(teamSummary.getTeamOpptPace(2).toPlainString(), 6))	
+			.append("  " +	Utilities.padLeft(teamSummary.getSumPossessions().setScale(2, RoundingMode.HALF_UP).toPlainString(), 9))
+			.append("  " +	Utilities.padLeft(teamSummary.getAvgPace(2).toPlainString(), 5))	
 			.toString();
 	}
 	
@@ -350,8 +352,8 @@ public class ReportHelper {
 			.append(" " + Utilities.padLeft(teamSummary.getTeamPythagoreanWinningPercentage16_5(3).toString(), 7))
 			.append(" " + Utilities.padLeft(teamSummary.getTeamPythagoreanWins16_5(2).toString(), 7))
 			.append(" " + Utilities.padLeft(teamSummary.getTeamPythagoreanLosses16_5(2).toString(), 7))
-			.append("  " +	Utilities.padLeft(teamSummary.getTeamOpptPossessions().toPlainString(), 9))
-			.append("  " +	Utilities.padLeft(teamSummary.getTeamOpptPace(2).toPlainString(), 6))
+			.append("  " +	Utilities.padLeft(teamSummary.getSumPossessions().toPlainString(), 9))
+			.append("  " +	Utilities.padLeft(teamSummary.getAvgPace(2).toPlainString(), 6))
 			.toString();
 	}
 	

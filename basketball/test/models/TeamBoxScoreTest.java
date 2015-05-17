@@ -5,6 +5,7 @@ import static play.test.Helpers.fakeApplication;
 import static play.test.Helpers.running;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,7 +85,11 @@ public class TeamBoxScoreTest {
         running(fakeApplication(), new Runnable() {
           public void run() {
         	  TeamSummary teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2013-10-29", "SAC", ProcessingType.online);
+        	  
         	  assertThat(teamSummary.getGamesPlayed()).isEqualTo((short)82);
+        	  assertThat(teamSummary.getSumPossessions().setScale(2, RoundingMode.HALF_UP)).isEqualTo(Utilities.roundToBigDecimal((float)7796.56, 2));
+        	  assertThat(teamSummary.getAvgPace(2)).isEqualTo(Utilities.roundToBigDecimal((float)94.37, 2));
+        	  
         	  assertThat(teamSummary.getTeamAbbr()).isEqualTo(TeamAbbr.SAC);
         	  assertThat(teamSummary.getTeamSumPoints()).isEqualTo((short)8241);
         	  assertThat(teamSummary.getTeamSumAssists()).isEqualTo((short)1547);
@@ -105,8 +110,6 @@ public class TeamBoxScoreTest {
         	  assertThat(teamSummary.getTeamSumPointsQ2()).isEqualTo((short)2017);
         	  assertThat(teamSummary.getTeamSumPointsQ3()).isEqualTo((short)2069);
         	  assertThat(teamSummary.getTeamSumPointsQ4()).isEqualTo((short)2008);
-        	  assertThat(teamSummary.getTeamOpptPossessions()).isEqualTo(Utilities.roundToBigDecimal((float)7796.56, 2));
-        	  assertThat(teamSummary.getTeamOpptPace(2)).isEqualTo(Utilities.roundToBigDecimal((float)94.37, 2));
         	  
         	  assertThat(teamSummary.getOpptSumPoints()).isEqualTo((short)8479);
         	  assertThat(teamSummary.getOpptSumAssists()).isEqualTo((short)1927);
@@ -363,7 +366,7 @@ public class TeamBoxScoreTest {
         });
     }
     
-    @Ignore
+//    @Ignore
     @Test
     public void boxScoresAdvanced() {
         running(fakeApplication(), new Runnable() {
@@ -463,7 +466,7 @@ public class TeamBoxScoreTest {
       });
   }
   
-//  @Ignore
+  @Ignore
   @Test
   public void boxScoresAdvancedEfficiency() {
       running(fakeApplication(), new Runnable() {
