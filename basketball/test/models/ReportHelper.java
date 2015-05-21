@@ -51,6 +51,31 @@ public class ReportHelper {
 			.toString();
 	}
 	
+	public static String toString_TeamTotals_Basic_PaceAdjusted(TeamSummary teamSummary) {
+		return new StringBuffer()
+			.append(teamSummary.getTeamAbbr() != null ? Utilities.padRight(teamSummary.getTeamAbbr().toString(), 4): Utilities.padRight("", 2))
+			.append("  " + teamSummary.getGamesPlayed())
+			.append("  " + Utilities.padLeft(Utilities.getPer48MinuteStat(teamSummary.getTeamSumFieldGoalMade(), teamSummary.getGamesPlayed(), teamSummary.getSumMinutes(), 2).toString(), 5))
+			.append(" " + Utilities.padLeft(teamSummary.getTeamSumFieldGoalAttempts().toString(), 6))
+			.append("   " + teamSummary.getTeamAvgFieldGoalPct())
+			.append(" " + Utilities.padLeft(teamSummary.getTeamSumThreePointMade().toString(), 5))
+			.append("  " + Utilities.padLeft(teamSummary.getTeamSumThreePointAttempts().toString(), 5))
+			.append("   " + teamSummary.getTeamAvgThreePointPct())
+			.append("  " + Utilities.padLeft(teamSummary.getTeamSumFreeThrowMade().toString(), 5))
+			.append("  " + Utilities.padLeft(teamSummary.getTeamSumFreeThrowAttempts().toString(), 5))
+			.append("   " + teamSummary.getTeamAvgFreeThrowPct())
+			.append("  " + Utilities.padLeft(teamSummary.getTeamSumTurnovers().toString(), 5))
+			.append("  " + Utilities.padLeft(teamSummary.getTeamSumPersonalFouls().toString(), 5))
+			.append("  " + Utilities.padLeft(teamSummary.getTeamSumReboundsOffense().toString(), 5))
+			.append("  " + Utilities.padLeft(teamSummary.getTeamSumReboundsDefense().toString(), 5))
+			.append(" " + Utilities.padLeft(teamSummary.getTeamSumReboundsTotal().toString(), 6))
+			.append("  " + Utilities.padLeft(teamSummary.getTeamSumAssists().toString(), 5))
+			.append(" " + Utilities.padLeft(teamSummary.getTeamSumSteals().toString(), 5))
+			.append(" " + Utilities.padLeft(teamSummary.getTeamSumBlocks().toString(), 5))
+			.append(" " + Utilities.padLeft(teamSummary.getTeamSumPoints().toString(), 6))
+			.toString();
+	}
+	
 	public static String toString_OpptTotals_Basic(TeamSummary teamSummary) {
 		return new StringBuffer()
 			.append(teamSummary.getTeamAbbr() != null ? Utilities.padRight(teamSummary.getTeamAbbr().toString(), 4): Utilities.padRight("", 2))

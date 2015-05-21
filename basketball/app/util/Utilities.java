@@ -46,7 +46,28 @@ public class Utilities {
     		BigDecimal bdSubtract = arg1.subtract(arg2);
     		return bdSubtract.divide(bdAdd, scale + 2, RoundingMode.HALF_UP).multiply(new BigDecimal(100)).setScale(scale);
     	}
-    }   
+    }
+    
+    public static BigDecimal getPossessionAdjustedStat(Integer stat, BigDecimal poss, int scale) {
+    	return new BigDecimal(stat)
+    		.divide(poss, 4, RoundingMode.HALF_UP)
+    		.multiply(new BigDecimal(100))
+    		.setScale(scale, RoundingMode.HALF_UP);
+    }
+
+    public static BigDecimal getPer48MinuteStat(Integer stat, Integer gamesPlayed, Integer minutes, int scale) {
+    	return new BigDecimal(stat)
+    		.multiply(new BigDecimal(48 * 5))
+    		.multiply(new BigDecimal(gamesPlayed))
+    		.divide(new BigDecimal(minutes), scale, RoundingMode.HALF_UP);
+    }
+
+    public static BigDecimal getPaceAdjustedStat(Integer stat, BigDecimal pace, int scale) {
+    	return new BigDecimal(stat)
+    		.divide(pace, 4, RoundingMode.HALF_UP)
+    		.multiply(new BigDecimal(100))
+    		.setScale(scale, RoundingMode.HALF_UP);
+    }
     
     public static ArrayList<String> teamList() {
     	ArrayList<String> list = new ArrayList<String>();

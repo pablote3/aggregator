@@ -331,6 +331,41 @@ public class TeamBoxScoreTest {
         });
     }
     
+//    @Ignore
+    @Test
+    public void boxScoresBasicTeam_PaceAdjusted() {
+        running(fakeApplication(), new Runnable() {
+          public void run() {
+        	  ArrayList<String> teams = Utilities.teamList();
+        	  TeamSummary leagueSummary = TeamBoxScore.sumLeagueBoxScoreFromDateMaxDate("2013-10-29", ProcessingType.online);
+        	  TeamSummary teamSummary = null;
+        	  
+        	  for (int i = 0; i < teams.size(); i++) {
+        		  teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2013-10-29", teams.get(i), ProcessingType.online);
+        		  if (i == 0) {
+        			  System.out.println("\r" + Utilities.padLeft("Basic Statistics - Team: 2013-2014 Season", 85));
+        			  System.out.println("\r" + "Team Totals");
+        			  System.out.println(ReportHelper.toStringHeader_Basic());
+        		  }
+            	  System.out.println(ReportHelper.toString_TeamTotals_Basic_PaceAdjusted(teamSummary));
+        	  }        	  
+        	  System.out.println(ReportHelper.toString_TeamTotals_Basic_PaceAdjusted(leagueSummary));
+        	  
+        	  for (int i = 0; i < teams.size(); i++) {
+        		  teamSummary = TeamBoxScore.sumTeamBoxScoreFromDateMaxDate("2013-10-29", teams.get(i), ProcessingType.online);
+        		  if (i == 0) {
+        			  System.out.println("\r" + "Team Averages - Pace Adjusted");
+        			  System.out.println(ReportHelper.toStringHeader_Basic());
+        		  }
+            	  System.out.println(ReportHelper.toString_TeamAverages_Basic(teamSummary));
+        	  }
+        	  System.out.println(ReportHelper.toString_TeamAverages_Basic(leagueSummary));
+        	  
+        	  System.out.println(ReportHelper.toStringFooter_Basic());
+          }
+        });
+    }
+    
     @Ignore
     @Test
     public void boxScoresBasicOppt() {
@@ -366,7 +401,7 @@ public class TeamBoxScoreTest {
         });
     }
     
-//    @Ignore
+    @Ignore
     @Test
     public void boxScoresAdvanced() {
         running(fakeApplication(), new Runnable() {

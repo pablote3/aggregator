@@ -503,17 +503,11 @@ public class TeamSummary extends Model {
 	
 	// Advanced Stats Efficiency
 	public BigDecimal getTeamOffensiveRating(int scale) {
-		return new BigDecimal(getTeamSumPoints())
-			.divide(getSumPossessions(), 4, RoundingMode.HALF_UP)
-			.multiply(new BigDecimal(100))
-			.setScale(scale);
+		return Utilities.getPossessionAdjustedStat(getTeamSumPoints(), getSumPossessions(), 2);
 	}
 	
 	public BigDecimal getOpptOffensiveRating(int scale) {
-		return new BigDecimal(getOpptSumPoints())
-			.divide(getSumPossessions(), 4, RoundingMode.HALF_UP)
-			.multiply(new BigDecimal(100))
-			.setScale(scale);
+		return Utilities.getPossessionAdjustedStat(getOpptSumPoints(), getSumPossessions(), 2);
 	}
 	
 	public BigDecimal getTeamOpptOffensiveRatingDiff(int scale) {
@@ -521,17 +515,11 @@ public class TeamSummary extends Model {
 	}
 	
 	public BigDecimal getTeamDefensiveRating(int scale) {
-		return new BigDecimal(getOpptSumPoints())
-			.divide(getSumPossessions(), 4, RoundingMode.HALF_UP)
-			.multiply(new BigDecimal(100))
-			.setScale(scale);
+		return Utilities.getPossessionAdjustedStat(getOpptSumPoints(), getSumPossessions(), 2);
 	}
 	
 	public BigDecimal getOpptDefensiveRating(int scale) {
-		return new BigDecimal(getTeamSumPoints())
-			.divide(getSumPossessions(), 4, RoundingMode.HALF_UP)
-			.multiply(new BigDecimal(100))
-			.setScale(scale);
+		return Utilities.getPossessionAdjustedStat(getTeamSumPoints(), getSumPossessions(), 2);
 	}
 	
 	public BigDecimal getTeamOpptDefensiveRatingDiff(int scale) {
